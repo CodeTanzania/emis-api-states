@@ -7,14 +7,14 @@ Simplify API calls and data access via react hooks on top of redux and others.
 ## Usage
 
 ```jsx
-import { Store, useTodoApiState, useTodoDispatch } from "api-states";
+import { Store, useTodoApiState, useTodoDispatch } from 'emis-api-states';
 
 // store provider
 ReactDOM.render(
   <StoreProvider>
     <App />
   </StoreProvider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 // states
@@ -26,7 +26,7 @@ const {
   loading,
   posting,
   error,
-  selected: todo
+  selected: todo,
 } = useTodoApiState({ page: 1, filter: {} });
 
 // actions
@@ -35,6 +35,6 @@ const {
   post: postTodo,
   patch: updateTodo,
   put: replaceTodo,
-  del: deleteTodo
+  del: deleteTodo,
 } = useTodoDispatch();
 ```

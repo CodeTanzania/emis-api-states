@@ -4,17 +4,13 @@
   "description": "EMIS Redux state management library",
   "main": "src/index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CodeTanzania/emis-api-states.git"
   },
-  "keywords": [
-    "codetanzania",
-    "EMIS",
-    "Emergency"
-  ],
+  "keywords": ["codetanzania", "EMIS", "Web", "Emergency"],
   "author": "",
   "license": "MIT",
   "bugs": {
