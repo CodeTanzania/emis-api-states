@@ -4,13 +4,20 @@
   "description": "EMIS Redux state management library",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint --ext .jsx,.js src/",
+    "lint:fix": "eslint --fix --ext .jsx,.js src/"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CodeTanzania/emis-api-states.git"
   },
-  "keywords": ["codetanzania", "EMIS", "Web", "Emergency"],
+  "keywords": [
+    "codetanzania",
+    "EMIS",
+    "Web",
+    "Emergency"
+  ],
   "author": "",
   "license": "MIT",
   "bugs": {
@@ -23,14 +30,24 @@
     "redux-thunk": ">=2.3.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "eslint": "^5.11.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jest": "^22.1.2",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.0",
     "faker": "^4.1.0",
     "jest": "^23.6.0",
     "prettier": "^1.15.3"
+  },
+  "jest": {
+    "verbose": true
   }
 }
