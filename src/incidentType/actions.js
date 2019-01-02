@@ -15,6 +15,7 @@ import {
   PUT_INCIDENT_TYPE_START,
   PUT_INCIDENT_TYPE_SUCCESS,
   SELECT_INCIDENT_TYPE,
+  SET_INCIDENT_TYPE_SCHEMA,
 } from './constants';
 
 /**
@@ -34,6 +35,27 @@ export function selectIncidentType(incidentType) {
     type: SELECT_INCIDENT_TYPE,
     payload: {
       data: incidentType,
+    },
+  };
+}
+
+/**
+ * Action dispatched when setting incident type schema in the store
+ *
+ * @function
+ * @name setIncidentTypeSchema
+ *
+ * @param {Object} incidentTypeSchema
+ * @returns {Object} - Redux action
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+export function setIncidentTypeSchema(incidentTypeSchema) {
+  return {
+    type: SET_INCIDENT_TYPE_SCHEMA,
+    payload: {
+      data: incidentTypeSchema,
     },
   };
 }
@@ -67,7 +89,7 @@ export function getIncidentTypesStart() {
  * @version 0.1.0
  * @since 0.1.0
  */
-export function getIncidentTypesSuccess(incidentTypes = []) {
+export function getIncidentTypesSuccess(incidentTypes) {
   return {
     type: GET_INCIDENT_TYPES_SUCCESS,
     payload: {

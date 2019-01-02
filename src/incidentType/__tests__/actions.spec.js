@@ -81,4 +81,8 @@ describe('Incident Type Action Creators', () => {
   testActionCreator(ActionTypes.DELETE_INCIDENT_TYPE_SUCCESS);
 
   testActionCreator(ActionTypes.DELETE_INCIDENT_TYPE_ERROR, new Error());
+
+  testActionCreator(ActionTypes.SET_INCIDENT_TYPE_SCHEMA, {
+    name: faker.random.words,
+  });
 });
