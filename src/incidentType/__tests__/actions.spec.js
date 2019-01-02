@@ -52,6 +52,8 @@ describe('Incident Type Action Creators', () => {
     { name: faker.random.word() },
   ]);
 
+  testActionCreator(ActionTypes.GET_INCIDENT_TYPES_SUCCESS, []);
+
   testActionCreator(ActionTypes.GET_INCIDENT_TYPES_ERROR, new Error());
 
   testActionCreator(ActionTypes.GET_INCIDENT_TYPE_START);
