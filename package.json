@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "jest",
+    "test:watch": "jest --watch",
     "lint": "eslint --ext .jsx,.js src/",
     "lint:fix": "eslint --fix --ext .jsx,.js src/"
   },
@@ -25,6 +26,7 @@
   },
   "homepage": "https://github.com/CodeTanzania/emis-api-states#readme",
   "dependencies": {
+    "lodash": "^4.17.11",
     "react-redux": ">=6.0.0",
     "redux": ">=4.0.1",
     "redux-thunk": ">=2.3.0"
@@ -48,6 +50,13 @@
     "prettier": "^1.15.3"
   },
   "jest": {
-    "verbose": true
+    "verbose": true,
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!**/coverage/**"
+    ],
+    "collectCoverage": true
   }
 }

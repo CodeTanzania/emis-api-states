@@ -14,7 +14,29 @@ import {
   PUT_INCIDENT_TYPE_ERROR,
   PUT_INCIDENT_TYPE_START,
   PUT_INCIDENT_TYPE_SUCCESS,
+  SELECT_INCIDENT_TYPE,
 } from './constants';
+
+/**
+ * Action dispatched when selecting incident type
+ *
+ * @function
+ * @name selectIncidentType
+ *
+ * @param incidentType
+ * @returns {Object} - Redux action
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+export function selectIncidentType(incidentType) {
+  return {
+    type: SELECT_INCIDENT_TYPE,
+    payload: {
+      data: incidentType,
+    },
+  };
+}
 
 /**
  * Action dispatched when fetching incident types from the API start
