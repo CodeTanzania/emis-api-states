@@ -9,10 +9,12 @@ import { incidentType, incidentTypeSchema } from '../reducers';
  * @function
  * @name testReducer
  *
- * @param {function} reducer
- * @param {object} action
- * @param {*} previousState
- * @param {*} expectedState
+ * @param {Object} testCase
+ * @param {function} testCase.reducer
+ * @param {object} testCase.action
+ * @param {*} testCase.previousState
+ * @param {*} testCase.expectedState
+ * @param {bool} testCase.only=false - set true to run a specific test case only
  *
  * @version 0.1.0
  * @since 0.1.0
