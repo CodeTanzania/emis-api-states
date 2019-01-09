@@ -8,36 +8,36 @@
   ],
   "plugins": [
     "prettier",
-  "jest"
+    "jest"
   ],
   "parser": "babel-eslint",
   "rules": {
     "react/destructuring-assignment": [
       true,
-    "always",
-    {
-      "ignoreClassFields": true
-    }
+      "always",
+      {
+        "ignoreClassFields": true
+      }
     ],
     "prettier/prettier": "error",
     "react/jsx-filename-extension": [
       1,
-    {
-      "extensions": [
-        ".js",
-      ".jsx"
-      ]
-    }
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
     ],
     "import/no-extraneous-dependencies": [
       "error",
-    {
-      "devDependencies": [
-        "**/*.test.js",
-      "**/*.spec.js",
-      "**/stories/*"
-      ]
-    }
+      {
+        "devDependencies": [
+          "**/*.test.js",
+          "**/*.spec.js",
+          "**/stories/*"
+        ]
+      }
     ],
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",
