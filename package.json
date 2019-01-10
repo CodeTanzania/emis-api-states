@@ -52,7 +52,7 @@
     "prettier": "^1.15.3"
   },
   "jest": {
-    "verbose": false,
+    "verbose": true,
     "collectCoverageFrom": [
       "**/*.{js,jsx}",
       "!**/node_modules/**",

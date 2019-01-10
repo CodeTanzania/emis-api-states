@@ -3,8 +3,9 @@ import get from 'lodash/get';
 import isObject from 'lodash/isObject';
 import React from 'react';
 import { Provider } from 'react-redux';
-import store from './configure';
+import { store } from './store';
 
+/* eslint-disable */
 /**
  * Store Provider for EMIS store
  *
@@ -17,9 +18,10 @@ import store from './configure';
  * @version 0.1.0
  * @since 0.1.0
  */
-export const StoreProvider = (
-  { children } //eslint-disable-line
-) => <Provider store={store}>{children}</Provider>;
+export function StoreProvider({ children }) {
+  return <Provider store={store}>{children}</Provider>;
+}
+/* eslint-enable */
 
 /**
  * Expose simplified connect function
