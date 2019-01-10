@@ -6,10 +6,22 @@ Simplify API calls and data access via react hooks on top of redux and others.
 
 ## Installation
 
+Using npm
+
+```sh
+npm install @codetanzania/emis-api-states
+```
+
+Using yarn
+
+```sh
+yarn add @codetanzania/emis-api-states
+```
+
 ## Usage
 
 ```jsx
-import { Store, useTodoApiState, useTodoDispatch } from 'emis-api-states';
+import { StoreProvider, connect } from 'emis-api-states';
 
 // store provider
 ReactDOM.render(
@@ -19,26 +31,17 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// states
-const {
-  list: todos,
-  page,
-  total,
-  filter,
-  loading,
-  posting,
-  error,
-  selected: todo,
-} = useTodoApiState({ page: 1, filter: {} });
+// for component
+function TodoList({todos}){
+  return(
+    // jsx stuff
+  );
+}
 
-// actions
-const {
-  get: getTodos,
-  post: postTodo,
-  patch: updateTodo,
-  put: replaceTodo,
-  del: deleteTodo,
-} = useTodoDispatch();
+// connect TodoList component to store
+export connect(TodoList, {
+    todos: 'todos.list'
+});
 ```
 
 ### LICENSE
