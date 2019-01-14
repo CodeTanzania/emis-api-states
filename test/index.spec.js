@@ -24,6 +24,7 @@ import {
   setActivitySchema,
   setAlertSchema,
   setPlanSchema,
+  StoreProvider,
 } from '../src/index';
 
 describe('Library Index', () => {
@@ -58,5 +59,9 @@ describe('Library Index', () => {
 
   it('should expose connect function', () => {
     expect(typeof connect).toBe('function');
+  });
+
+  it('should expose StoreProvider as a function', () => {
+    expect(typeof StoreProvider).toBe('function');
   });
 });
