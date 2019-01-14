@@ -4,3 +4,7 @@
 - Export StoreProvider for the application with already configured store
 - Export All actions `(select, closeForm,openForm, setSchema)` and `CRUD thunks` for API resources i.e activity,alert,assessment,feature,incident, incidentType,plan,procedure, questionnaire, resource, role, stakeholder
 - Use latest version of emis-api-client
+
+# 0.2.2 / 14-01-2019
+
+- Fix issues with connect function and rename it to Connect

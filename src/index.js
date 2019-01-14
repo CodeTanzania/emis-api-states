@@ -2,7 +2,7 @@ import forIn from 'lodash/forIn';
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
 import React from 'react';
-import { Provider } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import { store } from './store';
 
 /* eslint-disable */
@@ -27,7 +27,7 @@ export function StoreProvider({ children }) {
  * Expose simplified connect function
  *
  * @function
- * @name connect
+ * @name Connect
  *
  * @param {ReactComponent} component
  * @param {Object|function} stateToProps
@@ -36,7 +36,7 @@ export function StoreProvider({ children }) {
  * @version 0.1.0
  * @since 0.1.0
  */
-export function connect(component, stateToProps = null) {
+export function Connect(component, stateToProps = null) {
   let mapStateToProps = stateToProps;
 
   if (isObject(mapStateToProps)) {

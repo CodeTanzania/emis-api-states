@@ -2,7 +2,7 @@ import forIn from 'lodash/forIn';
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import { pluralize, singularize } from 'inflection';
 import { combineReducers } from 'redux';
 import { createSlice, configureStore } from 'redux-starter-kit';
@@ -507,7 +507,7 @@ function StoreProvider(_ref) {
  * Expose simplified connect function
  *
  * @function
- * @name connect
+ * @name Connect
  *
  * @param {ReactComponent} component
  * @param {Object|function} stateToProps
@@ -516,7 +516,7 @@ function StoreProvider(_ref) {
  * @version 0.1.0
  * @since 0.1.0
  */
-function connect(component) {
+function Connect(component) {
   var stateToProps = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
   var _mapStateToProps = stateToProps;
@@ -536,4 +536,4 @@ function connect(component) {
   return connect(_mapStateToProps)(component);
 }
 
-export { StoreProvider, connect, getActivities, getActivity, selectActivity, closeActivityForm, openActivityForm, postActivity, putActivity, setActivitySchema, getAlerts, getAlert, selectAlert, closeAlertForm, openAlertForm, postAlert, putAlert, setAlertSchema, getAssessments, getAssessment, selectAssessment, closeAssessmentForm, openAssessmentForm, postAssessment, putAssessment, setAssessmentSchema, getFeatures, getFeature, selectFeature, closeFeatureForm, openFeatureForm, postFeature, putFeature, setFeatureSchema, getIncidents, getIncident, selectIncident, closeIncidentForm, openIncidentForm, postIncident, putIncident, setIncidentSchema, getIncidentTypes, getIncidentType, selectIncidentType, closedIncidentTypeForm, openIncidentTypeForm, postIncidentType, putIncidentType, setIncidentTypeSchema, getPlans, getPlan, selectPlan, closePlanForm, openPlanForm, postPlan, putPlan, setPlanSchema, getProcedures, getProcedure, selectProcedure, closeProcedureForm, openProcedureForm, postProcedure, putProcedure, setProcedureSchema, getQuestionnaires, getQuestionnaire, selectQuestionnaire, closeQuestionnaireForm, openQuestionnaireForm, postQuestionnaire, putQuestionnaire, setQuestionnaireSchema, getResources, getResource, selectResource, closeResourceForm, openResourceForm, postResource, putResource, setResourceSchema, getRoles, getRole, selectRole, closeRoleForm, openRoleForm, postRole, putRole, setRoleSchema, getStakeholders, getStakeholder, selectStakeholder, closeStakeholderForm, openStakeholderForm, postStakeholder, putStakeholder, setStakeholderSchema };
+export { StoreProvider, Connect, getActivities, getActivity, selectActivity, closeActivityForm, openActivityForm, postActivity, putActivity, setActivitySchema, getAlerts, getAlert, selectAlert, closeAlertForm, openAlertForm, postAlert, putAlert, setAlertSchema, getAssessments, getAssessment, selectAssessment, closeAssessmentForm, openAssessmentForm, postAssessment, putAssessment, setAssessmentSchema, getFeatures, getFeature, selectFeature, closeFeatureForm, openFeatureForm, postFeature, putFeature, setFeatureSchema, getIncidents, getIncident, selectIncident, closeIncidentForm, openIncidentForm, postIncident, putIncident, setIncidentSchema, getIncidentTypes, getIncidentType, selectIncidentType, closedIncidentTypeForm, openIncidentTypeForm, postIncidentType, putIncidentType, setIncidentTypeSchema, getPlans, getPlan, selectPlan, closePlanForm, openPlanForm, postPlan, putPlan, setPlanSchema, getProcedures, getProcedure, selectProcedure, closeProcedureForm, openProcedureForm, postProcedure, putProcedure, setProcedureSchema, getQuestionnaires, getQuestionnaire, selectQuestionnaire, closeQuestionnaireForm, openQuestionnaireForm, postQuestionnaire, putQuestionnaire, setQuestionnaireSchema, getResources, getResource, selectResource, closeResourceForm, openResourceForm, postResource, putResource, setResourceSchema, getRoles, getRole, selectRole, closeRoleForm, openRoleForm, postRole, putRole, setRoleSchema, getStakeholders, getStakeholder, selectStakeholder, closeStakeholderForm, openStakeholderForm, postStakeholder, putStakeholder, setStakeholderSchema };
