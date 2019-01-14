@@ -8,3 +8,4 @@ examples
 Gruntfile.js
 coverage
 rollup.config.js
+.nvimrc

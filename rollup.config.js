@@ -16,6 +16,7 @@ export default {
     'lodash/upperFirst',
     'react',
     'redux',
+    'react-redux',
     'redux-starter-kit',
   ],
   output: [

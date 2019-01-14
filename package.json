@@ -1,6 +1,6 @@
 {
   "name": "@codetanzania/emis-api-states",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "EMIS Redux state management library",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -23,21 +23,22 @@
     "redux",
     "redux-starter-kit"
   ],
-  "contributors": [{
-    "name": "Benson Maruchu",
-    "email": "benmaruchu@gmail.com",
-    "url": "https://github.com/BenMaruchu"
-  }],
+  "contributors": [
+    {
+      "name": "Benson Maruchu",
+      "email": "benmaruchu@gmail.com",
+      "url": "https://github.com/BenMaruchu"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/CodeTanzania/emis-api-states/issues"
   },
   "homepage": "https://github.com/CodeTanzania/emis-api-states#readme",
-  "dependencies": {
-    "react-redux": ">=6.0.0",
-    "redux-starter-kit": ">=0.3.3"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "@codetanzania/emis-api-client": ">=0.1.1",
+    "axios": ">=0.18.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
@@ -54,9 +55,15 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.3",
     "faker": "^4.1.0",
+    "inflection": ">=1.12.0",
     "jest": "^23.6.0",
+    "lodash": ">=4.17.11",
     "prettier": "^1.15.3",
+    "react": ">=16.7.0",
+    "react-redux": "^6.0.0",
+    "redux": ">=4.0.1",
     "redux-mock-store": "^1.5.3",
+    "redux-starter-kit": ">=0.3.3",
     "redux-thunk": "^2.3.0",
     "rollup": "^1.1.0",
     "rollup-plugin-babel": "^3.0.7"
@@ -67,7 +74,9 @@
     "inflection": ">=1.12.0",
     "lodash": ">=4.17.11",
     "react": ">=16.7.0",
-    "redux": ">=4.0.1"
+    "redux": ">=4.0.1",
+    "react-redux": ">=6.0.0",
+    "redux-starter-kit": ">=0.3.3"
   },
   "jest": {
     "verbose": true,
