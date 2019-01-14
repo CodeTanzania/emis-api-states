@@ -2,7 +2,7 @@ import {
   closeActivityForm,
   closeAlertForm,
   closePlanForm,
-  connect,
+  Connect,
   getActivities,
   getActivity,
   getAlert,
@@ -58,7 +58,7 @@ describe('Library Index', () => {
   });
 
   it('should expose connect function', () => {
-    expect(typeof connect).toBe('function');
+    expect(typeof Connect).toBe('function');
   });
 
   it('should expose StoreProvider as a function', () => {
