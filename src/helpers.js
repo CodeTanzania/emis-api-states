@@ -50,7 +50,8 @@ export default function generateExposedActions(
     `set${resourceName}Schema`
   );
 
-  const allActions = { ...extractedActions, ...generatedThunks };
+  const allActions = merge({}, extractedActions, generatedThunks);
+
   const wrappedDispatchThunkActions = {};
 
   forIn(allActions, (fn, key) => {

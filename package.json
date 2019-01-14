@@ -10,7 +10,7 @@
     "test:watch": "jest --watch",
     "lint": "eslint --ext .jsx,.js src/",
     "lint:fix": "eslint --fix --ext .jsx,.js src/",
-    "build": "npm run clean && rollup -c"
+    "build": "npm run clean && BABEL_ENV=production rollup -c"
   },
   "repository": {
     "type": "git",
@@ -39,12 +39,10 @@
     "redux-starter-kit": "^0.3.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.2.3",
-    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "cross-env": "^5.2.0",
@@ -62,7 +60,7 @@
     "redux-mock-store": "^1.5.3",
     "redux-thunk": "^2.3.0",
     "rollup": "^1.1.0",
-    "rollup-plugin-babel": "^4.3.0"
+    "rollup-plugin-babel": "^3.0.7"
   },
   "peerDependencies": {
     "@codetanzania/emis-api-client": ">=0.1.1",
@@ -74,11 +72,11 @@
   "jest": {
     "verbose": true,
     "collectCoverageFrom": [
-      "**/*.{js,jsx}",
+      "build-test/**/*.{js,jsx}",
       "!**/node_modules/**",
       "!**/vendor/**",
       "!**/coverage/**"
     ],
-    "collectCoverage": true
+    "collectCoverage": false
   }
 }
