@@ -1,7 +1,7 @@
 import createSliceFor, {
   getDefaultInitialState,
   getDefaultReducers,
-} from '../factories/slice';
+} from '../src/factories/slice';
 
 function createAction(actionType, payload) {
   return { type: actionType, payload };

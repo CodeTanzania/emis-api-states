@@ -7,7 +7,7 @@ import {
   putPlan,
   selectPlan,
   setPlanSchema,
-} from '../../actions/plan';
+} from '../../src/actions/plan';
 
 describe('Plan Actions', () => {
   it('should expose plan actions', () => {

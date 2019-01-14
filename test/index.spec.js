@@ -24,7 +24,7 @@ import {
   setActivitySchema,
   setAlertSchema,
   setPlanSchema,
-} from '../index';
+} from '../src/index';
 
 describe('Library Index', () => {
   it('should expose actions from resources', () => {

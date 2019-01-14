@@ -6,7 +6,7 @@ import {
 } from '@codetanzania/emis-api-client';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import createThunkFor from '../factories/thunk';
+import createThunkFor from '../src/factories/thunk';
 
 jest.mock('@codetanzania/emis-api-client');
 const mockStore = configureMockStore([thunk]);

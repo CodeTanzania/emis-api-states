@@ -7,7 +7,7 @@ import {
   putActivity,
   selectActivity,
   setActivitySchema,
-} from '../../actions/activity';
+} from '../../src/actions/activity';
 
 describe('Activity Actions', () => {
   it('should expose plan actions', () => {

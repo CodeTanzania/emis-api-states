@@ -7,7 +7,7 @@ import {
   putAlert,
   selectAlert,
   setAlertSchema,
-} from '../../actions/alert';
+} from '../../src/actions/alert';
 
 describe('Alert Actions', () => {
   it('should expose plan actions', () => {
