@@ -53,3 +53,17 @@ export function connect(component, stateToProps = null) {
 
   return connect(mapStateToProps)(component);
 }
+
+/* Export resource actions */
+export * from './actions/activity';
+export * from './actions/alert';
+export * from './actions/assessment';
+export * from './actions/feature';
+export * from './actions/incident';
+export * from './actions/incidentType';
+export * from './actions/plan';
+export * from './actions/procedure';
+export * from './actions/questionnaire';
+export * from './actions/resource';
+export * from './actions/role';
+export * from './actions/stakeholder';

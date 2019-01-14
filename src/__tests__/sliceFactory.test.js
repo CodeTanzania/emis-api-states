@@ -1,4 +1,7 @@
-import createSliceFor from '../factories/slice';
+import createSliceFor, {
+  getDefaultInitialState,
+  getDefaultReducers,
+} from '../factories/slice';
 
 function createAction(actionType, payload) {
   return { type: actionType, payload };
@@ -36,6 +39,9 @@ describe('Slice Factory', () => {
       'getTodosRequest',
       'getTodosSuccess',
       'getTodosFailure',
+      'getTodoRequest',
+      'getTodoSuccess',
+      'getTodoFailure',
       'postTodoRequest',
       'postTodoSuccess',
       'postTodoFailure',
@@ -262,6 +268,50 @@ describe('Slice Factory', () => {
 
       expect(typeof reducer).toBe('function');
       expect(reducer(undefined, {})).toEqual(initialDefaultState);
+    });
+  });
+
+  // eslint-disable-next-line jest/no-focused-tests
+  describe('Helpers', () => {
+    it('should generate default initial default state', () => {
+      expect(getDefaultInitialState()).toEqual({
+        list: [],
+        selected: null,
+        page: 1,
+        total: 0,
+        pages: 1,
+        loading: false,
+        posting: false,
+        showForm: false,
+        schema: null,
+      });
+    });
+
+    it('should generate default initial reducers object', () => {
+      expect(typeof getDefaultReducers('todo').getTodosSuccess).toBe(
+        'function'
+      );
+      expect(typeof getDefaultReducers('todo').getTodosFailure).toBe(
+        'function'
+      );
+      expect(typeof getDefaultReducers('todo').getTodosSuccess).toBe(
+        'function'
+      );
+      expect(typeof getDefaultReducers('todo').postTodoRequest).toBe(
+        'function'
+      );
+      expect(typeof getDefaultReducers('todo').postTodoSuccess).toBe(
+        'function'
+      );
+      expect(typeof getDefaultReducers('todo').postTodoFailure).toBe(
+        'function'
+      );
+      expect(typeof getDefaultReducers('todo').putTodoRequest).toBe('function');
+      expect(typeof getDefaultReducers('todo').putTodoSuccess).toBe('function');
+      expect(typeof getDefaultReducers('todo').putTodoFailure).toBe('function');
+      expect(typeof getDefaultReducers('todo').openTodoForm).toBe('function');
+      expect(typeof getDefaultReducers('todo').closeTodoForm).toBe('function');
+      expect(typeof getDefaultReducers('todo').setTodoSchema).toBe('function');
     });
   });
 });
