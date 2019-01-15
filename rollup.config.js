@@ -10,6 +10,7 @@ export default {
     'lodash',
     'lodash/forIn',
     'lodash/get',
+    'lodash/isFunction',
     'lodash/isObject',
     'lodash/merge',
     'lodash/toLower',
