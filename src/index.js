@@ -1,5 +1,6 @@
 import forIn from 'lodash/forIn';
 import get from 'lodash/get';
+import isFunction from 'lodash/isFunction';
 import isObject from 'lodash/isObject';
 import React from 'react';
 import { connect, Provider } from 'react-redux';
@@ -26,6 +27,9 @@ export function StoreProvider({ children }) {
 /**
  * Expose simplified connect function
  *
+ * This function subscribe component to the store and inject props
+ * to the component
+ *
  * @function
  * @name Connect
  *
@@ -35,15 +39,23 @@ export function StoreProvider({ children }) {
  *
  * @version 0.1.0
  * @since 0.1.0
+ * @example
+ * function AlertList({alerts}){
+ *  return (
+ *  ... jsx stuff
+ * );
+ * }
+ *
+ * export Connect(AlertList,{alerts:'alerts.list'})
  */
 export function Connect(component, stateToProps = null) {
   let mapStateToProps = stateToProps;
 
-  if (isObject(mapStateToProps)) {
+  if (!isFunction(stateToProps) && isObject(stateToProps)) {
     mapStateToProps = state => {
       const mappedState = {};
 
-      forIn(mapStateToProps, (value, key) => {
+      forIn(stateToProps, (value, key) => {
         mappedState[key] = get(state, value);
       });
 
