@@ -1,5 +1,6 @@
 import forIn from 'lodash/forIn';
 import get from 'lodash/get';
+import isFunction from 'lodash/isFunction';
 import isObject from 'lodash/isObject';
 import React from 'react';
 import { Provider, connect } from 'react-redux';
@@ -506,6 +507,9 @@ function StoreProvider(_ref) {
 /**
  * Expose simplified connect function
  *
+ * This function subscribe component to the store and inject props
+ * to the component
+ *
  * @function
  * @name Connect
  *
@@ -515,17 +519,25 @@ function StoreProvider(_ref) {
  *
  * @version 0.1.0
  * @since 0.1.0
+ * @example
+ * function AlertList({alerts}){
+ *  return (
+ *  ... jsx stuff
+ * );
+ * }
+ *
+ * export Connect(AlertList,{alerts:'alerts.list'})
  */
 function Connect(component) {
   var stateToProps = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
-  var _mapStateToProps = stateToProps;
+  var mapStateToProps = stateToProps;
 
-  if (isObject(_mapStateToProps)) {
-    _mapStateToProps = function mapStateToProps(state) {
+  if (!isFunction(stateToProps) && isObject(stateToProps)) {
+    mapStateToProps = function mapStateToProps(state) {
       var mappedState = {};
 
-      forIn(_mapStateToProps, function (value, key) {
+      forIn(stateToProps, function (value, key) {
         mappedState[key] = get(state, value);
       });
 
@@ -533,7 +545,7 @@ function Connect(component) {
     };
   }
 
-  return connect(_mapStateToProps)(component);
+  return connect(mapStateToProps)(component);
 }
 
 export { StoreProvider, Connect, getActivities, getActivity, selectActivity, closeActivityForm, openActivityForm, postActivity, putActivity, setActivitySchema, getAlerts, getAlert, selectAlert, closeAlertForm, openAlertForm, postAlert, putAlert, setAlertSchema, getAssessments, getAssessment, selectAssessment, closeAssessmentForm, openAssessmentForm, postAssessment, putAssessment, setAssessmentSchema, getFeatures, getFeature, selectFeature, closeFeatureForm, openFeatureForm, postFeature, putFeature, setFeatureSchema, getIncidents, getIncident, selectIncident, closeIncidentForm, openIncidentForm, postIncident, putIncident, setIncidentSchema, getIncidentTypes, getIncidentType, selectIncidentType, closedIncidentTypeForm, openIncidentTypeForm, postIncidentType, putIncidentType, setIncidentTypeSchema, getPlans, getPlan, selectPlan, closePlanForm, openPlanForm, postPlan, putPlan, setPlanSchema, getProcedures, getProcedure, selectProcedure, closeProcedureForm, openProcedureForm, postProcedure, putProcedure, setProcedureSchema, getQuestionnaires, getQuestionnaire, selectQuestionnaire, closeQuestionnaireForm, openQuestionnaireForm, postQuestionnaire, putQuestionnaire, setQuestionnaireSchema, getResources, getResource, selectResource, closeResourceForm, openResourceForm, postResource, putResource, setResourceSchema, getRoles, getRole, selectRole, closeRoleForm, openRoleForm, postRole, putRole, setRoleSchema, getStakeholders, getStakeholder, selectStakeholder, closeStakeholderForm, openStakeholderForm, postStakeholder, putStakeholder, setStakeholderSchema };
