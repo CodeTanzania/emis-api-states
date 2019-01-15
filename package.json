@@ -1,6 +1,6 @@
 {
   "name": "@codetanzania/emis-api-states",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "EMIS Redux state management library",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -23,13 +23,20 @@
     "redux",
     "redux-starter-kit"
   ],
-  "contributors": [
-    {
-      "name": "Benson Maruchu",
-      "email": "benmaruchu@gmail.com",
-      "url": "https://github.com/BenMaruchu"
-    }
+  "files": [
+    "lib/",
+    "es/",
+    "src/",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
   ],
+  "contributors": [{
+    "name": "Benson Maruchu",
+    "email": "benmaruchu@gmail.com",
+    "url": "https://github.com/BenMaruchu"
+  }],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/CodeTanzania/emis-api-states/issues"
