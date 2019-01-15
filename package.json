@@ -37,7 +37,7 @@
   "homepage": "https://github.com/CodeTanzania/emis-api-states#readme",
   "dependencies": {},
   "devDependencies": {
-    "@codetanzania/emis-api-client": ">=0.1.1",
+    "@codetanzania/emis-api-client": ">=0.1.2",
     "axios": ">=0.18.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.1",
@@ -69,7 +69,7 @@
     "rollup-plugin-babel": "^3.0.7"
   },
   "peerDependencies": {
-    "@codetanzania/emis-api-client": ">=0.1.1",
+    "@codetanzania/emis-api-client": ">=0.1.2",
     "axios": ">=0.18.0",
     "inflection": ">=1.12.0",
     "lodash": ">=4.17.11",
