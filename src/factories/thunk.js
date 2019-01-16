@@ -1,8 +1,9 @@
-import * as Client from '@codetanzania/emis-api-client';
+import * as client from '@codetanzania/emis-api-client';
 import { pluralize, singularize } from 'inflection';
 import toLower from 'lodash/toLower';
 import upperFirst from 'lodash/upperFirst';
 import { actions } from '../store';
+import { camelize } from '../helpers';
 
 /**
  * Thunk factory. Expose all common thunks for resources
@@ -25,44 +26,78 @@ export default function createThunksFor(resource) {
   const resourceName = toLower(singularName);
 
   return {
-    [`get${pluralName}`]: param => dispatch => {
-      dispatch(actions[resourceName][`get${pluralName}Request`]());
-      return Client[`get${pluralName}`](param)
+    [camelize('get', pluralName)]: param => dispatch => {
+      dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
+      return client[camelize('get', pluralName)](param)
         .then(data =>
-          dispatch(actions[resourceName][`get${pluralName}Success`](data))
+          dispatch(
+            actions[resourceName][camelize('get', pluralName, 'success')](data)
+          )
         )
         .catch(error =>
-          dispatch(actions[resourceName][`get${pluralName}Failure`](error))
+          dispatch(
+            actions[resourceName][camelize('get', pluralName, 'failure')](error)
+          )
         );
     },
-    [`get${singularName}`]: param => dispatch => {
-      dispatch(actions[resourceName][`get${singularName}Request`]());
-      return Client[`get${singularName}`](param)
+    [camelize('get', singularName)]: param => dispatch => {
+      dispatch(
+        actions[resourceName][camelize('get', singularName, 'request')]()
+      );
+      return client[camelize('get', singularName)](param)
         .then(data =>
-          dispatch(actions[resourceName][`get${singularName}Success`](data))
+          dispatch(
+            actions[resourceName][camelize('get', singularName, 'success')](
+              data
+            )
+          )
         )
         .catch(error =>
-          dispatch(actions[resourceName][`get${singularName}Failure`](error))
+          dispatch(
+            actions[resourceName][camelize('get', singularName, 'failure')](
+              error
+            )
+          )
         );
     },
-    [`post${singularName}`]: param => dispatch => {
-      dispatch(actions[resourceName][`post${singularName}Request`]());
-      return Client[`post${singularName}`](param)
+    [camelize('post', singularName)]: param => dispatch => {
+      dispatch(
+        actions[resourceName][camelize('post', singularName, 'request')]()
+      );
+      return client[camelize('post', singularName)](param)
         .then(data =>
-          dispatch(actions[resourceName][`post${singularName}Success`](data))
+          dispatch(
+            actions[resourceName][camelize('post', singularName, 'success')](
+              data
+            )
+          )
         )
         .catch(error =>
-          dispatch(actions[resourceName][`post${singularName}Failure`](error))
+          dispatch(
+            actions[resourceName][camelize('post', singularName, 'failure')](
+              error
+            )
+          )
         );
     },
-    [`put${singularName}`]: param => dispatch => {
-      dispatch(actions[resourceName][`put${singularName}Request`]());
-      return Client[`put${singularName}`](param)
+    [camelize('put', singularName)]: param => dispatch => {
+      dispatch(
+        actions[resourceName][camelize('put', singularName, 'request')]()
+      );
+      return client[camelize('put', singularName)](param)
         .then(data =>
-          dispatch(actions[resourceName][`put${singularName}Success`](data))
+          dispatch(
+            actions[resourceName][camelize('put', singularName, 'success')](
+              data
+            )
+          )
         )
         .catch(error =>
-          dispatch(actions[resourceName][`put${singularName}Failure`](error))
+          dispatch(
+            actions[resourceName][camelize('put', singularName, 'failure')](
+              error
+            )
+          )
         );
     },
   };

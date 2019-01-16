@@ -1,9 +1,23 @@
 import { singularize } from 'inflection';
+import camelCase from 'lodash/camelCase';
 import forIn from 'lodash/forIn';
 import get from 'lodash/get';
 import merge from 'lodash/merge';
 import upperFirst from 'lodash/upperFirst';
 import createThunkFor from './factories/thunk';
+
+/**
+ * Joins names and generate camelCase of joined words them
+ *
+ * @function
+ * @name camelize
+ *
+ * @param  {...any} names
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+export const camelize = (...words) => camelCase([...words].join(' '));
 
 /**
  * Generate all actions which are exposed from the library for consumers to use.
@@ -33,21 +47,21 @@ export default function generateExposedActions(
 
   const extractedActions = {};
 
-  extractedActions[`select${resourceName}`] = get(
+  extractedActions[camelize('select', resourceName)] = get(
     actions[resource],
-    `select${resourceName}`
+    camelize('select', resourceName)
   );
-  extractedActions[`open${resourceName}Form`] = get(
+  extractedActions[camelize('open', resourceName, 'form')] = get(
     actions[resource],
-    `open${resourceName}Form`
+    camelize('open', resourceName, 'form')
   );
-  extractedActions[`close${resourceName}Form`] = get(
+  extractedActions[camelize('close', resourceName, 'form')] = get(
     actions[resource],
-    `close${resourceName}Form`
+    camelize('close', resourceName, 'form')
   );
-  extractedActions[`set${resourceName}Schema`] = get(
+  extractedActions[camelize('set', resourceName, 'schema')] = get(
     actions[resource],
-    `set${resourceName}Schema`
+    camelize('set', resourceName, 'schema')
   );
 
   const allActions = merge({}, extractedActions, generatedThunks);
