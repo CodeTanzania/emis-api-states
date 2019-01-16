@@ -58,11 +58,13 @@ function PlanList ({plans}){
 
 ```
 
+> Note: This library depends on [emis-api-client](https://github.com/CodeTanzania/emis-api-client) to work, so in order to specify API URL add `.env` file on your project root folder and specify your API URL under `REACT_APP_EMIS_API_URL=[specify API BASE URL here]`
+
 ### LICENSE
 
 MIT License
 
-Copyright (c) 2018 Code Tanzania & Contributors
+Copyright (c) 2018 - present Code Tanzania & Contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
