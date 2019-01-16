@@ -11,4 +11,4 @@
 - Export simplified connect function for injecting props from redux store
 - Export StoreProvider for the application with already configured store
 - Export All actions `(select, closeForm,openForm, setSchema)` and `CRUD thunks` for API resources i.e activity,alert,assessment,feature,incident, incidentType,plan,procedure, questionnaire, resource, role, stakeholder
-- Use latest version of emis-api-clien
+- Use latest version of emis-api-client
