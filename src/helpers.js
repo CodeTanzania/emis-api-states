@@ -12,7 +12,7 @@ import createThunkFor from './factories/thunk';
  * @function
  * @name camelize
  *
- * @param  {...any} names
+ * @param  {...any} words
  *
  * @version 0.1.0
  * @since 0.1.0
