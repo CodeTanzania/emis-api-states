@@ -22,10 +22,11 @@ yarn add @codetanzania/emis-api-states
 
 All actions exposed by `emis-api-states` are wrapped with dispatch function, so the is no need to dispatch them again just invoke them.
 ```jsx
+import { render } from 'react-dom'
 import { StoreProvider, Connect } from '@codetanzania/emis-api-states';
 
 // store provider
-ReactDOM.render(
+render(
   <StoreProvider>
     <App />
   </StoreProvider>,
@@ -33,14 +34,14 @@ ReactDOM.render(
 );
 
 // for component
-function AlertList({alerts}){
+function AlertList({ alerts }){
   return(
     // jsx stuff
   );
 }
 
-// connect TodoList component to store
-export Connect(TodoList, {
+// connect AlertList component to store
+export Connect(AlertList, {
     alerts: 'alerts.list'
 });
 
@@ -48,7 +49,7 @@ export Connect(TodoList, {
 // using actions
 import { getPlans } from '@codetanzania/emis-api-states';
 
-function PlanList ({plans}){
+function PlanList ({ plans }){
 
   return (
     <Button onClick={getPlans}>Refresh</Button>
