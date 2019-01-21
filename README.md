@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/CodeTanzania/emis-api-states.svg?branch=develop)](https://travis-ci.org/CodeTanzania/emis-api-states)
 
-Simplify API calls and data access via react hooks on top of redux and others.
+Simplify API calls and state management on top of redux and others.
 
 ## Installation
 
