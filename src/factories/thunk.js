@@ -6,16 +6,15 @@ import { actions } from '../store';
 import { camelize } from '../helpers';
 
 /**
- * Thunk factory. Expose all common thunks for resources
+ * @function
+ * @name createThunkFor
+ * @description Create and expose all common thunks for a resource.
  *
  * Custom thunk implementations can be added to the specific resource
  * actions module
  *
- * @function
- * @name createThunkFor
- *
- * @param {string} resource - Resource name
- * @return {Object} thunks
+ * @param {string} resource - resource name
+ * @returns {Object} thunks - resource thunks
  *
  * @version 0.1.0
  * @since 0.1.0

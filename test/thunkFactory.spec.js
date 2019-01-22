@@ -21,7 +21,7 @@ describe('Thunk Factory', () => {
     expect(typeof thunks.putTodo).toBe('function');
   });
 
-  it('should dispatch required actions when fetching resources successfully', () => {
+  it('should dispatch required actions when fetch resources succeed', () => {
     const store = mockStore({
       plans: {
         list: [],
@@ -49,7 +49,7 @@ describe('Thunk Factory', () => {
     });
   });
 
-  it('should dispatch required actions when fetching resources fails', () => {
+  it('should dispatch required actions when fetch resources failed', () => {
     const store = mockStore({
       plans: {
         list: [],
@@ -80,7 +80,7 @@ describe('Thunk Factory', () => {
     });
   });
 
-  it('should dispatch required actions when get a resource successfully', () => {
+  it('should dispatch required actions when get a resource succeed', () => {
     const store = mockStore({
       plans: {
         list: [],
@@ -104,7 +104,7 @@ describe('Thunk Factory', () => {
     });
   });
 
-  it('should dispatch required actions when get a resource fails', () => {
+  it('should dispatch required actions when get a resource failed', () => {
     const store = mockStore({
       plans: {
         list: [],
@@ -134,7 +134,7 @@ describe('Thunk Factory', () => {
     });
   });
 
-  it('should dispatch required actions when posting a resource successfully', () => {
+  it('should dispatch required actions when post a resource succeed', () => {
     const store = mockStore({
       plans: {
         list: [],
@@ -160,7 +160,7 @@ describe('Thunk Factory', () => {
     });
   });
 
-  it('should dispatch required actions when posting a resource fails', () => {
+  it('should dispatch required actions when post a resource failed', () => {
     const store = mockStore({
       plans: {
         list: [],
@@ -191,7 +191,7 @@ describe('Thunk Factory', () => {
     });
   });
 
-  it('should dispatch required actions when updating a resource successfully', () => {
+  it('should dispatch required actions when put a resource succeed', () => {
     const store = mockStore({
       plans: {
         list: [],
@@ -215,7 +215,7 @@ describe('Thunk Factory', () => {
     });
   });
 
-  it('should dispatch required actions when updating a resource fails', () => {
+  it('should dispatch required actions when put a resource failed', () => {
     const store = mockStore({
       plans: {
         list: [],

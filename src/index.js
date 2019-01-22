@@ -3,19 +3,18 @@ import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
 import isObject from 'lodash/isObject';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect, Provider } from 'react-redux';
 import { store } from './store';
 
-/* eslint-disable */
 /**
- * Store Provider for EMIS store
- *
  * @function
  * @name StoreProvider
+ * @description Store Provider for EMIS store
  *
- * @param {Object} props
- * @param {ReactComponent} props.children
- * @returns {ReactComponent} Provider
+ * @param {Object} props - react nodes
+ * @param {Object} props.children - react nodes
+ * @returns {Object} Store provider
  * @version 0.1.0
  * @since 0.1.0
  * @example
@@ -27,20 +26,22 @@ import { store } from './store';
 export function StoreProvider({ children }) {
   return <Provider store={store}>{children}</Provider>;
 }
-/* eslint-enable */
+
+StoreProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 /**
- * Expose simplified connect function
+ * @function
+ * @name Connect
+ * @description Expose simplified connect function
  *
  * This function subscribe component to the store and inject props
  * to the component
  *
- * @function
- * @name Connect
- *
- * @param {ReactComponent} component
- * @param {Object|function} stateToProps
- * @return {ReactComponent} - React component which is injected with props
+ * @param {Object} component - react node
+ * @param {Object|Function} stateToProps - states to inject into props
+ * @returns {Object} - React component which is injected with props
  *
  * @version 0.1.0
  * @since 0.1.0

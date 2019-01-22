@@ -7,28 +7,32 @@ import upperFirst from 'lodash/upperFirst';
 import createThunkFor from './factories/thunk';
 
 /**
- * Joins names and generate camelCase of joined words them
- *
  * @function
  * @name camelize
+ * @description Joins names and generate camelCase of joined words them
  *
- * @param  {...any} words
+ * @param {...string} words - list of words to join and camelize
+ * @returns {string} camelCase of joined words
  *
  * @version 0.1.0
  * @since 0.1.0
  */
-export const camelize = (...words) => camelCase([...words].join(' '));
+export function camelize(...words) {
+  return camelCase([...words].join(' '));
+}
 
 /**
- * Generate all actions which are exposed from the library for consumers to use.
- * All exposed actions are wrapped in dispatch function so use should not have
- * call dispatch again
- *
  * @function
  * @name generateExposedActions
+ * @description Generate all actions which are exposed from the library for
+ * consumers to use. All exposed actions are wrapped in dispatch function so
+ * use should not have call dispatch again.
  *
  * @param {string} resource - Resource Name
+ * @param {Object} actions - Resources actions
+ * @param {Function} dispatch - Store action dispatcher
  * @param {Object} thunks - Custom thunks to override/extends existing thunks
+ * @returns {Object} wrapped resource actions with dispatching ability
  *
  * @version 0.1.0
  * @since 0.1.0

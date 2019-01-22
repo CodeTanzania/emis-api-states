@@ -1,34 +1,34 @@
 {
+  "parser": "babel-eslint",
   "extends": [
     "airbnb",
+    "plugin:import/recommended",
+    "plugin:react/recommended",
+    "plugin:jsdoc/recommended",
+    "plugin:jest/recommended",
+    "plugin:jest/style",
     "prettier",
     "prettier/react",
-    "plugin:prettier/recommended",
-    "plugin:jest/recommended"
+    "plugin:prettier/recommended"
   ],
-  "plugins": [
-    "prettier",
-    "jest"
-  ],
-  "parser": "babel-eslint",
-  "rules": {
-    "react/destructuring-assignment": [
-      true,
-      "always",
-      {
-        "ignoreClassFields": true
-      }
-    ],
-    "prettier/prettier": "error",
-    "react/jsx-filename-extension": [
-      1,
-      {
-        "extensions": [
-          ".js",
-          ".jsx"
-        ]
-      }
-    ],
+  "parserOptions":
+  {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures":
+    {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "env":
+  {
+    "browser": true,
+    "mocha": true,
+    "node": true
+  },
+  "rules":
+  {
     "import/no-extraneous-dependencies": [
       "error",
       {
@@ -39,10 +39,27 @@
         ]
       }
     ],
-    "jest/no-disabled-tests": "warn",
-    "jest/no-focused-tests": "error",
-    "jest/no-identical-title": "error",
-    "jest/prefer-to-have-length": "warn",
-    "jest/valid-expect": "error"
-  }
+    "react/destructuring-assignment": [
+      "error",
+      "always",
+      {
+        "ignoreClassFields": true
+      }
+    ],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", "jsx"]
+      }
+    ],
+    "max-len": ["error", 80],
+    "react/jsx-wrap-multilines": 2
+  },
+  "plugins": [
+    "import",
+    "jest",
+    "jsdoc",
+    "prettier",
+    "react"
+  ]
 }
