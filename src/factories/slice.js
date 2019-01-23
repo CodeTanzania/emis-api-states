@@ -4,13 +4,12 @@ import upperFirst from 'lodash/upperFirst';
 import { createSlice } from 'redux-starter-kit';
 
 /**
- * Generate defaultReducers object
- *
  * @function
  * @name getDefaultReducers
+ * @description Generate defaultReducers object
  *
- * @param {string} singular
- * @param {string} plural
+ * @param {string} resourceName - Resource name
+ * @returns {Object} Resource reducers
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -61,10 +60,11 @@ export function getDefaultReducers(resourceName) {
 }
 
 /**
- * Generate default initial State for resource
- *
  * @function
  * @name getDefaultInitialState
+ * @description Generate default initial State for resource
+ *
+ * @returns {Object} Initial states of a resource
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -84,17 +84,14 @@ export function getDefaultInitialState() {
 }
 
 /**
- * Slice Factory which is used to create slice
- *
  * @function
  * @name createSliceFor
+ * @description Slice Factory which is used to create slice
  *
- * @param {string} slice - Slice name which will results to also be reducer name
- * @param {*} initialState - Optional override of default initial state
+ * @param {string} sliceName - Slice name which will results to be reducer name
+ * @param {Object} initialState - Optional override of default initial state
  * @param {Object} reducers - Optional override of default reducers
- * @returns {Object} slice
- *
- * @see {@link https://redux-starter-kit.js.org/api/createslice}
+ * @returns {Object} slice resource slice
  *
  * @version 0.1.0
  * @since 0.1.0

@@ -5,14 +5,13 @@ import { configureStore } from 'redux-starter-kit';
 import createResourceFor from './factories/slice';
 
 /**
- * Wrap actions with dispatch function
- *
  * @function
  * @name wrapActionsWithDispatch
+ * @description Wrap actions with dispatch function
  *
- * @param {Object} actions
- * @param {function} dispatch
- * @returns {Object} actions
+ * @param {Object} actions list of api actions
+ * @param {Function} dispatch store dispatch
+ * @returns {Object} actions list of wrapped api actions with dispatch ability
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -28,14 +27,13 @@ export function wrapActionsWithDispatch(actions, dispatch) {
 }
 
 /**
- * Extract all resource reducers into a single object
- *
  * @function
  * @name mapSliceReducers
+ * @description Extract all resource reducers into a single object
  *
- * @param {string[]} resources
- * @param {Object} slices
- * @returns {Object} reducers
+ * @param {Array<string>} resources list of api resources
+ * @param {Object} slices resources slice
+ * @returns {Object} reducers list of api reducers
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -52,14 +50,13 @@ export function mapSliceReducers(resources, slices) {
 }
 
 /**
- * Extracts all actions into one object
- *
  * @function
  * @name mapSliceActions
+ * @description Extracts all actions into one object
  *
- * @param {string[]} resources
- * @param {Object} slices
- * @returns {Object} actions
+ * @param {Array<string>} resources list of api resources
+ * @param {Object} slices resources slice
+ * @returns {Object} actions list of api actions
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -75,13 +72,12 @@ export function mapSliceActions(resources, slices) {
 }
 
 /**
- * Create slices from all EMIS resources
- *
  * @function
  * @name createResourcesSlices
+ * @description Create slices from all EMIS resources
  *
- * @param {string[]} resources
- * @returns {Object} slices
+ * @param {Array<string>} resources list of api resources
+ * @returns {Object} slices resources slice
  *
  * @version 0.1.0
  * @since 0.1.0

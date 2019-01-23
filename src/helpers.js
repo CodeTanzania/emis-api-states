@@ -1,4 +1,5 @@
 import { singularize } from 'inflection';
+import camelCase from 'lodash/camelCase';
 import forIn from 'lodash/forIn';
 import get from 'lodash/get';
 import merge from 'lodash/merge';
@@ -6,15 +7,32 @@ import upperFirst from 'lodash/upperFirst';
 import createThunkFor from './factories/thunk';
 
 /**
- * Generate all actions which are exposed from the library for consumers to use.
- * All exposed actions are wrapped in dispatch function so use should not have
- * call dispatch again
+ * @function
+ * @name camelize
+ * @description Joins names and generate camelCase of joined words them
  *
+ * @param {...string} words - list of words to join and camelize
+ * @returns {string} camelCase of joined words
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+export function camelize(...words) {
+  return camelCase([...words].join(' '));
+}
+
+/**
  * @function
  * @name generateExposedActions
+ * @description Generate all actions which are exposed from the library for
+ * consumers to use. All exposed actions are wrapped in dispatch function so
+ * use should not have call dispatch again.
  *
  * @param {string} resource - Resource Name
+ * @param {Object} actions - Resources actions
+ * @param {Function} dispatch - Store action dispatcher
  * @param {Object} thunks - Custom thunks to override/extends existing thunks
+ * @returns {Object} wrapped resource actions with dispatching ability
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -33,21 +51,21 @@ export default function generateExposedActions(
 
   const extractedActions = {};
 
-  extractedActions[`select${resourceName}`] = get(
+  extractedActions[camelize('select', resourceName)] = get(
     actions[resource],
-    `select${resourceName}`
+    camelize('select', resourceName)
   );
-  extractedActions[`open${resourceName}Form`] = get(
+  extractedActions[camelize('open', resourceName, 'form')] = get(
     actions[resource],
-    `open${resourceName}Form`
+    camelize('open', resourceName, 'form')
   );
-  extractedActions[`close${resourceName}Form`] = get(
+  extractedActions[camelize('close', resourceName, 'form')] = get(
     actions[resource],
-    `close${resourceName}Form`
+    camelize('close', resourceName, 'form')
   );
-  extractedActions[`set${resourceName}Schema`] = get(
+  extractedActions[camelize('set', resourceName, 'schema')] = get(
     actions[resource],
-    `set${resourceName}Schema`
+    camelize('set', resourceName, 'schema')
   );
 
   const allActions = merge({}, extractedActions, generatedThunks);

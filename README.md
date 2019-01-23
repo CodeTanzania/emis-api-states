@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/CodeTanzania/emis-api-states.svg?branch=develop)](https://travis-ci.org/CodeTanzania/emis-api-states)
 
-Simplify API calls and data access via react hooks on top of redux and others.
+Simplify API calls and state management on top of redux and others.
 
 ## Installation
 
@@ -22,10 +22,11 @@ yarn add @codetanzania/emis-api-states
 
 All actions exposed by `emis-api-states` are wrapped with dispatch function, so the is no need to dispatch them again just invoke them.
 ```jsx
+import { render } from 'react-dom'
 import { StoreProvider, Connect } from '@codetanzania/emis-api-states';
 
 // store provider
-ReactDOM.render(
+render(
   <StoreProvider>
     <App />
   </StoreProvider>,
@@ -33,14 +34,14 @@ ReactDOM.render(
 );
 
 // for component
-function AlertList({alerts}){
+function AlertList({ alerts }){
   return(
     // jsx stuff
   );
 }
 
-// connect TodoList component to store
-export Connect(TodoList, {
+// connect AlertList component to store
+export Connect(AlertList, {
     alerts: 'alerts.list'
 });
 
@@ -48,7 +49,7 @@ export Connect(TodoList, {
 // using actions
 import { getPlans } from '@codetanzania/emis-api-states';
 
-function PlanList ({plans}){
+function PlanList ({ plans }){
 
   return (
     <Button onClick={getPlans}>Refresh</Button>
@@ -58,11 +59,13 @@ function PlanList ({plans}){
 
 ```
 
+> Note: This library depends on [emis-api-client](https://github.com/CodeTanzania/emis-api-client) to work, so in order to specify API URL add `.env` file on your project root folder and specify your API URL under `REACT_APP_EMIS_API_URL=[specify API BASE URL here]`
+
 ### LICENSE
 
 MIT License
 
-Copyright (c) 2018 Code Tanzania & Contributors
+Copyright (c) 2018 - present Code Tanzania & Contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
