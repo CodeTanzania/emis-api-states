@@ -9,7 +9,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint --fix --ext .jsx,.js src/ test/",
-    "build": "npm run clean && npm run lint && BABEL_ENV=production rollup -c"
+    "build": "npm run clean && npm run lint && BABEL_ENV=production rollup -c",
+    "cmt": "git add . && git-cz",
+    "changelog": "changelog"
   },
   "repository": {
     "type": "git",
@@ -79,7 +81,14 @@
     "redux-starter-kit": ">=0.4.0",
     "redux-thunk": ">=2.3.0",
     "rollup": "^1.1.2",
-    "rollup-plugin-babel": "^4.3.2"
+    "rollup-plugin-babel": "^4.3.2",
+    "@commitlint/cli": "^7.3.2",
+    "@commitlint/config-conventional": "^7.3.1",
+    "@commitlint/travis-cli": "^7.3.2",
+    "commitizen": "^3.0.5",
+    "cz-conventional-changelog": "^2.1.0",
+    "generate-changelog": "^1.7.1",
+    "husky": "^1.3.1"
   },
   "peerDependencies": {
     "@codetanzania/emis-api-client": ">=0.3.0",
@@ -101,5 +110,20 @@
       "**/src/**"
     ],
     "collectCoverage": true
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
