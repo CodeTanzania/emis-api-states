@@ -271,8 +271,7 @@ describe('Slice Factory', () => {
     });
   });
 
-  // eslint-disable-next-line jest/no-focused-tests
-  describe('Helpers', () => {
+  describe('getDefaultInitialState', () => {
     it('should generate default initial default state', () => {
       expect(getDefaultInitialState()).toEqual({
         list: [],
@@ -286,7 +285,9 @@ describe('Slice Factory', () => {
         schema: null,
       });
     });
+  });
 
+  describe('getDefaultReducers', () => {
     it('should generate default initial reducers object', () => {
       expect(typeof getDefaultReducers('todo').getTodosSuccess).toBe(
         'function'

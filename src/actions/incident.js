@@ -1,4 +1,4 @@
-import generateExposedActions from '../helpers';
+import generateExposedActions from '../factories/action';
 import { actions, dispatch } from '../store';
 
 const incidentActions = generateExposedActions('incident', actions, dispatch);
