@@ -2,8 +2,8 @@ import forIn from 'lodash/forIn';
 import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
 import isObject from 'lodash/isObject';
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { connect, Provider } from 'react-redux';
 import { store } from './store';
 
@@ -74,14 +74,19 @@ export function Connect(component, stateToProps = null) {
 
 /* Export resource actions */
 export * from './actions/activity';
+export * from './actions/adjustment';
 export * from './actions/alert';
 export * from './actions/assessment';
 export * from './actions/feature';
 export * from './actions/incident';
 export * from './actions/incidentType';
+export * from './actions/indicator';
+export * from './actions/item';
 export * from './actions/plan';
 export * from './actions/procedure';
+export * from './actions/question';
 export * from './actions/questionnaire';
 export * from './actions/resource';
 export * from './actions/role';
 export * from './actions/stakeholder';
+export * from './actions/warehouse';
