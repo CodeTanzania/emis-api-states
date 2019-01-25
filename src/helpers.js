@@ -1,10 +1,10 @@
-import { singularize } from 'inflection';
+import { singularize, pluralize } from 'inflection';
 import camelCase from 'lodash/camelCase';
-import forIn from 'lodash/forIn';
-import get from 'lodash/get';
-import merge from 'lodash/merge';
 import upperFirst from 'lodash/upperFirst';
-import createThunkFor from './factories/thunk';
+import kebabCase from 'lodash/kebabCase';
+import split from 'lodash/split';
+import capitalize from 'lodash/capitalize';
+import last from 'lodash/last';
 
 /**
  * @function
@@ -23,58 +23,28 @@ export function camelize(...words) {
 
 /**
  * @function
- * @name generateExposedActions
- * @description Generate all actions which are exposed from the library for
- * consumers to use. All exposed actions are wrapped in dispatch function so
- * use should not have call dispatch again.
+ * @name getNormalizeResourceName
  *
- * @param {string} resource - Resource Name
- * @param {Object} actions - Resources actions
- * @param {Function} dispatch - Store action dispatcher
- * @param {Object} thunks - Custom thunks to override/extends existing thunks
- * @returns {Object} wrapped resource actions with dispatching ability
- *
+ * @param {string} resourceName - resource name to be normalized
+ * @param {boolean} pluralizeLast - if last word or the resource name should
+ * be plural
+ * @returns {string} - normalize and first upper-cased resource name
  * @version 0.1.0
  * @since 0.1.0
  */
-export default function generateExposedActions(
-  resource,
-  actions,
-  dispatch,
-  thunks = null
-) {
-  const resourceName = singularize(upperFirst(resource));
+export function getNormalizeResourceName(resourceName, pluralizeLast = false) {
+  const words = split(kebabCase(resourceName), '-');
 
-  const generatedThunks = createThunkFor(resourceName);
+  if (words.length > 1) {
+    const lastWord = pluralizeLast
+      ? pluralize(last(words))
+      : singularize(last(words));
 
-  merge(generatedThunks, thunks);
+    words[words.length - 1] = lastWord;
+    return upperFirst(camelCase(words.join('-')));
+  }
 
-  const extractedActions = {};
-
-  extractedActions[camelize('select', resourceName)] = get(
-    actions[resource],
-    camelize('select', resourceName)
-  );
-  extractedActions[camelize('open', resourceName, 'form')] = get(
-    actions[resource],
-    camelize('open', resourceName, 'form')
-  );
-  extractedActions[camelize('close', resourceName, 'form')] = get(
-    actions[resource],
-    camelize('close', resourceName, 'form')
-  );
-  extractedActions[camelize('set', resourceName, 'schema')] = get(
-    actions[resource],
-    camelize('set', resourceName, 'schema')
-  );
-
-  const allActions = merge({}, extractedActions, generatedThunks);
-
-  const wrappedDispatchThunkActions = {};
-
-  forIn(allActions, (fn, key) => {
-    wrappedDispatchThunkActions[key] = param => dispatch(fn(param));
-  });
-
-  return wrappedDispatchThunkActions;
+  return pluralizeLast
+    ? capitalize(pluralize(resourceName))
+    : capitalize(singularize(resourceName));
 }

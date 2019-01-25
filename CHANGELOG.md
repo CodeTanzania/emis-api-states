@@ -1,3 +1,20 @@
+#### 0.3.1 (2019-01-25)
+
+##### Chores
+
+* **package.json:**  bump to version 0.3.1 ([5b3e2251](https://github.com/CodeTanzania/emis-api-states/commit/5b3e2251762d1232eddde0e413a86feef85bc5b4))
+*  rename list-stage for js ([e00c2db8](https://github.com/CodeTanzania/emis-api-states/commit/e00c2db821b08c7844ba7c2403701cfa292e3b75))
+*  add code lint before commit ([338750ea](https://github.com/CodeTanzania/emis-api-states/commit/338750ea6ba5acdc9d3b545d602c46907affa791))
+*  add commit link hook ([3458cda3](https://github.com/CodeTanzania/emis-api-states/commit/3458cda31c2e927daab648390b0664d3be5be11e))
+
+##### New Features
+
+*  add missing resources to the lib ([8a08865d](https://github.com/CodeTanzania/emis-api-states/commit/8a08865decc83b0522a7db47e192d4efaaae5a90))
+
+##### Bug Fixes
+
+* **incident type:**  fix a bug on generating incident type functions ([ed96c1d8](https://github.com/CodeTanzania/emis-api-states/commit/ed96c1d8659c05a7bec6445da5cd60ef61c6bfba))
+
 #### 0.2.4 (2019-01-23)
 
 ##### Chores

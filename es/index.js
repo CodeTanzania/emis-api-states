@@ -2,15 +2,66 @@ import forIn from 'lodash/forIn';
 import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
 import isObject from 'lodash/isObject';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Provider, connect } from 'react-redux';
 import { pluralize, singularize } from 'inflection';
 import { combineReducers } from 'redux';
 import { createSlice, configureStore } from 'redux-starter-kit';
+import camelCase from 'lodash/camelCase';
 import upperFirst from 'lodash/upperFirst';
+import kebabCase from 'lodash/kebabCase';
+import split from 'lodash/split';
+import capitalize from 'lodash/capitalize';
+import last from 'lodash/last';
 import merge from 'lodash/merge';
-import * as Client from '@codetanzania/emis-api-client';
+import * as client from '@codetanzania/emis-api-client';
 import toLower from 'lodash/toLower';
+
+/**
+ * @function
+ * @name camelize
+ * @description Joins names and generate camelCase of joined words them
+ *
+ * @param {...string} words - list of words to join and camelize
+ * @returns {string} camelCase of joined words
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+function camelize() {
+  for (var _len = arguments.length, words = Array(_len), _key = 0; _key < _len; _key++) {
+    words[_key] = arguments[_key];
+  }
+
+  return camelCase([].concat(words).join(' '));
+}
+
+/**
+ * @function
+ * @name getNormalizeResourceName
+ *
+ * @param {string} resourceName - resource name to be normalized
+ * @param {boolean} pluralizeLast - if last word or the resource name should
+ * be plural
+ * @returns {string} - normalize and first upper-cased resource name
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+function getNormalizeResourceName(resourceName) {
+  var pluralizeLast = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+  var words = split(kebabCase(resourceName), '-');
+
+  if (words.length > 1) {
+    var lastWord = pluralizeLast ? pluralize(last(words)) : singularize(last(words));
+
+    words[words.length - 1] = lastWord;
+    return upperFirst(camelCase(words.join('-')));
+  }
+
+  return pluralizeLast ? capitalize(pluralize(resourceName)) : capitalize(singularize(resourceName));
+}
 
 var defineProperty = function (obj, key, value) {
   if (key in obj) {
@@ -38,13 +89,12 @@ var toConsumableArray = function (arr) {
 };
 
 /**
- * Generate defaultReducers object
- *
  * @function
  * @name getDefaultReducers
+ * @description Generate defaultReducers object
  *
- * @param {string} singular
- * @param {string} plural
+ * @param {string} resourceName - Resource name
+ * @returns {Object} Resource reducers
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -52,54 +102,55 @@ var toConsumableArray = function (arr) {
 function getDefaultReducers(resourceName) {
   var _ref;
 
-  var plural = upperFirst(pluralize(resourceName));
-  var singular = upperFirst(singularize(resourceName));
+  var plural = getNormalizeResourceName(resourceName, true);
+  var singular = getNormalizeResourceName(resourceName);
 
-  return _ref = {}, defineProperty(_ref, 'select' + singular, function undefined(state, action) {
+  return _ref = {}, defineProperty(_ref, camelize('select', singular), function (state, action) {
     return Object.assign({}, state, { selected: action.payload });
-  }), defineProperty(_ref, 'get' + plural + 'Request', function undefined(state) {
+  }), defineProperty(_ref, camelize('get', plural, 'Request'), function (state) {
     return Object.assign({}, state, { loading: true });
-  }), defineProperty(_ref, 'get' + plural + 'Success', function undefined(state, action) {
+  }), defineProperty(_ref, camelize('get', plural, 'Success'), function (state, action) {
     return Object.assign({}, state, {
       list: [].concat(toConsumableArray(action.payload.data)),
       page: action.payload.page,
       total: action.payload.total,
       loading: false
     });
-  }), defineProperty(_ref, 'get' + plural + 'Failure', function undefined(state, action) {
+  }), defineProperty(_ref, camelize('get', plural, 'Failure'), function (state, action) {
     return Object.assign({}, state, { error: action.payload, loading: false });
-  }), defineProperty(_ref, 'get' + singular + 'Request', function undefined(state) {
+  }), defineProperty(_ref, camelize('get', singular, 'Request'), function (state) {
     return Object.assign({}, state, { loading: true });
-  }), defineProperty(_ref, 'get' + singular + 'Success', function undefined(state) {
+  }), defineProperty(_ref, camelize('get', singular, 'Success'), function (state) {
     return Object.assign({}, state, { loading: false });
-  }), defineProperty(_ref, 'get' + singular + 'Failure', function undefined(state, action) {
+  }), defineProperty(_ref, camelize('get', singular, 'Failure'), function (state, action) {
     return Object.assign({}, state, { loading: false, error: action.payload });
-  }), defineProperty(_ref, 'post' + singular + 'Request', function undefined(state) {
+  }), defineProperty(_ref, camelize('post', singular, 'Request'), function (state) {
     return Object.assign({}, state, { posting: true });
-  }), defineProperty(_ref, 'post' + singular + 'Success', function undefined(state) {
+  }), defineProperty(_ref, camelize('post', singular, 'Success'), function (state) {
     return Object.assign({}, state, { posting: false });
-  }), defineProperty(_ref, 'post' + singular + 'Failure', function undefined(state, action) {
+  }), defineProperty(_ref, camelize('post', singular, 'Failure'), function (state, action) {
     return Object.assign({}, state, { error: action.payload, posting: false });
-  }), defineProperty(_ref, 'put' + singular + 'Request', function undefined(state) {
+  }), defineProperty(_ref, camelize('put', singular, 'Request'), function (state) {
     return Object.assign({}, state, { posting: true });
-  }), defineProperty(_ref, 'put' + singular + 'Success', function undefined(state) {
+  }), defineProperty(_ref, camelize('put', singular, 'Success'), function (state) {
     return Object.assign({}, state, { posting: false });
-  }), defineProperty(_ref, 'put' + singular + 'Failure', function undefined(state, action) {
+  }), defineProperty(_ref, camelize('put', singular, 'Failure'), function (state, action) {
     return Object.assign({}, state, { posting: false, error: action.payload });
-  }), defineProperty(_ref, 'open' + singular + 'Form', function undefined(state) {
+  }), defineProperty(_ref, camelize('open', singular, 'Form'), function (state) {
     return Object.assign({}, state, { showForm: true });
-  }), defineProperty(_ref, 'close' + singular + 'Form', function undefined(state) {
+  }), defineProperty(_ref, camelize('close', singular, 'Form'), function (state) {
     return Object.assign({}, state, { showForm: false });
-  }), defineProperty(_ref, 'set' + singular + 'Schema', function undefined(state, action) {
+  }), defineProperty(_ref, camelize('set', singular, 'Schema'), function (state, action) {
     return Object.assign({}, state, { schema: action.payload });
   }), _ref;
 }
 
 /**
- * Generate default initial State for resource
- *
  * @function
  * @name getDefaultInitialState
+ * @description Generate default initial State for resource
+ *
+ * @returns {Object} Initial states of a resource
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -119,17 +170,14 @@ function getDefaultInitialState() {
 }
 
 /**
- * Slice Factory which is used to create slice
- *
  * @function
  * @name createSliceFor
+ * @description Slice Factory which is used to create slice
  *
- * @param {string} slice - Slice name which will results to also be reducer name
- * @param {*} initialState - Optional override of default initial state
+ * @param {string} sliceName - Slice name which will results to be reducer name
+ * @param {Object} initialState - Optional override of default initial state
  * @param {Object} reducers - Optional override of default reducers
- * @returns {Object} slice
- *
- * @see {@link https://redux-starter-kit.js.org/api/createslice}
+ * @returns {Object} slice resource slice
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -157,14 +205,13 @@ function sliceFactory(sliceName) {
 }
 
 /**
- * Extract all resource reducers into a single object
- *
  * @function
  * @name mapSliceReducers
+ * @description Extract all resource reducers into a single object
  *
- * @param {string[]} resources
- * @param {Object} slices
- * @returns {Object} reducers
+ * @param {Array<string>} resources list of api resources
+ * @param {Object} slices resources slice
+ * @returns {Object} reducers list of api reducers
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -181,14 +228,13 @@ function mapSliceReducers(resources, slices) {
 }
 
 /**
- * Extracts all actions into one object
- *
  * @function
  * @name mapSliceActions
+ * @description Extracts all actions into one object
  *
- * @param {string[]} resources
- * @param {Object} slices
- * @returns {Object} actions
+ * @param {Array<string>} resources list of api resources
+ * @param {Object} slices resources slice
+ * @returns {Object} actions list of api actions
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -204,13 +250,12 @@ function mapSliceActions(resources, slices) {
 }
 
 /**
- * Create slices from all EMIS resources
- *
  * @function
  * @name createResourcesSlices
+ * @description Create slices from all EMIS resources
  *
- * @param {string[]} resources
- * @returns {Object} slices
+ * @param {Array<string>} resources list of api resources
+ * @returns {Object} slices resources slice
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -227,7 +272,7 @@ function createResourcesSlices(resources) {
 }
 
 // all resources exposed by this library
-var resources = ['activity', 'alert', 'assessment', 'feature', 'incident', 'incidentType', 'plan', 'procedure', 'questionnaire', 'resource', 'role', 'stakeholder'];
+var resources = ['activity', 'adjustment', 'alert', 'assessment', 'feature', 'incident', 'incidentType', 'indicator', 'item', 'plan', 'procedure', 'question', 'questionnaire', 'resource', 'role', 'stakeholder', 'warehouse'];
 
 var slices = createResourcesSlices(resources);
 
@@ -245,16 +290,15 @@ var actions = mapSliceActions(resources, slices, store.dispatch);
 var dispatch = store.dispatch;
 
 /**
- * Thunk factory. Expose all common thunks for resources
+ * @function
+ * @name createThunkFor
+ * @description Create and expose all common thunks for a resource.
  *
  * Custom thunk implementations can be added to the specific resource
  * actions module
  *
- * @function
- * @name createThunkFor
- *
- * @param {string} resource - Resource name
- * @return {Object} thunks
+ * @param {string} resource - resource name
+ * @returns {Object} thunks - resource thunks
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -266,55 +310,57 @@ function createThunksFor(resource) {
   var singularName = upperFirst(singularize(resource));
   var resourceName = toLower(singularName);
 
-  return _ref = {}, defineProperty(_ref, 'get' + pluralName, function undefined(param) {
+  return _ref = {}, defineProperty(_ref, camelize('get', pluralName), function (param) {
     return function (dispatch$$1) {
-      dispatch$$1(actions[resourceName]['get' + pluralName + 'Request']());
-      return Client['get' + pluralName](param).then(function (data) {
-        return dispatch$$1(actions[resourceName]['get' + pluralName + 'Success'](data));
+      dispatch$$1(actions[resourceName][camelize('get', pluralName, 'request')]());
+      return client[camelize('get', pluralName)](param).then(function (data) {
+        return dispatch$$1(actions[resourceName][camelize('get', pluralName, 'success')](data));
       }).catch(function (error) {
-        return dispatch$$1(actions[resourceName]['get' + pluralName + 'Failure'](error));
+        return dispatch$$1(actions[resourceName][camelize('get', pluralName, 'failure')](error));
       });
     };
-  }), defineProperty(_ref, 'get' + singularName, function undefined(param) {
+  }), defineProperty(_ref, camelize('get', singularName), function (param) {
     return function (dispatch$$1) {
-      dispatch$$1(actions[resourceName]['get' + singularName + 'Request']());
-      return Client['get' + singularName](param).then(function (data) {
-        return dispatch$$1(actions[resourceName]['get' + singularName + 'Success'](data));
+      dispatch$$1(actions[resourceName][camelize('get', singularName, 'request')]());
+      return client[camelize('get', singularName)](param).then(function (data) {
+        return dispatch$$1(actions[resourceName][camelize('get', singularName, 'success')](data));
       }).catch(function (error) {
-        return dispatch$$1(actions[resourceName]['get' + singularName + 'Failure'](error));
+        return dispatch$$1(actions[resourceName][camelize('get', singularName, 'failure')](error));
       });
     };
-  }), defineProperty(_ref, 'post' + singularName, function undefined(param) {
+  }), defineProperty(_ref, camelize('post', singularName), function (param) {
     return function (dispatch$$1) {
-      dispatch$$1(actions[resourceName]['post' + singularName + 'Request']());
-      return Client['post' + singularName](param).then(function (data) {
-        return dispatch$$1(actions[resourceName]['post' + singularName + 'Success'](data));
+      dispatch$$1(actions[resourceName][camelize('post', singularName, 'request')]());
+      return client[camelize('post', singularName)](param).then(function (data) {
+        return dispatch$$1(actions[resourceName][camelize('post', singularName, 'success')](data));
       }).catch(function (error) {
-        return dispatch$$1(actions[resourceName]['post' + singularName + 'Failure'](error));
+        return dispatch$$1(actions[resourceName][camelize('post', singularName, 'failure')](error));
       });
     };
-  }), defineProperty(_ref, 'put' + singularName, function undefined(param) {
+  }), defineProperty(_ref, camelize('put', singularName), function (param) {
     return function (dispatch$$1) {
-      dispatch$$1(actions[resourceName]['put' + singularName + 'Request']());
-      return Client['put' + singularName](param).then(function (data) {
-        return dispatch$$1(actions[resourceName]['put' + singularName + 'Success'](data));
+      dispatch$$1(actions[resourceName][camelize('put', singularName, 'request')]());
+      return client[camelize('put', singularName)](param).then(function (data) {
+        return dispatch$$1(actions[resourceName][camelize('put', singularName, 'success')](data));
       }).catch(function (error) {
-        return dispatch$$1(actions[resourceName]['put' + singularName + 'Failure'](error));
+        return dispatch$$1(actions[resourceName][camelize('put', singularName, 'failure')](error));
       });
     };
   }), _ref;
 }
 
 /**
- * Generate all actions which are exposed from the library for consumers to use.
- * All exposed actions are wrapped in dispatch function so use should not have
- * call dispatch again
- *
  * @function
  * @name generateExposedActions
+ * @description Generate all actions which are exposed from the library for
+ * consumers to use. All exposed actions are wrapped in dispatch function so
+ * use should not have call dispatch again.
  *
  * @param {string} resource - Resource Name
+ * @param {Object} actions - Resources actions
+ * @param {Function} dispatch - Store action dispatcher
  * @param {Object} thunks - Custom thunks to override/extends existing thunks
+ * @returns {Object} wrapped resource actions with dispatching ability
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -330,10 +376,10 @@ function generateExposedActions(resource, actions, dispatch) {
 
   var extractedActions = {};
 
-  extractedActions['select' + resourceName] = get(actions[resource], 'select' + resourceName);
-  extractedActions['open' + resourceName + 'Form'] = get(actions[resource], 'open' + resourceName + 'Form');
-  extractedActions['close' + resourceName + 'Form'] = get(actions[resource], 'close' + resourceName + 'Form');
-  extractedActions['set' + resourceName + 'Schema'] = get(actions[resource], 'set' + resourceName + 'Schema');
+  extractedActions[camelize('select', resourceName)] = get(actions[resource], camelize('select', resourceName));
+  extractedActions[camelize('open', resourceName, 'form')] = get(actions[resource], camelize('open', resourceName, 'form'));
+  extractedActions[camelize('close', resourceName, 'form')] = get(actions[resource], camelize('close', resourceName, 'form'));
+  extractedActions[camelize('set', resourceName, 'schema')] = get(actions[resource], camelize('set', resourceName, 'schema'));
 
   var allActions = merge({}, extractedActions, generatedThunks);
 
@@ -358,6 +404,17 @@ var getActivities = activityActions.getActivities,
     postActivity = activityActions.postActivity,
     putActivity = activityActions.putActivity,
     setActivitySchema = activityActions.setActivitySchema;
+
+var adjustmentActions = generateExposedActions('adjustment', actions, dispatch);
+
+var getAdjustments = adjustmentActions.getAdjustments,
+    getAdjustment = adjustmentActions.getAdjustment,
+    selectAdjustment = adjustmentActions.selectAdjustment,
+    closeAdjustmentForm = adjustmentActions.closeAdjustmentForm,
+    openAdjustmentForm = adjustmentActions.openAdjustmentForm,
+    postAdjustment = adjustmentActions.postAdjustment,
+    putAdjustment = adjustmentActions.putAdjustment,
+    setAdjustmentSchema = adjustmentActions.setAdjustmentSchema;
 
 var alertActions = generateExposedActions('alert', actions, dispatch);
 
@@ -414,6 +471,28 @@ var getIncidentTypes = incidentTypeActions.getIncidentTypes,
     putIncidentType = incidentTypeActions.putIncidentType,
     setIncidentTypeSchema = incidentTypeActions.setIncidentTypeSchema;
 
+var indicatorActions = generateExposedActions('indicator', actions, dispatch);
+
+var getIndicators = indicatorActions.getIndicators,
+    getIndicator = indicatorActions.getIndicator,
+    selectIndicator = indicatorActions.selectIndicator,
+    closeIndicatorForm = indicatorActions.closeIndicatorForm,
+    openIndicatorForm = indicatorActions.openIndicatorForm,
+    postIndicator = indicatorActions.postIndicator,
+    putIndicator = indicatorActions.putIndicator,
+    setIndicatorSchema = indicatorActions.setIndicatorSchema;
+
+var itemActions = generateExposedActions('item', actions, dispatch);
+
+var getItems = itemActions.getItems,
+    getItem = itemActions.getItem,
+    selectItem = itemActions.selectItem,
+    closeItemForm = itemActions.closeItemForm,
+    openItemForm = itemActions.openItemForm,
+    postItem = itemActions.postItem,
+    putItem = itemActions.putItem,
+    setItemSchema = itemActions.setItemSchema;
+
 var planActions = generateExposedActions('plan', actions, dispatch);
 
 var getPlans = planActions.getPlans,
@@ -435,6 +514,17 @@ var getProcedures = procedureActions.getProcedures,
     postProcedure = procedureActions.postProcedure,
     putProcedure = procedureActions.putProcedure,
     setProcedureSchema = procedureActions.setProcedureSchema;
+
+var questionActions = generateExposedActions('question', actions, dispatch);
+
+var getQuestions = questionActions.getQuestions,
+    getQuestion = questionActions.getQuestion,
+    selectQuestion = questionActions.selectQuestion,
+    closeQuestionForm = questionActions.closeQuestionForm,
+    openQuestionForm = questionActions.openQuestionForm,
+    postQuestion = questionActions.postQuestion,
+    putQuestion = questionActions.putQuestion,
+    setQuestionSchema = questionActions.setQuestionSchema;
 
 var questionnaireActions = generateExposedActions('questionnaire', actions, dispatch);
 
@@ -480,18 +570,32 @@ var getStakeholders = stakeholderActions.getStakeholders,
     putStakeholder = stakeholderActions.putStakeholder,
     setStakeholderSchema = stakeholderActions.setStakeholderSchema;
 
-/* eslint-disable */
+var warehouseActions = generateExposedActions('warehouse', actions, dispatch);
+
+var getWarehouses = warehouseActions.getWarehouses,
+    getWarehouse = warehouseActions.getWarehouse,
+    selectWarehouse = warehouseActions.selectWarehouse,
+    closeWarehouseForm = warehouseActions.closeWarehouseForm,
+    openWarehouseForm = warehouseActions.openWarehouseForm,
+    postWarehouse = warehouseActions.postWarehouse,
+    putWarehouse = warehouseActions.putWarehouse,
+    setWarehouseSchema = warehouseActions.setWarehouseSchema;
+
 /**
- * Store Provider for EMIS store
- *
  * @function
  * @name StoreProvider
+ * @description Store Provider for EMIS store
  *
- * @param {Object} props
- * @param {ReactComponent} props.children
- * @returns {ReactComponent} Provider
+ * @param {Object} props - react nodes
+ * @param {Object} props.children - react nodes
+ * @returns {Object} Store provider
  * @version 0.1.0
  * @since 0.1.0
+ * @example
+ * import {StoreProvider} from '@codetanzania/emis-api-states';
+ *
+ * ReactDom.render(<StoreProvider><App /></StoreProvider>,
+ * document.getElementById('root'));
  */
 function StoreProvider(_ref) {
   var children = _ref.children;
@@ -502,20 +606,22 @@ function StoreProvider(_ref) {
     children
   );
 }
-/* eslint-enable */
+
+StoreProvider.propTypes = {
+  children: PropTypes.node.isRequired
+};
 
 /**
- * Expose simplified connect function
+ * @function
+ * @name Connect
+ * @description Expose simplified connect function
  *
  * This function subscribe component to the store and inject props
  * to the component
  *
- * @function
- * @name Connect
- *
- * @param {ReactComponent} component
- * @param {Object|function} stateToProps
- * @return {ReactComponent} - React component which is injected with props
+ * @param {Object} component - react node
+ * @param {Object|Function} stateToProps - states to inject into props
+ * @returns {Object} - React component which is injected with props
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -548,4 +654,4 @@ function Connect(component) {
   return connect(mapStateToProps)(component);
 }
 
-export { StoreProvider, Connect, getActivities, getActivity, selectActivity, closeActivityForm, openActivityForm, postActivity, putActivity, setActivitySchema, getAlerts, getAlert, selectAlert, closeAlertForm, openAlertForm, postAlert, putAlert, setAlertSchema, getAssessments, getAssessment, selectAssessment, closeAssessmentForm, openAssessmentForm, postAssessment, putAssessment, setAssessmentSchema, getFeatures, getFeature, selectFeature, closeFeatureForm, openFeatureForm, postFeature, putFeature, setFeatureSchema, getIncidents, getIncident, selectIncident, closeIncidentForm, openIncidentForm, postIncident, putIncident, setIncidentSchema, getIncidentTypes, getIncidentType, selectIncidentType, closedIncidentTypeForm, openIncidentTypeForm, postIncidentType, putIncidentType, setIncidentTypeSchema, getPlans, getPlan, selectPlan, closePlanForm, openPlanForm, postPlan, putPlan, setPlanSchema, getProcedures, getProcedure, selectProcedure, closeProcedureForm, openProcedureForm, postProcedure, putProcedure, setProcedureSchema, getQuestionnaires, getQuestionnaire, selectQuestionnaire, closeQuestionnaireForm, openQuestionnaireForm, postQuestionnaire, putQuestionnaire, setQuestionnaireSchema, getResources, getResource, selectResource, closeResourceForm, openResourceForm, postResource, putResource, setResourceSchema, getRoles, getRole, selectRole, closeRoleForm, openRoleForm, postRole, putRole, setRoleSchema, getStakeholders, getStakeholder, selectStakeholder, closeStakeholderForm, openStakeholderForm, postStakeholder, putStakeholder, setStakeholderSchema };
+export { StoreProvider, Connect, getActivities, getActivity, selectActivity, closeActivityForm, openActivityForm, postActivity, putActivity, setActivitySchema, getAdjustments, getAdjustment, selectAdjustment, closeAdjustmentForm, openAdjustmentForm, postAdjustment, putAdjustment, setAdjustmentSchema, getAlerts, getAlert, selectAlert, closeAlertForm, openAlertForm, postAlert, putAlert, setAlertSchema, getAssessments, getAssessment, selectAssessment, closeAssessmentForm, openAssessmentForm, postAssessment, putAssessment, setAssessmentSchema, getFeatures, getFeature, selectFeature, closeFeatureForm, openFeatureForm, postFeature, putFeature, setFeatureSchema, getIncidents, getIncident, selectIncident, closeIncidentForm, openIncidentForm, postIncident, putIncident, setIncidentSchema, getIncidentTypes, getIncidentType, selectIncidentType, closedIncidentTypeForm, openIncidentTypeForm, postIncidentType, putIncidentType, setIncidentTypeSchema, getIndicators, getIndicator, selectIndicator, closeIndicatorForm, openIndicatorForm, postIndicator, putIndicator, setIndicatorSchema, getItems, getItem, selectItem, closeItemForm, openItemForm, postItem, putItem, setItemSchema, getPlans, getPlan, selectPlan, closePlanForm, openPlanForm, postPlan, putPlan, setPlanSchema, getProcedures, getProcedure, selectProcedure, closeProcedureForm, openProcedureForm, postProcedure, putProcedure, setProcedureSchema, getQuestions, getQuestion, selectQuestion, closeQuestionForm, openQuestionForm, postQuestion, putQuestion, setQuestionSchema, getQuestionnaires, getQuestionnaire, selectQuestionnaire, closeQuestionnaireForm, openQuestionnaireForm, postQuestionnaire, putQuestionnaire, setQuestionnaireSchema, getResources, getResource, selectResource, closeResourceForm, openResourceForm, postResource, putResource, setResourceSchema, getRoles, getRole, selectRole, closeRoleForm, openRoleForm, postRole, putRole, setRoleSchema, getStakeholders, getStakeholder, selectStakeholder, closeStakeholderForm, openStakeholderForm, postStakeholder, putStakeholder, setStakeholderSchema, getWarehouses, getWarehouse, selectWarehouse, closeWarehouseForm, openWarehouseForm, postWarehouse, putWarehouse, setWarehouseSchema };

@@ -96,17 +96,22 @@ export function createResourcesSlices(resources) {
 // all resources exposed by this library
 const resources = [
   'activity',
+  'adjustment',
   'alert',
   'assessment',
   'feature',
   'incident',
   'incidentType',
+  'indicator',
+  'item',
   'plan',
   'procedure',
+  'question',
   'questionnaire',
   'resource',
   'role',
   'stakeholder',
+  'warehouse',
 ];
 
 const slices = createResourcesSlices(resources);

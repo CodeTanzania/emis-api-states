@@ -9,8 +9,13 @@ import {
   getActivity,
   getAlert,
   getAlerts,
+  getIncidentTypes,
+  getIndicators,
+  getItems,
   getPlan,
   getPlans,
+  getQuestions,
+  getWarehouses,
   openActivityForm,
   openAlertForm,
   openPlanForm,
@@ -57,6 +62,19 @@ describe('Library Index', () => {
     expect(typeof setAlertSchema).toBe('function');
     expect(typeof openAlertForm).toBe('function');
     expect(typeof closeAlertForm).toBe('function');
+    expect(typeof closeAlertForm).toBe('function');
+
+    expect(typeof getIncidentTypes).toBe('function');
+
+    expect(typeof getIncidentTypes).toBe('function');
+
+    expect(typeof getIndicators).toBe('function');
+
+    expect(typeof getItems).toBe('function');
+
+    expect(typeof getQuestions).toBe('function');
+
+    expect(typeof getWarehouses).toBe('function');
   });
 
   it('should expose connect function', () => {
