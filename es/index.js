@@ -8,15 +8,11 @@ import { Provider, connect } from 'react-redux';
 import { pluralize, singularize } from 'inflection';
 import { combineReducers } from 'redux';
 import { createSlice, configureStore } from 'redux-starter-kit';
-import camelCase from 'lodash/camelCase';
 import upperFirst from 'lodash/upperFirst';
-import kebabCase from 'lodash/kebabCase';
-import split from 'lodash/split';
-import capitalize from 'lodash/capitalize';
-import last from 'lodash/last';
+import camelCase from 'lodash/camelCase';
 import merge from 'lodash/merge';
 import * as client from '@codetanzania/emis-api-client';
-import toLower from 'lodash/toLower';
+import lowerFirst from 'lodash/lowerFirst';
 
 /**
  * @function
@@ -35,32 +31,6 @@ function camelize() {
   }
 
   return camelCase([].concat(words).join(' '));
-}
-
-/**
- * @function
- * @name getNormalizeResourceName
- *
- * @param {string} resourceName - resource name to be normalized
- * @param {boolean} pluralizeLast - if last word or the resource name should
- * be plural
- * @returns {string} - normalize and first upper-cased resource name
- * @version 0.1.0
- * @since 0.1.0
- */
-function getNormalizeResourceName(resourceName) {
-  var pluralizeLast = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-  var words = split(kebabCase(resourceName), '-');
-
-  if (words.length > 1) {
-    var lastWord = pluralizeLast ? pluralize(last(words)) : singularize(last(words));
-
-    words[words.length - 1] = lastWord;
-    return upperFirst(camelCase(words.join('-')));
-  }
-
-  return pluralizeLast ? capitalize(pluralize(resourceName)) : capitalize(singularize(resourceName));
 }
 
 var defineProperty = function (obj, key, value) {
@@ -102,8 +72,8 @@ var toConsumableArray = function (arr) {
 function getDefaultReducers(resourceName) {
   var _ref;
 
-  var plural = getNormalizeResourceName(resourceName, true);
-  var singular = getNormalizeResourceName(resourceName);
+  var plural = upperFirst(pluralize(resourceName));
+  var singular = upperFirst(singularize(resourceName));
 
   return _ref = {}, defineProperty(_ref, camelize('select', singular), function (state, action) {
     return Object.assign({}, state, { selected: action.payload });
@@ -308,7 +278,7 @@ function createThunksFor(resource) {
 
   var pluralName = upperFirst(pluralize(resource));
   var singularName = upperFirst(singularize(resource));
-  var resourceName = toLower(singularName);
+  var resourceName = lowerFirst(singularName);
 
   return _ref = {}, defineProperty(_ref, camelize('get', pluralName), function (param) {
     return function (dispatch$$1) {
