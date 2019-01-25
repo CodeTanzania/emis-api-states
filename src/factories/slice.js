@@ -1,6 +1,8 @@
+import { pluralize, singularize } from 'inflection';
 import isObject from 'lodash/isObject';
+import upperFirst from 'lodash/upperFirst';
 import { createSlice } from 'redux-starter-kit';
-import { camelize, getNormalizeResourceName } from '../helpers';
+import camelize from '../helpers';
 
 /**
  * @function
@@ -14,8 +16,8 @@ import { camelize, getNormalizeResourceName } from '../helpers';
  * @since 0.1.0
  */
 export function getDefaultReducers(resourceName) {
-  const plural = getNormalizeResourceName(resourceName, true);
-  const singular = getNormalizeResourceName(resourceName);
+  const plural = upperFirst(pluralize(resourceName));
+  const singular = upperFirst(singularize(resourceName));
 
   return {
     [camelize('select', singular)]: (state, action) =>

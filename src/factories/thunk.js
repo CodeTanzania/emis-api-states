@@ -1,9 +1,9 @@
 import * as client from '@codetanzania/emis-api-client';
 import { pluralize, singularize } from 'inflection';
-import toLower from 'lodash/toLower';
+import lowerFirst from 'lodash/lowerFirst';
 import upperFirst from 'lodash/upperFirst';
+import camelize from '../helpers';
 import { actions } from '../store';
-import { camelize } from '../helpers';
 
 /**
  * @function
@@ -22,7 +22,7 @@ import { camelize } from '../helpers';
 export default function createThunksFor(resource) {
   const pluralName = upperFirst(pluralize(resource));
   const singularName = upperFirst(singularize(resource));
-  const resourceName = toLower(singularName);
+  const resourceName = lowerFirst(singularName);
 
   return {
     [camelize('get', pluralName)]: param => dispatch => {
