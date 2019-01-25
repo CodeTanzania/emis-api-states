@@ -3,8 +3,8 @@ import forIn from 'lodash/forIn';
 import get from 'lodash/get';
 import merge from 'lodash/merge';
 import upperFirst from 'lodash/upperFirst';
+import camelize from '../helpers';
 import createThunkFor from './thunk';
-import { camelize } from '../helpers';
 
 /**
  * @function

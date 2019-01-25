@@ -13,12 +13,12 @@ const mockStore = configureMockStore([thunk]);
 
 describe('Thunk Factory', () => {
   it('should create object which expose common thunks', () => {
-    const thunks = createThunkFor('todos');
+    const thunks = createThunkFor('incidentType');
 
-    expect(typeof thunks.getTodos).toBe('function');
-    expect(typeof thunks.getTodo).toBe('function');
-    expect(typeof thunks.postTodo).toBe('function');
-    expect(typeof thunks.putTodo).toBe('function');
+    expect(typeof thunks.getIncidentTypes).toBe('function');
+    expect(typeof thunks.getIncidentType).toBe('function');
+    expect(typeof thunks.postIncidentType).toBe('function');
+    expect(typeof thunks.putIncidentType).toBe('function');
   });
 
   it('should dispatch required actions when fetch resources succeed', () => {

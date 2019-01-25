@@ -1,3 +1,19 @@
+#### 0.3.2 (2019-01-25)
+
+##### Build System / Dependencies
+
+* **rollup:**  remove unused external dependencies ([f76e104e](https://github.com/CodeTanzania/emis-api-states/commit/f76e104e66bcb28e27bc67923a3be1ac4afbbe44))
+
+##### Chores
+
+*  build library for release for 0.3.2 ([46a86f3c](https://github.com/CodeTanzania/emis-api-states/commit/46a86f3c6b77bd9098501431354fb4a98f24773a))
+* **package.json:**  update package version to 0.3.2 ([88df0fbc](https://github.com/CodeTanzania/emis-api-states/commit/88df0fbc93ae52bfc74a3cc03e6aa3078f7191c5))
+* **dependencies:**  use latest version of emis-api-client ([f64b8a58](https://github.com/CodeTanzania/emis-api-states/commit/f64b8a58158ef46e6363db7b766e805dbac3bc86))
+
+##### Bug Fixes
+
+* **incident type:**  remove the issue with incidentTypes ([96b0b5c0](https://github.com/CodeTanzania/emis-api-states/commit/96b0b5c0605d6ff73130636106b92fd413fee252))
+
 #### 0.3.1 (2019-01-25)
 
 ##### Chores
