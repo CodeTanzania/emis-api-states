@@ -10,7 +10,7 @@
     "test:watch": "jest --watch",
     "lint": "eslint --fix --ext .jsx,.js src/ test/",
     "build": "npm run clean && npm run lint && BABEL_ENV=production rollup -c",
-    "cmt": "git add . && git-cz",
+    "cmt": "git add -A && git-cz",
     "changelog": "changelog"
   },
   "repository": {
@@ -48,7 +48,7 @@
   "homepage": "https://github.com/CodeTanzania/emis-api-states#readme",
   "dependencies": {},
   "devDependencies": {
-    "@codetanzania/emis-api-client": ">=0.3.0",
+    "@codetanzania/emis-api-client": ">=0.5.0",
     "@commitlint/cli": "^7.3.2",
     "@commitlint/config-conventional": "^7.3.1",
     "@commitlint/travis-cli": "^7.3.2",
@@ -92,7 +92,7 @@
     "rollup-plugin-babel": "^3.0.7"
   },
   "peerDependencies": {
-    "@codetanzania/emis-api-client": ">=0.3.1",
+    "@codetanzania/emis-api-client": ">=0.5.0",
     "axios": ">=0.18.0",
     "inflection": ">=1.12.0",
     "lodash": ">=4.17.11",
@@ -123,8 +123,9 @@
     ]
   },
   "lint-staged": {
-    "*.js": [
-      "npm run lint"
+    "src/**/*.js": [
+      "npm run lint:src",
+      "git add -A"
     ]
   },
   "husky": {
