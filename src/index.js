@@ -76,6 +76,7 @@ export function Connect(component, stateToProps = null) {
 export * from './actions/activity';
 export * from './actions/adjustment';
 export * from './actions/alert';
+export { wrappedInitializeApp as initializeApp } from './actions/app';
 export * from './actions/assessment';
 export * from './actions/feature';
 export * from './actions/incident';
@@ -89,4 +90,5 @@ export * from './actions/questionnaire';
 export * from './actions/resource';
 export * from './actions/role';
 export * from './actions/stakeholder';
+export * from './actions/stock';
 export * from './actions/warehouse';

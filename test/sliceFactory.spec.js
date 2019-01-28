@@ -18,6 +18,8 @@ describe('Slice Factory', () => {
     posting: false,
     showForm: false,
     schema: null,
+    filter: null,
+    sort: null,
   };
 
   it('should create a slice provided slice name', () => {
@@ -36,6 +38,10 @@ describe('Slice Factory', () => {
     expect(actions.length).toBeGreaterThan(0);
     expect(actions).toEqual([
       'selectTodo',
+      'filterTodos',
+      'clearTodosFilter',
+      'sortTodos',
+      'clearTodosSort',
       'getTodosRequest',
       'getTodosSuccess',
       'getTodosFailure',
@@ -65,6 +71,58 @@ describe('Slice Factory', () => {
       expect(reducer(initialDefaultState, selectTodoAction)).toEqual({
         ...initialDefaultState,
         selected: selectTodoAction.payload,
+      });
+    });
+
+    it('should handle filter action', () => {
+      const todos = createSliceFor('todos');
+
+      const { reducer } = todos;
+      const filterTodosAction = createAction('todos/filterTodos', {
+        name: 'Todo',
+      });
+      expect(reducer(initialDefaultState, filterTodosAction)).toEqual({
+        ...initialDefaultState,
+        filter: filterTodosAction.payload,
+      });
+    });
+
+    it('should handle clear filter action', () => {
+      const todos = createSliceFor('todos');
+
+      const { reducer } = todos;
+      const clearFiltersAction = createAction('todos/clearTodosFilter');
+      expect(
+        reducer({ ...initialDefaultState, filter: {} }, clearFiltersAction)
+      ).toEqual({
+        ...initialDefaultState,
+        filter: null,
+      });
+    });
+
+    it('should handle sort action', () => {
+      const todos = createSliceFor('todos');
+
+      const { reducer } = todos;
+      const sortTodosAction = createAction('todos/sortTodos', {
+        name: -1,
+      });
+      expect(reducer(initialDefaultState, sortTodosAction)).toEqual({
+        ...initialDefaultState,
+        sort: sortTodosAction.payload,
+      });
+    });
+
+    it('should handle clear sort action', () => {
+      const todos = createSliceFor('todos');
+
+      const { reducer } = todos;
+      const clearSortAction = createAction('todos/clearTodosSort');
+      expect(
+        reducer({ ...initialDefaultState, sort: {} }, clearSortAction)
+      ).toEqual({
+        ...initialDefaultState,
+        sort: null,
       });
     });
 
@@ -140,7 +198,7 @@ describe('Slice Factory', () => {
 
       expect(
         reducer(
-          { ...initialDefaultState, posting: true },
+          { ...initialDefaultState, posting: true, showForm: true },
           postTodoSuccessAction
         )
       ).toEqual({
@@ -161,12 +219,13 @@ describe('Slice Factory', () => {
 
       expect(
         reducer(
-          { ...initialDefaultState, posting: true },
+          { ...initialDefaultState, posting: true, showForm: true },
           postTodoFailureAction
         )
       ).toEqual({
         ...initialDefaultState,
         posting: false,
+        showForm: true,
         error: postTodoFailureAction.payload,
       });
     });
@@ -192,10 +251,14 @@ describe('Slice Factory', () => {
       const putTodoSuccessAction = createAction('todos/putTodoSuccess');
 
       expect(
-        reducer({ ...initialDefaultState, posting: true }, putTodoSuccessAction)
+        reducer(
+          { ...initialDefaultState, posting: true, showForm: true },
+          putTodoSuccessAction
+        )
       ).toEqual({
         ...initialDefaultState,
         posting: false,
+        showForm: false,
       });
     });
 
@@ -210,9 +273,13 @@ describe('Slice Factory', () => {
       );
 
       expect(
-        reducer({ ...initialDefaultState, posting: true }, putTodoFailureAction)
+        reducer(
+          { ...initialDefaultState, posting: true, showForm: true },
+          putTodoFailureAction
+        )
       ).toEqual({
         ...initialDefaultState,
+        showForm: true,
         posting: false,
         error: putTodoFailureAction.payload,
       });
@@ -283,6 +350,8 @@ describe('Slice Factory', () => {
         posting: false,
         showForm: false,
         schema: null,
+        filter: null,
+        sort: null,
       });
     });
   });

@@ -12,7 +12,7 @@ import camelize from '../helpers';
  * @param {string} resourceName - Resource name
  * @returns {Object} Resource reducers
  *
- * @version 0.1.0
+ * @version 0.2.0
  * @since 0.1.0
  */
 export function getDefaultReducers(resourceName) {
@@ -22,6 +22,14 @@ export function getDefaultReducers(resourceName) {
   return {
     [camelize('select', singular)]: (state, action) =>
       Object.assign({}, state, { selected: action.payload }),
+    [camelize('filter', plural)]: (state, action) =>
+      Object.assign({}, state, { filter: action.payload }),
+    [camelize('clear', plural, 'filter')]: state =>
+      Object.assign({}, state, { filter: null }),
+    [camelize('sort', plural)]: (state, action) =>
+      Object.assign({}, state, { sort: action.payload }),
+    [camelize('clear', plural, 'sort')]: state =>
+      Object.assign({}, state, { sort: null }),
     [camelize('get', plural, 'Request')]: state =>
       Object.assign({}, state, { loading: true }),
     [camelize('get', plural, 'Success')]: (state, action) =>
@@ -42,13 +50,13 @@ export function getDefaultReducers(resourceName) {
     [camelize('post', singular, 'Request')]: state =>
       Object.assign({}, state, { posting: true }),
     [camelize('post', singular, 'Success')]: state =>
-      Object.assign({}, state, { posting: false }),
+      Object.assign({}, state, { posting: false, showForm: false }),
     [camelize('post', singular, 'Failure')]: (state, action) =>
       Object.assign({}, state, { error: action.payload, posting: false }),
     [camelize('put', singular, 'Request')]: state =>
       Object.assign({}, state, { posting: true }),
     [camelize('put', singular, 'Success')]: state =>
-      Object.assign({}, state, { posting: false }),
+      Object.assign({}, state, { posting: false, showForm: false }),
     [camelize('put', singular, 'Failure')]: (state, action) =>
       Object.assign({}, state, { posting: false, error: action.payload }),
     [camelize('open', singular, 'Form')]: state =>
@@ -81,6 +89,8 @@ export function getDefaultInitialState() {
     posting: false,
     showForm: false,
     schema: null,
+    filter: null,
+    sort: null,
   };
 }
 

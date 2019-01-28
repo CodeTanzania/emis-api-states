@@ -8,12 +8,18 @@ const questionnaireActions = generateExposedActions(
 );
 
 export const {
+  clearQuestionnairesFilter,
+  clearQuestionnairesSort,
+  closeQuestionnaireForm,
+  filterQuestionnaires,
   getQuestionnaires,
   getQuestionnaire,
   selectQuestionnaire,
-  closeQuestionnaireForm,
   openQuestionnaireForm,
+  paginateQuestionnaires,
   postQuestionnaire,
   putQuestionnaire,
+  searchQuestionnaires,
   setQuestionnaireSchema,
+  sortQuestionnaires,
 } = questionnaireActions;

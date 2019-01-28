@@ -4,12 +4,18 @@ import { actions, dispatch } from '../store';
 const roleActions = generateExposedActions('role', actions, dispatch);
 
 export const {
+  clearRolesFilter,
+  clearRolesSort,
+  closeRoleForm,
+  filterRoles,
   getRoles,
   getRole,
   selectRole,
-  closeRoleForm,
   openRoleForm,
+  paginateRoles,
   postRole,
   putRole,
+  searchRoles,
   setRoleSchema,
+  sortRoles,
 } = roleActions;

@@ -4,12 +4,18 @@ import { actions, dispatch } from '../store';
 const indicatorActions = generateExposedActions('indicator', actions, dispatch);
 
 export const {
+  clearIndicatorsFilter,
+  clearIndicatorsSort,
+  closeIndicatorForm,
+  filterIndicators,
   getIndicators,
   getIndicator,
   selectIndicator,
-  closeIndicatorForm,
   openIndicatorForm,
+  paginateIndicators,
   postIndicator,
   putIndicator,
+  searchIndicators,
   setIndicatorSchema,
+  sortIndicators,
 } = indicatorActions;

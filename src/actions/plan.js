@@ -4,12 +4,18 @@ import { actions, dispatch } from '../store';
 const planActions = generateExposedActions('plan', actions, dispatch);
 
 export const {
+  clearPlansFilter,
+  clearPlansSort,
+  closePlanForm,
+  filterPlans,
   getPlans,
   getPlan,
   selectPlan,
-  closePlanForm,
   openPlanForm,
+  paginatePlans,
   postPlan,
   putPlan,
+  searchPlans,
   setPlanSchema,
+  sortPlans,
 } = planActions;

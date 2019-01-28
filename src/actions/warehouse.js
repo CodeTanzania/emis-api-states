@@ -4,12 +4,18 @@ import { actions, dispatch } from '../store';
 const warehouseActions = generateExposedActions('warehouse', actions, dispatch);
 
 export const {
+  clearWarehousesFilter,
+  clearWarehousesSort,
+  closeWarehouseForm,
+  filterWarehouses,
   getWarehouses,
   getWarehouse,
   selectWarehouse,
-  closeWarehouseForm,
   openWarehouseForm,
+  paginateWarehouses,
   postWarehouse,
   putWarehouse,
+  searchWarehouses,
   setWarehouseSchema,
+  sortWarehouses,
 } = warehouseActions;
