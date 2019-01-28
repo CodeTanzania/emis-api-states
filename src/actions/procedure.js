@@ -15,6 +15,7 @@ export const {
   paginateProcedures,
   postProcedure,
   putProcedure,
+  refreshProcedures,
   searchProcedures,
   setProcedureSchema,
   sortProcedures,

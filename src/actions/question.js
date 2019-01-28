@@ -15,6 +15,7 @@ export const {
   paginateQuestions,
   postQuestion,
   putQuestion,
+  refreshQuestions,
   searchQuestions,
   setQuestionSchema,
   sortQuestions,

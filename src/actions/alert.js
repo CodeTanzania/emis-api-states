@@ -15,6 +15,7 @@ export const {
   paginateAlerts,
   postAlert,
   putAlert,
+  refreshAlerts,
   searchAlerts,
   setAlertSchema,
   sortAlerts,

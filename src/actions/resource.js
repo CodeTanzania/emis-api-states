@@ -15,6 +15,7 @@ export const {
   paginateResources,
   postResource,
   putResource,
+  refreshResources,
   searchResources,
   setResourceSchema,
   sortResources,

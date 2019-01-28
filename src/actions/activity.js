@@ -15,6 +15,7 @@ export const {
   paginateActivities,
   postActivity,
   putActivity,
+  refreshActivities,
   searchActivities,
   setActivitySchema,
   sortActivities,

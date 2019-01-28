@@ -19,6 +19,7 @@ export const {
   paginateStakeholders,
   postStakeholder,
   putStakeholder,
+  refreshStakeholders,
   searchStakeholders,
   setStakeholderSchema,
   sortStakeholders,
