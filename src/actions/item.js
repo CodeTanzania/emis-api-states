@@ -4,12 +4,18 @@ import { actions, dispatch } from '../store';
 const itemActions = generateExposedActions('item', actions, dispatch);
 
 export const {
+  clearItemsFilter,
+  clearItemsSort,
+  closeItemForm,
+  filterItems,
   getItems,
   getItem,
   selectItem,
-  closeItemForm,
   openItemForm,
+  paginateItems,
   postItem,
   putItem,
+  searchItems,
   setItemSchema,
+  sortItems,
 } = itemActions;

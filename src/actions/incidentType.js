@@ -8,12 +8,18 @@ const incidentTypeActions = generateExposedActions(
 );
 
 export const {
+  clearIncidentTypesFilter,
+  clearIncidentTypesSort,
+  closeIncidentTypeForm,
+  filterIncidentTypes,
   getIncidentTypes,
   getIncidentType,
   selectIncidentType,
-  closedIncidentTypeForm,
   openIncidentTypeForm,
+  paginateIncidentTypes,
   postIncidentType,
   putIncidentType,
+  searchIncidentTypes,
   setIncidentTypeSchema,
+  sortIncidentTypes,
 } = incidentTypeActions;

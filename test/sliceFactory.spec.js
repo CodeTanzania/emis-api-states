@@ -19,6 +19,7 @@ describe('Slice Factory', () => {
     showForm: false,
     schema: null,
     filter: null,
+    sort: null,
   };
 
   it('should create a slice provided slice name', () => {
@@ -38,7 +39,9 @@ describe('Slice Factory', () => {
     expect(actions).toEqual([
       'selectTodo',
       'filterTodos',
-      'clearTodosFilters',
+      'clearTodosFilter',
+      'sortTodos',
+      'clearTodosSort',
       'getTodosRequest',
       'getTodosSuccess',
       'getTodosFailure',
@@ -68,6 +71,58 @@ describe('Slice Factory', () => {
       expect(reducer(initialDefaultState, selectTodoAction)).toEqual({
         ...initialDefaultState,
         selected: selectTodoAction.payload,
+      });
+    });
+
+    it('should handle filter action', () => {
+      const todos = createSliceFor('todos');
+
+      const { reducer } = todos;
+      const filterTodosAction = createAction('todos/filterTodos', {
+        name: 'Todo',
+      });
+      expect(reducer(initialDefaultState, filterTodosAction)).toEqual({
+        ...initialDefaultState,
+        filter: filterTodosAction.payload,
+      });
+    });
+
+    it('should handle clear filter action', () => {
+      const todos = createSliceFor('todos');
+
+      const { reducer } = todos;
+      const clearFiltersAction = createAction('todos/clearTodosFilter');
+      expect(
+        reducer({ ...initialDefaultState, filter: {} }, clearFiltersAction)
+      ).toEqual({
+        ...initialDefaultState,
+        filter: null,
+      });
+    });
+
+    it('should handle sort action', () => {
+      const todos = createSliceFor('todos');
+
+      const { reducer } = todos;
+      const sortTodosAction = createAction('todos/sortTodos', {
+        name: -1,
+      });
+      expect(reducer(initialDefaultState, sortTodosAction)).toEqual({
+        ...initialDefaultState,
+        sort: sortTodosAction.payload,
+      });
+    });
+
+    it('should handle clear sort action', () => {
+      const todos = createSliceFor('todos');
+
+      const { reducer } = todos;
+      const clearSortAction = createAction('todos/clearTodosSort');
+      expect(
+        reducer({ ...initialDefaultState, sort: {} }, clearSortAction)
+      ).toEqual({
+        ...initialDefaultState,
+        sort: null,
       });
     });
 
@@ -296,6 +351,7 @@ describe('Slice Factory', () => {
         showForm: false,
         schema: null,
         filter: null,
+        sort: null,
       });
     });
   });

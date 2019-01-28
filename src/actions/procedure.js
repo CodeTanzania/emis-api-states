@@ -4,12 +4,18 @@ import { actions, dispatch } from '../store';
 const procedureActions = generateExposedActions('procedure', actions, dispatch);
 
 export const {
+  clearProceduresFilter,
+  clearProceduresSort,
+  closeProcedureForm,
+  filterProcedures,
   getProcedures,
   getProcedure,
   selectProcedure,
-  closeProcedureForm,
   openProcedureForm,
+  paginateProcedures,
   postProcedure,
   putProcedure,
+  searchProcedures,
   setProcedureSchema,
+  sortProcedures,
 } = procedureActions;

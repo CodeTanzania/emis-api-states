@@ -8,12 +8,18 @@ const adjustmentActions = generateExposedActions(
 );
 
 export const {
+  clearAdjustmentsFilter,
+  clearAdjustmentsSort,
+  closeAdjustmentForm,
+  filterAdjustments,
   getAdjustments,
   getAdjustment,
   selectAdjustment,
-  closeAdjustmentForm,
   openAdjustmentForm,
+  paginateAdjustments,
   postAdjustment,
   putAdjustment,
+  searchAdjustments,
   setAdjustmentSchema,
+  sortAdjustments,
 } = adjustmentActions;

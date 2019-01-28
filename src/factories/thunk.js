@@ -16,13 +16,14 @@ import { actions } from '../store';
  * @param {string} resource - resource name
  * @returns {Object} thunks - resource thunks
  *
- * @version 0.1.0
+ * @version 0.2.0
  * @since 0.1.0
  */
 export default function createThunksFor(resource) {
   const pluralName = upperFirst(pluralize(resource));
   const singularName = upperFirst(singularize(resource));
   const resourceName = lowerFirst(singularName);
+  const storeKey = lowerFirst(pluralName);
 
   return {
     [camelize('get', pluralName)]: param => dispatch => {
@@ -96,6 +97,85 @@ export default function createThunksFor(resource) {
             actions[resourceName][camelize('put', singularName, 'failure')](
               error
             )
+          )
+        );
+    },
+    [camelize('filter', pluralName)]: filter => dispatch => {
+      dispatch(actions[resourceName][camelize('filter', pluralName)](filter));
+      dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
+
+      return client[camelize('get', pluralName)]({ filter })
+        .then(data =>
+          dispatch(
+            actions[resourceName][camelize('get', pluralName, 'success')](data)
+          )
+        )
+        .catch(error =>
+          dispatch(
+            actions[resourceName][camelize('get', pluralName, 'failure')](error)
+          )
+        );
+    },
+    [camelize('refresh', pluralName)]: () => (dispatch, getState) => {
+      dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
+
+      const { page, filter } = getState()[storeKey];
+
+      return client[camelize('get', pluralName)]({ page, filter })
+        .then(data =>
+          dispatch(
+            actions[resourceName][camelize('get', pluralName, 'success')](data)
+          )
+        )
+        .catch(error =>
+          dispatch(
+            actions[resourceName][camelize('get', pluralName, 'failure')](error)
+          )
+        );
+    },
+    [camelize('search', pluralName)]: query => dispatch => {
+      dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
+
+      return client[camelize('get', pluralName)]({ q: query })
+        .then(data =>
+          dispatch(
+            actions[resourceName][camelize('get', pluralName, 'success')](data)
+          )
+        )
+        .catch(error =>
+          dispatch(
+            actions[resourceName][camelize('get', pluralName, 'failure')](error)
+          )
+        );
+    },
+    [camelize('sort', pluralName)]: order => dispatch => {
+      dispatch(actions[resourceName][camelize('sort', pluralName)](order));
+      dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
+
+      return client[camelize('get', pluralName)]({ sort: order })
+        .then(data =>
+          dispatch(
+            actions[resourceName][camelize('get', pluralName, 'success')](data)
+          )
+        )
+        .catch(error =>
+          dispatch(
+            actions[resourceName][camelize('get', pluralName, 'failure')](error)
+          )
+        );
+    },
+    [camelize('paginate', pluralName)]: page => dispatch => {
+      dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
+
+      return client[camelize('get', pluralName)]({ page })
+        .then(data =>
+          dispatch(
+            actions[resourceName][camelize('get', pluralName, 'success')](data)
+          )
+        )
+        .catch(error =>
+          dispatch(
+            actions[resourceName][camelize('get', pluralName, 'failure')](error)
           )
         );
     },

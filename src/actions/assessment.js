@@ -8,12 +8,18 @@ const assessmentActions = generateExposedActions(
 );
 
 export const {
+  clearAssessmentsFilter,
+  clearAssessmentsSort,
+  closeAssessmentForm,
+  filterAssessments,
   getAssessments,
   getAssessment,
   selectAssessment,
-  closeAssessmentForm,
   openAssessmentForm,
+  paginateAssessments,
   postAssessment,
   putAssessment,
+  searchAssessments,
   setAssessmentSchema,
+  sortAssessments,
 } = assessmentActions;

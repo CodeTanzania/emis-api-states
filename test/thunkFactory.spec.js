@@ -21,7 +21,7 @@ describe('Thunk Factory', () => {
     expect(typeof thunks.putIncidentType).toBe('function');
   });
 
-  it('should dispatch required actions when fetch resources succeed', () => {
+  it('should dispatch required actions when get resources succeed', () => {
     const store = mockStore({
       plans: {
         list: [],
@@ -49,7 +49,7 @@ describe('Thunk Factory', () => {
     });
   });
 
-  it('should dispatch required actions when fetch resources failed', () => {
+  it('should dispatch required actions when get resources fails', () => {
     const store = mockStore({
       plans: {
         list: [],
@@ -80,6 +80,308 @@ describe('Thunk Factory', () => {
     });
   });
 
+  it('should dispatch required actions when refresh resources succeed', () => {
+    const store = mockStore({
+      plans: {
+        list: [],
+        filter: { name: 'Test' },
+        page: 1,
+      },
+    });
+
+    const mockData = {
+      data: {
+        data: [{ name: 'Finish off' }],
+        page: 1,
+        pages: 1,
+        total: 1,
+      },
+    };
+    getPlans.mockResolvedValueOnce(mockData);
+
+    const planThunks = createThunkFor('plans');
+    const expectedActions = [
+      { type: 'plan/getPlansRequest', payload: undefined },
+      { type: 'plan/getPlansSuccess', payload: mockData },
+    ];
+
+    return store.dispatch(planThunks.refreshPlans()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it('should dispatch required actions when refresh resources fails', () => {
+    const store = mockStore({
+      plans: {
+        list: [],
+      },
+    });
+
+    const error = {
+      status: 404,
+      code: 404,
+      name: 'Error',
+      message: 'Not Found',
+      developerMessage: 'Not Found',
+      userMessage: 'Not Found',
+      error: 'Error',
+      error_description: 'Not Found',
+    };
+
+    getPlans.mockRejectedValueOnce(error);
+
+    const planThunks = createThunkFor('plans');
+    const expectedActions = [
+      { type: 'plan/getPlansRequest', payload: undefined },
+      { type: 'plan/getPlansFailure', payload: error },
+    ];
+
+    return store.dispatch(planThunks.refreshPlans()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it('should dispatch required actions when filter resources succeed', () => {
+    const store = mockStore({
+      plans: {
+        list: [],
+      },
+    });
+
+    const mockData = {
+      data: {
+        data: [{ name: 'Finish off' }],
+        page: 1,
+        pages: 1,
+        total: 1,
+      },
+    };
+    getPlans.mockResolvedValueOnce(mockData);
+
+    const planThunks = createThunkFor('plans');
+    const expectedActions = [
+      { type: 'plan/filterPlans', payload: { name: 'Test' } },
+      { type: 'plan/getPlansRequest', payload: undefined },
+      { type: 'plan/getPlansSuccess', payload: mockData },
+    ];
+
+    return store.dispatch(planThunks.filterPlans({ name: 'Test' })).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it('should dispatch required actions when filter resources fails', () => {
+    const store = mockStore({
+      plans: {
+        list: [],
+        error: null,
+      },
+    });
+
+    const error = {
+      status: 404,
+      code: 404,
+      name: 'Error',
+      message: 'Not Found',
+      developerMessage: 'Not Found',
+      userMessage: 'Not Found',
+      error: 'Error',
+      error_description: 'Not Found',
+    };
+
+    getPlans.mockRejectedValueOnce(error);
+
+    const planThunks = createThunkFor('plans');
+    const expectedActions = [
+      { type: 'plan/filterPlans', payload: { name: 'Test' } },
+      { type: 'plan/getPlansRequest', payload: undefined },
+      { type: 'plan/getPlansFailure', payload: error },
+    ];
+
+    return store.dispatch(planThunks.filterPlans({ name: 'Test' })).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it('should dispatch required actions when search resources succeed', () => {
+    const store = mockStore({
+      plans: {
+        list: [],
+      },
+    });
+
+    const mockData = {
+      data: {
+        data: [{ name: 'Finish off' }],
+        page: 1,
+        pages: 1,
+        total: 1,
+      },
+    };
+    getPlans.mockResolvedValueOnce(mockData);
+
+    const planThunks = createThunkFor('plans');
+    const expectedActions = [
+      { type: 'plan/getPlansRequest', payload: undefined },
+      { type: 'plan/getPlansSuccess', payload: mockData },
+    ];
+
+    return store.dispatch(planThunks.searchPlans('Test')).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it('should dispatch required actions when search resources fails', () => {
+    const store = mockStore({
+      plans: {
+        list: [],
+      },
+    });
+
+    const error = {
+      status: 404,
+      code: 404,
+      name: 'Error',
+      message: 'Not Found',
+      developerMessage: 'Not Found',
+      userMessage: 'Not Found',
+      error: 'Error',
+      error_description: 'Not Found',
+    };
+
+    getPlans.mockRejectedValueOnce(error);
+
+    const planThunks = createThunkFor('plans');
+    const expectedActions = [
+      { type: 'plan/getPlansRequest', payload: undefined },
+      { type: 'plan/getPlansFailure', payload: error },
+    ];
+
+    return store.dispatch(planThunks.searchPlans('Test')).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it('should dispatch required actions when sort resources succeed', () => {
+    const store = mockStore({
+      plans: {
+        list: [],
+      },
+    });
+
+    const mockData = {
+      data: {
+        data: [{ name: 'Finish off' }],
+        page: 1,
+        pages: 1,
+        total: 1,
+      },
+    };
+    getPlans.mockResolvedValueOnce(mockData);
+
+    const planThunks = createThunkFor('plans');
+    const expectedActions = [
+      { type: 'plan/sortPlans', payload: { name: -1 } },
+      { type: 'plan/getPlansRequest', payload: undefined },
+      { type: 'plan/getPlansSuccess', payload: mockData },
+    ];
+
+    return store.dispatch(planThunks.sortPlans({ name: -1 })).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it('should dispatch required actions when sort resources fails', () => {
+    const store = mockStore({
+      plans: {
+        list: [],
+      },
+    });
+
+    const error = {
+      status: 404,
+      code: 404,
+      name: 'Error',
+      message: 'Not Found',
+      developerMessage: 'Not Found',
+      userMessage: 'Not Found',
+      error: 'Error',
+      error_description: 'Not Found',
+    };
+
+    getPlans.mockRejectedValueOnce(error);
+
+    const planThunks = createThunkFor('plans');
+    const expectedActions = [
+      { type: 'plan/sortPlans', payload: { name: -1 } },
+      { type: 'plan/getPlansRequest', payload: undefined },
+      { type: 'plan/getPlansFailure', payload: error },
+    ];
+
+    return store.dispatch(planThunks.sortPlans({ name: -1 })).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it('should dispatch required actions when paginate resources succeed', () => {
+    const store = mockStore({
+      plans: {
+        list: [],
+      },
+    });
+
+    const mockData = {
+      data: {
+        data: [{ name: 'Finish off' }],
+        page: 1,
+        pages: 1,
+        total: 1,
+      },
+    };
+    getPlans.mockResolvedValueOnce(mockData);
+
+    const planThunks = createThunkFor('plans');
+    const expectedActions = [
+      { type: 'plan/getPlansRequest', payload: undefined },
+      { type: 'plan/getPlansSuccess', payload: mockData },
+    ];
+
+    return store.dispatch(planThunks.paginatePlans(1)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it('should dispatch required actions when paginate resources fails', () => {
+    const store = mockStore({
+      plans: {
+        list: [],
+      },
+    });
+
+    const error = {
+      status: 404,
+      code: 404,
+      name: 'Error',
+      message: 'Not Found',
+      developerMessage: 'Not Found',
+      userMessage: 'Not Found',
+      error: 'Error',
+      error_description: 'Not Found',
+    };
+
+    getPlans.mockRejectedValueOnce(error);
+
+    const planThunks = createThunkFor('plans');
+    const expectedActions = [
+      { type: 'plan/getPlansRequest', payload: undefined },
+      { type: 'plan/getPlansFailure', payload: error },
+    ];
+
+    return store.dispatch(planThunks.paginatePlans()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
   it('should dispatch required actions when get a resource succeed', () => {
     const store = mockStore({
       plans: {
@@ -104,7 +406,7 @@ describe('Thunk Factory', () => {
     });
   });
 
-  it('should dispatch required actions when get a resource failed', () => {
+  it('should dispatch required actions when get a resource fails', () => {
     const store = mockStore({
       plans: {
         list: [],
@@ -160,7 +462,7 @@ describe('Thunk Factory', () => {
     });
   });
 
-  it('should dispatch required actions when post a resource failed', () => {
+  it('should dispatch required actions when post a resource fails', () => {
     const store = mockStore({
       plans: {
         list: [],
@@ -215,7 +517,7 @@ describe('Thunk Factory', () => {
     });
   });
 
-  it('should dispatch required actions when put a resource failed', () => {
+  it('should dispatch required actions when put a resource fails', () => {
     const store = mockStore({
       plans: {
         list: [],
