@@ -18,6 +18,7 @@ describe('Slice Factory', () => {
     posting: false,
     showForm: false,
     schema: null,
+    filter: null,
   };
 
   it('should create a slice provided slice name', () => {
@@ -36,6 +37,8 @@ describe('Slice Factory', () => {
     expect(actions.length).toBeGreaterThan(0);
     expect(actions).toEqual([
       'selectTodo',
+      'filterTodos',
+      'clearTodosFilters',
       'getTodosRequest',
       'getTodosSuccess',
       'getTodosFailure',
@@ -140,7 +143,7 @@ describe('Slice Factory', () => {
 
       expect(
         reducer(
-          { ...initialDefaultState, posting: true },
+          { ...initialDefaultState, posting: true, showForm: true },
           postTodoSuccessAction
         )
       ).toEqual({
@@ -161,12 +164,13 @@ describe('Slice Factory', () => {
 
       expect(
         reducer(
-          { ...initialDefaultState, posting: true },
+          { ...initialDefaultState, posting: true, showForm: true },
           postTodoFailureAction
         )
       ).toEqual({
         ...initialDefaultState,
         posting: false,
+        showForm: true,
         error: postTodoFailureAction.payload,
       });
     });
@@ -192,10 +196,14 @@ describe('Slice Factory', () => {
       const putTodoSuccessAction = createAction('todos/putTodoSuccess');
 
       expect(
-        reducer({ ...initialDefaultState, posting: true }, putTodoSuccessAction)
+        reducer(
+          { ...initialDefaultState, posting: true, showForm: true },
+          putTodoSuccessAction
+        )
       ).toEqual({
         ...initialDefaultState,
         posting: false,
+        showForm: false,
       });
     });
 
@@ -210,9 +218,13 @@ describe('Slice Factory', () => {
       );
 
       expect(
-        reducer({ ...initialDefaultState, posting: true }, putTodoFailureAction)
+        reducer(
+          { ...initialDefaultState, posting: true, showForm: true },
+          putTodoFailureAction
+        )
       ).toEqual({
         ...initialDefaultState,
+        showForm: true,
         posting: false,
         error: putTodoFailureAction.payload,
       });
@@ -283,6 +295,7 @@ describe('Slice Factory', () => {
         posting: false,
         showForm: false,
         schema: null,
+        filter: null,
       });
     });
   });
