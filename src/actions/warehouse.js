@@ -15,6 +15,7 @@ export const {
   paginateWarehouses,
   postWarehouse,
   putWarehouse,
+  refreshWarehouses,
   searchWarehouses,
   setWarehouseSchema,
   sortWarehouses,

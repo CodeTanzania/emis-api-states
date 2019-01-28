@@ -15,6 +15,7 @@ describe('Library Index', () => {
     expect(typeof lib.paginateActivities).toBe('function');
     expect(typeof lib.postActivity).toBe('function');
     expect(typeof lib.putActivity).toBe('function');
+    expect(typeof lib.refreshActivities).toBe('function');
     expect(typeof lib.searchActivities).toBe('function');
     expect(typeof lib.setActivitySchema).toBe('function');
     expect(typeof lib.sortActivities).toBe('function');
@@ -30,6 +31,7 @@ describe('Library Index', () => {
     expect(typeof lib.paginateAdjustments).toBe('function');
     expect(typeof lib.postAdjustment).toBe('function');
     expect(typeof lib.putAdjustment).toBe('function');
+    expect(typeof lib.refreshAdjustments).toBe('function');
     expect(typeof lib.searchAdjustments).toBe('function');
     expect(typeof lib.setAdjustmentSchema).toBe('function');
     expect(typeof lib.sortAdjustments).toBe('function');
@@ -45,6 +47,7 @@ describe('Library Index', () => {
     expect(typeof lib.paginateAlerts).toBe('function');
     expect(typeof lib.postAlert).toBe('function');
     expect(typeof lib.putAlert).toBe('function');
+    expect(typeof lib.refreshAlerts).toBe('function');
     expect(typeof lib.searchAlerts).toBe('function');
     expect(typeof lib.setAlertSchema).toBe('function');
     expect(typeof lib.sortAlerts).toBe('function');
@@ -60,6 +63,7 @@ describe('Library Index', () => {
     expect(typeof lib.paginateAssessments).toBe('function');
     expect(typeof lib.postAssessment).toBe('function');
     expect(typeof lib.putAssessment).toBe('function');
+    expect(typeof lib.refreshAssessments).toBe('function');
     expect(typeof lib.searchAssessments).toBe('function');
     expect(typeof lib.setAssessmentSchema).toBe('function');
     expect(typeof lib.sortAssessments).toBe('function');
@@ -75,6 +79,7 @@ describe('Library Index', () => {
     expect(typeof lib.paginatePlans).toBe('function');
     expect(typeof lib.postPlan).toBe('function');
     expect(typeof lib.putPlan).toBe('function');
+    expect(typeof lib.refreshPlans).toBe('function');
     expect(typeof lib.searchPlans).toBe('function');
     expect(typeof lib.setPlanSchema).toBe('function');
     expect(typeof lib.sortPlans).toBe('function');
@@ -90,9 +95,11 @@ describe('Library Index', () => {
     expect(typeof lib.paginateFeatures).toBe('function');
     expect(typeof lib.postFeature).toBe('function');
     expect(typeof lib.putFeature).toBe('function');
+    expect(typeof lib.refreshFeatures).toBe('function');
     expect(typeof lib.searchFeatures).toBe('function');
     expect(typeof lib.setFeatureSchema).toBe('function');
     expect(typeof lib.sortFeatures).toBe('function');
+
     expect(typeof lib.clearIncidentsFilter).toBe('function');
     expect(typeof lib.clearIncidentsSort).toBe('function');
     expect(typeof lib.closeIncidentForm).toBe('function');
@@ -104,9 +111,11 @@ describe('Library Index', () => {
     expect(typeof lib.paginateIncidents).toBe('function');
     expect(typeof lib.postIncident).toBe('function');
     expect(typeof lib.putIncident).toBe('function');
+    expect(typeof lib.refreshIncidents).toBe('function');
     expect(typeof lib.searchIncidents).toBe('function');
     expect(typeof lib.setIncidentSchema).toBe('function');
     expect(typeof lib.sortIncidents).toBe('function');
+
     expect(typeof lib.clearIncidentTypesFilter).toBe('function');
     expect(typeof lib.clearIncidentTypesSort).toBe('function');
     expect(typeof lib.closeIncidentTypeForm).toBe('function');
@@ -118,9 +127,11 @@ describe('Library Index', () => {
     expect(typeof lib.paginateIncidentTypes).toBe('function');
     expect(typeof lib.postIncidentType).toBe('function');
     expect(typeof lib.putIncidentType).toBe('function');
+    expect(typeof lib.refreshIncidentTypes).toBe('function');
     expect(typeof lib.searchIncidentTypes).toBe('function');
     expect(typeof lib.setIncidentTypeSchema).toBe('function');
     expect(typeof lib.sortIncidentTypes).toBe('function');
+
     expect(typeof lib.clearIndicatorsFilter).toBe('function');
     expect(typeof lib.clearIndicatorsSort).toBe('function');
     expect(typeof lib.closeIndicatorForm).toBe('function');
@@ -132,9 +143,11 @@ describe('Library Index', () => {
     expect(typeof lib.paginateIndicators).toBe('function');
     expect(typeof lib.postIndicator).toBe('function');
     expect(typeof lib.putIndicator).toBe('function');
+    expect(typeof lib.refreshIndicators).toBe('function');
     expect(typeof lib.searchIndicators).toBe('function');
     expect(typeof lib.setIndicatorSchema).toBe('function');
     expect(typeof lib.sortIndicators).toBe('function');
+
     expect(typeof lib.clearItemsFilter).toBe('function');
     expect(typeof lib.clearItemsSort).toBe('function');
     expect(typeof lib.closeItemForm).toBe('function');
@@ -146,9 +159,11 @@ describe('Library Index', () => {
     expect(typeof lib.paginateItems).toBe('function');
     expect(typeof lib.postItem).toBe('function');
     expect(typeof lib.putItem).toBe('function');
+    expect(typeof lib.refreshItems).toBe('function');
     expect(typeof lib.searchItems).toBe('function');
     expect(typeof lib.setItemSchema).toBe('function');
     expect(typeof lib.sortItems).toBe('function');
+
     expect(typeof lib.clearProceduresFilter).toBe('function');
     expect(typeof lib.clearProceduresSort).toBe('function');
     expect(typeof lib.closeProcedureForm).toBe('function');
@@ -160,9 +175,11 @@ describe('Library Index', () => {
     expect(typeof lib.paginateProcedures).toBe('function');
     expect(typeof lib.postProcedure).toBe('function');
     expect(typeof lib.putProcedure).toBe('function');
+    expect(typeof lib.refreshProcedures).toBe('function');
     expect(typeof lib.searchProcedures).toBe('function');
     expect(typeof lib.setProcedureSchema).toBe('function');
     expect(typeof lib.sortProcedures).toBe('function');
+
     expect(typeof lib.clearQuestionsFilter).toBe('function');
     expect(typeof lib.clearQuestionsSort).toBe('function');
     expect(typeof lib.closeQuestionForm).toBe('function');
@@ -174,9 +191,11 @@ describe('Library Index', () => {
     expect(typeof lib.paginateQuestions).toBe('function');
     expect(typeof lib.postQuestion).toBe('function');
     expect(typeof lib.putQuestion).toBe('function');
+    expect(typeof lib.refreshQuestions).toBe('function');
     expect(typeof lib.searchQuestions).toBe('function');
     expect(typeof lib.setQuestionSchema).toBe('function');
     expect(typeof lib.sortQuestions).toBe('function');
+
     expect(typeof lib.clearQuestionnairesFilter).toBe('function');
     expect(typeof lib.clearQuestionnairesSort).toBe('function');
     expect(typeof lib.closeQuestionnaireForm).toBe('function');
@@ -188,9 +207,11 @@ describe('Library Index', () => {
     expect(typeof lib.paginateQuestionnaires).toBe('function');
     expect(typeof lib.postQuestionnaire).toBe('function');
     expect(typeof lib.putQuestionnaire).toBe('function');
+    expect(typeof lib.refreshQuestionnaires).toBe('function');
     expect(typeof lib.searchQuestionnaires).toBe('function');
     expect(typeof lib.setQuestionnaireSchema).toBe('function');
     expect(typeof lib.sortQuestionnaires).toBe('function');
+
     expect(typeof lib.clearResourcesFilter).toBe('function');
     expect(typeof lib.clearResourcesSort).toBe('function');
     expect(typeof lib.closeResourceForm).toBe('function');
@@ -202,9 +223,11 @@ describe('Library Index', () => {
     expect(typeof lib.paginateResources).toBe('function');
     expect(typeof lib.postResource).toBe('function');
     expect(typeof lib.putResource).toBe('function');
+    expect(typeof lib.refreshResources).toBe('function');
     expect(typeof lib.searchResources).toBe('function');
     expect(typeof lib.setResourceSchema).toBe('function');
     expect(typeof lib.sortResources).toBe('function');
+
     expect(typeof lib.clearRolesFilter).toBe('function');
     expect(typeof lib.clearRolesSort).toBe('function');
     expect(typeof lib.closeRoleForm).toBe('function');
@@ -216,9 +239,11 @@ describe('Library Index', () => {
     expect(typeof lib.paginateRoles).toBe('function');
     expect(typeof lib.postRole).toBe('function');
     expect(typeof lib.putRole).toBe('function');
+    expect(typeof lib.refreshRoles).toBe('function');
     expect(typeof lib.searchRoles).toBe('function');
     expect(typeof lib.setRoleSchema).toBe('function');
     expect(typeof lib.sortRoles).toBe('function');
+
     expect(typeof lib.clearStakeholdersFilter).toBe('function');
     expect(typeof lib.clearStakeholdersSort).toBe('function');
     expect(typeof lib.closeStakeholderForm).toBe('function');
@@ -230,9 +255,11 @@ describe('Library Index', () => {
     expect(typeof lib.paginateStakeholders).toBe('function');
     expect(typeof lib.postStakeholder).toBe('function');
     expect(typeof lib.putStakeholder).toBe('function');
+    expect(typeof lib.refreshStakeholders).toBe('function');
     expect(typeof lib.searchStakeholders).toBe('function');
     expect(typeof lib.setStakeholderSchema).toBe('function');
     expect(typeof lib.sortStakeholders).toBe('function');
+
     expect(typeof lib.clearWarehousesFilter).toBe('function');
     expect(typeof lib.clearWarehousesSort).toBe('function');
     expect(typeof lib.closeWarehouseForm).toBe('function');
@@ -244,6 +271,7 @@ describe('Library Index', () => {
     expect(typeof lib.paginateWarehouses).toBe('function');
     expect(typeof lib.postWarehouse).toBe('function');
     expect(typeof lib.putWarehouse).toBe('function');
+    expect(typeof lib.refreshWarehouses).toBe('function');
     expect(typeof lib.searchWarehouses).toBe('function');
     expect(typeof lib.setWarehouseSchema).toBe('function');
     expect(typeof lib.sortWarehouses).toBe('function');

@@ -15,6 +15,7 @@ export const {
   paginateItems,
   postItem,
   putItem,
+  refreshItems,
   searchItems,
   setItemSchema,
   sortItems,

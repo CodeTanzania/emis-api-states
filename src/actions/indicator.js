@@ -15,6 +15,7 @@ export const {
   paginateIndicators,
   postIndicator,
   putIndicator,
+  refreshIndicators,
   searchIndicators,
   setIndicatorSchema,
   sortIndicators,

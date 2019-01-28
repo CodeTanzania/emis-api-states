@@ -19,6 +19,7 @@ export const {
   paginateQuestionnaires,
   postQuestionnaire,
   putQuestionnaire,
+  refreshQuestionnaires,
   searchQuestionnaires,
   setQuestionnaireSchema,
   sortQuestionnaires,

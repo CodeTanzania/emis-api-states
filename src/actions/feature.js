@@ -15,6 +15,7 @@ export const {
   paginateFeatures,
   postFeature,
   putFeature,
+  refreshFeatures,
   searchFeatures,
   setFeatureSchema,
   sortFeatures,

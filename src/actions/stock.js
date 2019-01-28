@@ -15,6 +15,7 @@ export const {
   paginateStocks,
   postStock,
   putStock,
+  refreshStocks,
   searchStocks,
   setStockSchema,
   sortStocks,

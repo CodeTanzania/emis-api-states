@@ -19,6 +19,7 @@ export const {
   paginateAssessments,
   postAssessment,
   putAssessment,
+  refreshAssessments,
   searchAssessments,
   setAssessmentSchema,
   sortAssessments,

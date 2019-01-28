@@ -15,6 +15,7 @@ export const {
   paginatePlans,
   postPlan,
   putPlan,
+  refreshPlans,
   searchPlans,
   setPlanSchema,
   sortPlans,

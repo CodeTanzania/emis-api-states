@@ -19,6 +19,7 @@ export const {
   paginateIncidentTypes,
   postIncidentType,
   putIncidentType,
+  refreshIncidentTypes,
   searchIncidentTypes,
   setIncidentTypeSchema,
   sortIncidentTypes,

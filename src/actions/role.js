@@ -15,6 +15,7 @@ export const {
   paginateRoles,
   postRole,
   putRole,
+  refreshRoles,
   searchRoles,
   setRoleSchema,
   sortRoles,

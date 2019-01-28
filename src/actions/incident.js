@@ -15,6 +15,7 @@ export const {
   paginateIncidents,
   postIncident,
   putIncident,
+  refreshIncidents,
   searchIncidents,
   setIncidentSchema,
   sortIncidents,
