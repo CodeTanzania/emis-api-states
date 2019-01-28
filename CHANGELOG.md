@@ -1,3 +1,14 @@
+#### 0.5.1 (2019-01-28)
+
+##### Chores
+
+* **build:**  prepare v0.5.1 ([feb32379](https://github.com/CodeTanzania/emis-api-states/commit/feb323797841c009bd35ea5bfdad26dc101e0903))
+* **package.json:**  update package version to 0.5.1 ([737be975](https://github.com/CodeTanzania/emis-api-states/commit/737be975613bfb89325425c97c66ee0624cf92dc))
+
+##### Bug Fixes
+
+* **thunk factory:**  reload on put and post success action ([642892f1](https://github.com/CodeTanzania/emis-api-states/commit/642892f1ae72e10764d0b887f3b97e4fd3351c52))
+
 #### 0.5.0 (2019-01-28)
 
 ##### Chores

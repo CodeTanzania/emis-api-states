@@ -36,6 +36,7 @@ describe('Thunk Factory', () => {
         total: 1,
       },
     };
+
     getPlans.mockResolvedValueOnce(mockData);
 
     const planThunks = createThunkFor('plans');
@@ -105,9 +106,16 @@ describe('Thunk Factory', () => {
       { type: 'plan/getPlansSuccess', payload: mockData },
     ];
 
-    return store.dispatch(planThunks.refreshPlans()).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    const onSuccess = jest.fn();
+    const onError = jest.fn();
+
+    return store
+      .dispatch(planThunks.refreshPlans(onSuccess, onError))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(onSuccess).toHaveBeenCalled();
+        expect(onError).toHaveBeenCalledTimes(0);
+      });
   });
 
   it('should dispatch required actions when refresh resources fails', () => {
@@ -135,10 +143,16 @@ describe('Thunk Factory', () => {
       { type: 'plan/getPlansRequest', payload: undefined },
       { type: 'plan/getPlansFailure', payload: error },
     ];
+    const onSuccess = jest.fn();
+    const onError = jest.fn();
 
-    return store.dispatch(planThunks.refreshPlans()).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    return store
+      .dispatch(planThunks.refreshPlans(onSuccess, onError))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(onSuccess).toHaveBeenCalledTimes(0);
+        expect(onError).toHaveBeenCalledTimes(1);
+      });
   });
 
   it('should dispatch required actions when filter resources succeed', () => {
@@ -165,9 +179,16 @@ describe('Thunk Factory', () => {
       { type: 'plan/getPlansSuccess', payload: mockData },
     ];
 
-    return store.dispatch(planThunks.filterPlans({ name: 'Test' })).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    const onSuccess = jest.fn();
+    const onError = jest.fn();
+
+    return store
+      .dispatch(planThunks.filterPlans({ name: 'Test' }, onSuccess, onError))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(onSuccess).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledTimes(0);
+      });
   });
 
   it('should dispatch required actions when filter resources fails', () => {
@@ -198,9 +219,16 @@ describe('Thunk Factory', () => {
       { type: 'plan/getPlansFailure', payload: error },
     ];
 
-    return store.dispatch(planThunks.filterPlans({ name: 'Test' })).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    const onSuccess = jest.fn();
+    const onError = jest.fn();
+
+    return store
+      .dispatch(planThunks.filterPlans({ name: 'Test' }, onSuccess, onError))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(onSuccess).toHaveBeenCalledTimes(0);
+        expect(onError).toHaveBeenCalledTimes(1);
+      });
   });
 
   it('should dispatch required actions when search resources succeed', () => {
@@ -226,9 +254,16 @@ describe('Thunk Factory', () => {
       { type: 'plan/getPlansSuccess', payload: mockData },
     ];
 
-    return store.dispatch(planThunks.searchPlans('Test')).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    const onSuccess = jest.fn();
+    const onError = jest.fn();
+
+    return store
+      .dispatch(planThunks.searchPlans('Test', onSuccess, onError))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(onSuccess).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledTimes(0);
+      });
   });
 
   it('should dispatch required actions when search resources fails', () => {
@@ -257,9 +292,16 @@ describe('Thunk Factory', () => {
       { type: 'plan/getPlansFailure', payload: error },
     ];
 
-    return store.dispatch(planThunks.searchPlans('Test')).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    const onSuccess = jest.fn();
+    const onError = jest.fn();
+
+    return store
+      .dispatch(planThunks.searchPlans('Test', onSuccess, onError))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(onSuccess).toHaveBeenCalledTimes(0);
+        expect(onError).toHaveBeenCalledTimes(1);
+      });
   });
 
   it('should dispatch required actions when sort resources succeed', () => {
@@ -286,9 +328,16 @@ describe('Thunk Factory', () => {
       { type: 'plan/getPlansSuccess', payload: mockData },
     ];
 
-    return store.dispatch(planThunks.sortPlans({ name: -1 })).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    const onSuccess = jest.fn();
+    const onError = jest.fn();
+
+    return store
+      .dispatch(planThunks.sortPlans({ name: -1 }, onSuccess, onError))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(onSuccess).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledTimes(0);
+      });
   });
 
   it('should dispatch required actions when sort resources fails', () => {
@@ -317,10 +366,16 @@ describe('Thunk Factory', () => {
       { type: 'plan/getPlansRequest', payload: undefined },
       { type: 'plan/getPlansFailure', payload: error },
     ];
+    const onSuccess = jest.fn();
+    const onError = jest.fn();
 
-    return store.dispatch(planThunks.sortPlans({ name: -1 })).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    return store
+      .dispatch(planThunks.sortPlans({ name: -1 }, onSuccess, onError))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(onSuccess).toHaveBeenCalledTimes(0);
+        expect(onError).toHaveBeenCalledTimes(1);
+      });
   });
 
   it('should dispatch required actions when paginate resources succeed', () => {
@@ -346,9 +401,16 @@ describe('Thunk Factory', () => {
       { type: 'plan/getPlansSuccess', payload: mockData },
     ];
 
-    return store.dispatch(planThunks.paginatePlans(1)).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    const onSuccess = jest.fn();
+    const onError = jest.fn();
+
+    return store
+      .dispatch(planThunks.paginatePlans(1, onSuccess, onError))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(onSuccess).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledTimes(0);
+      });
   });
 
   it('should dispatch required actions when paginate resources fails', () => {
@@ -377,9 +439,16 @@ describe('Thunk Factory', () => {
       { type: 'plan/getPlansFailure', payload: error },
     ];
 
-    return store.dispatch(planThunks.paginatePlans()).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    const onSuccess = jest.fn();
+    const onError = jest.fn();
+
+    return store
+      .dispatch(planThunks.paginatePlans(1, onSuccess, onError))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(onSuccess).toHaveBeenCalledTimes(0);
+        expect(onError).toHaveBeenCalledTimes(1);
+      });
   });
 
   it('should dispatch required actions when get a resource succeed', () => {
@@ -449,17 +518,36 @@ describe('Thunk Factory', () => {
       },
     };
 
+    const mockGetData = {
+      data: {
+        data: [{ name: 'Finish off' }],
+        page: 1,
+        pages: 1,
+        total: 1,
+      },
+    };
+
     postPlan.mockResolvedValueOnce(mockData);
+    getPlans.mockResolvedValueOnce(mockGetData);
+
+    const onSuccess = jest.fn();
+    const onError = jest.fn();
 
     const planThunks = createThunkFor('plans');
     const expectedActions = [
       { type: 'plan/postPlanRequest', payload: undefined },
       { type: 'plan/postPlanSuccess', payload: mockData },
+      { type: 'plan/getPlansRequest', payload: undefined },
+      { type: 'plan/getPlansSuccess', payload: mockGetData },
     ];
 
-    return store.dispatch(planThunks.postPlan({})).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    return store
+      .dispatch(planThunks.postPlan({}, onSuccess, onError))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(onSuccess).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledTimes(0);
+      });
   });
 
   it('should dispatch required actions when post a resource fails', () => {
@@ -488,9 +576,16 @@ describe('Thunk Factory', () => {
       { type: 'plan/postPlanFailure', payload: error },
     ];
 
-    return store.dispatch(planThunks.postPlan({})).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    const onSuccess = jest.fn();
+    const onError = jest.fn();
+
+    return store
+      .dispatch(planThunks.postPlan({}, onSuccess, onError))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(onSuccess).toHaveBeenCalledTimes(0);
+        expect(onError).toHaveBeenCalledTimes(1);
+      });
   });
 
   it('should dispatch required actions when put a resource succeed', () => {
@@ -504,17 +599,36 @@ describe('Thunk Factory', () => {
       name: 'Finish off',
     };
 
+    const mockGetData = {
+      data: {
+        data: [{ name: 'Finish off' }],
+        page: 1,
+        pages: 1,
+        total: 1,
+      },
+    };
+
+    const onSuccess = jest.fn();
+    const onError = jest.fn();
+
     putPlan.mockResolvedValueOnce(mockData);
+    getPlans.mockResolvedValueOnce(mockGetData);
 
     const planThunks = createThunkFor('plans');
     const expectedActions = [
       { type: 'plan/putPlanRequest', payload: undefined },
       { type: 'plan/putPlanSuccess', payload: mockData },
+      { type: 'plan/getPlansRequest', payload: undefined },
+      { type: 'plan/getPlansSuccess', payload: mockGetData },
     ];
 
-    return store.dispatch(planThunks.putPlan({})).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    return store
+      .dispatch(planThunks.putPlan({}, onSuccess, onError))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(onSuccess).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledTimes(0);
+      });
   });
 
   it('should dispatch required actions when put a resource fails', () => {
@@ -542,9 +656,15 @@ describe('Thunk Factory', () => {
       { type: 'plan/putPlanRequest', payload: undefined },
       { type: 'plan/putPlanFailure', payload: error },
     ];
+    const onSuccess = jest.fn();
+    const onError = jest.fn();
 
-    return store.dispatch(planThunks.putPlan({})).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    return store
+      .dispatch(planThunks.putPlan({}, onSuccess, onError))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(onSuccess).toHaveBeenCalledTimes(0);
+        expect(onError).toHaveBeenCalledTimes(1);
+      });
   });
 });

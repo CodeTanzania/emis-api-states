@@ -323,14 +323,14 @@ var dispatch = store.dispatch;
  * @since 0.1.0
  */
 function createThunksFor(resource) {
-  var _ref;
-
   var pluralName = upperFirst(pluralize(resource));
   var singularName = upperFirst(singularize(resource));
   var resourceName = lowerFirst(singularName);
   var storeKey = lowerFirst(pluralName);
 
-  return _ref = {}, defineProperty(_ref, camelize('get', pluralName), function (param) {
+  var thunks = {};
+
+  thunks[camelize('get', pluralName)] = function (param) {
     return function (dispatch$$1) {
       dispatch$$1(actions[resourceName][camelize('get', pluralName, 'request')]());
       return client[camelize('get', pluralName)](param).then(function (data) {
@@ -339,7 +339,31 @@ function createThunksFor(resource) {
         return dispatch$$1(actions[resourceName][camelize('get', pluralName, 'failure')](error));
       });
     };
-  }), defineProperty(_ref, camelize('get', singularName), function (param) {
+  };
+
+  thunks[camelize('get', pluralName)] = function (param) {
+    return function (dispatch$$1) {
+      dispatch$$1(actions[resourceName][camelize('get', pluralName, 'request')]());
+      return client[camelize('get', pluralName)](param).then(function (data) {
+        return dispatch$$1(actions[resourceName][camelize('get', pluralName, 'success')](data));
+      }).catch(function (error) {
+        return dispatch$$1(actions[resourceName][camelize('get', pluralName, 'failure')](error));
+      });
+    };
+  };
+
+  thunks[camelize('get', pluralName)] = function (param) {
+    return function (dispatch$$1) {
+      dispatch$$1(actions[resourceName][camelize('get', pluralName, 'request')]());
+      return client[camelize('get', pluralName)](param).then(function (data) {
+        return dispatch$$1(actions[resourceName][camelize('get', pluralName, 'success')](data));
+      }).catch(function (error) {
+        return dispatch$$1(actions[resourceName][camelize('get', pluralName, 'failure')](error));
+      });
+    };
+  };
+
+  thunks[camelize('get', singularName)] = function (param) {
     return function (dispatch$$1) {
       dispatch$$1(actions[resourceName][camelize('get', singularName, 'request')]());
       return client[camelize('get', singularName)](param).then(function (data) {
@@ -348,11 +372,15 @@ function createThunksFor(resource) {
         return dispatch$$1(actions[resourceName][camelize('get', singularName, 'failure')](error));
       });
     };
-  }), defineProperty(_ref, camelize('post', singularName), function (param, onSuccess, onError) {
+  };
+
+  thunks[camelize('post', singularName)] = function (param, onSuccess, onError) {
     return function (dispatch$$1) {
       dispatch$$1(actions[resourceName][camelize('post', singularName, 'request')]());
       return client[camelize('post', singularName)](param).then(function (data) {
         dispatch$$1(actions[resourceName][camelize('post', singularName, 'success')](data));
+
+        dispatch$$1(thunks[camelize('get', pluralName)]());
 
         // custom provided onSuccess callback
         if (isFunction(onSuccess)) {
@@ -367,11 +395,15 @@ function createThunksFor(resource) {
         }
       });
     };
-  }), defineProperty(_ref, camelize('put', singularName), function (param, onSuccess, onError) {
+  };
+
+  thunks[camelize('put', singularName)] = function (param, onSuccess, onError) {
     return function (dispatch$$1) {
       dispatch$$1(actions[resourceName][camelize('put', singularName, 'request')]());
       return client[camelize('put', singularName)](param).then(function (data) {
         dispatch$$1(actions[resourceName][camelize('put', singularName, 'success')](data));
+
+        dispatch$$1(thunks[camelize('get', pluralName)]());
 
         // custom provided onSuccess callback
         if (isFunction(onSuccess)) {
@@ -386,7 +418,9 @@ function createThunksFor(resource) {
         }
       });
     };
-  }), defineProperty(_ref, camelize('filter', pluralName), function (filter, onSuccess, onError) {
+  };
+
+  thunks[camelize('filter', pluralName)] = function (filter, onSuccess, onError) {
     return function (dispatch$$1) {
       dispatch$$1(actions[resourceName][camelize('filter', pluralName)](filter));
       dispatch$$1(actions[resourceName][camelize('get', pluralName, 'request')]());
@@ -407,7 +441,9 @@ function createThunksFor(resource) {
         }
       });
     };
-  }), defineProperty(_ref, camelize('refresh', pluralName), function (onSuccess, onError) {
+  };
+
+  thunks[camelize('refresh', pluralName)] = function (onSuccess, onError) {
     return function (dispatch$$1, getState) {
       dispatch$$1(actions[resourceName][camelize('get', pluralName, 'request')]());
 
@@ -432,7 +468,9 @@ function createThunksFor(resource) {
         }
       });
     };
-  }), defineProperty(_ref, camelize('search', pluralName), function (query, onSuccess, onError) {
+  };
+
+  thunks[camelize('search', pluralName)] = function (query, onSuccess, onError) {
     return function (dispatch$$1) {
       dispatch$$1(actions[resourceName][camelize('get', pluralName, 'request')]());
 
@@ -452,7 +490,9 @@ function createThunksFor(resource) {
         }
       });
     };
-  }), defineProperty(_ref, camelize('sort', pluralName), function (order, onSuccess, onError) {
+  };
+
+  thunks[camelize('sort', pluralName)] = function (order, onSuccess, onError) {
     return function (dispatch$$1) {
       dispatch$$1(actions[resourceName][camelize('sort', pluralName)](order));
       dispatch$$1(actions[resourceName][camelize('get', pluralName, 'request')]());
@@ -473,7 +513,9 @@ function createThunksFor(resource) {
         }
       });
     };
-  }), defineProperty(_ref, camelize('paginate', pluralName), function (page, onSuccess, onError) {
+  };
+
+  thunks[camelize('paginate', pluralName)] = function (page, onSuccess, onError) {
     return function (dispatch$$1) {
       dispatch$$1(actions[resourceName][camelize('get', pluralName, 'request')]());
 
@@ -493,7 +535,9 @@ function createThunksFor(resource) {
         }
       });
     };
-  }), _ref;
+  };
+
+  return thunks;
 }
 
 /**
