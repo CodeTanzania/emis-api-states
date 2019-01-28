@@ -1,3 +1,14 @@
+#### 0.5.2 (2019-01-28)
+
+##### Chores
+
+* **build:**  bundle library for v0.5.2 ([716e248d](https://github.com/CodeTanzania/emis-api-states/commit/716e248df8fac3708dade6f335fd8957e631f428))
+* **package.json:**  update package version to 0.5.2 ([10339dee](https://github.com/CodeTanzania/emis-api-states/commit/10339dee6dba7d172b73ed4c9fe36fdab497a097))
+
+##### Bug Fixes
+
+* **actions:**  expose refresh thunk ([0c76a38e](https://github.com/CodeTanzania/emis-api-states/commit/0c76a38e98faa3ab190c1d16429a905a5877c372))
+
 #### 0.5.1 (2019-01-28)
 
 ##### Chores
