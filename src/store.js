@@ -1,8 +1,14 @@
 import { pluralize } from 'inflection';
 import forIn from 'lodash/forIn';
+import merge from 'lodash/merge';
 import { combineReducers } from 'redux';
 import { configureStore } from 'redux-starter-kit';
 import createResourceFor from './factories/slice';
+
+/* application action types */
+export const INITIALIZE_APP_START = 'app/initialize';
+export const INITIALIZE_APP_SUCCESS = 'app/initializeSuccess';
+export const INITIALIZE_APP_FAILURE = 'app/initializeFailure';
 
 /**
  * @function
@@ -93,6 +99,35 @@ export function createResourcesSlices(resources) {
   return slices;
 }
 
+/**
+ * App reducer for controlling application initialization state
+ *
+ * @function
+ * @name app
+ *
+ * @param {Object} state - previous app state value
+ * @param {Object} action - dispatched action object
+ * @returns {Object} - updated app state
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+export function app(state = { loading: false, error: null }, action) {
+  switch (action.type) {
+    case INITIALIZE_APP_START:
+      return Object.assign({}, state, { loading: true });
+    case INITIALIZE_APP_SUCCESS:
+      return Object.assign({}, state, { loading: false });
+    case INITIALIZE_APP_FAILURE:
+      return Object.assign({}, state, {
+        loading: false,
+        error: action.payload,
+      });
+    default:
+      return state;
+  }
+}
+
 // all resources exposed by this library
 const resources = [
   'activity',
@@ -111,14 +146,16 @@ const resources = [
   'resource',
   'role',
   'stakeholder',
+  'stock',
   'warehouse',
 ];
 
 const slices = createResourcesSlices(resources);
 
 const reducers = mapSliceReducers(resources, slices);
+const allReducers = merge({}, reducers, { app });
 
-const rootReducer = combineReducers(reducers);
+const rootReducer = combineReducers(allReducers);
 
 export const store = configureStore({
   reducer: rootReducer,

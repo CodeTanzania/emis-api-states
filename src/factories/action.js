@@ -59,12 +59,12 @@ export default function generateExposedActions(
 
   extractedActions[camelize('clear', pluralName, 'filter')] = get(
     actions[resource],
-    camelize('clear', '', 'filter')
+    camelize('clear', pluralName, 'filter')
   );
 
   extractedActions[camelize('clear', pluralName, 'sort')] = get(
     actions[resource],
-    camelize('clear', '', 'sort')
+    camelize('clear', pluralName, 'sort')
   );
 
   const allActions = merge({}, extractedActions, generatedThunks);
