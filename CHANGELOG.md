@@ -1,3 +1,29 @@
+#### 0.5.0 (2019-01-28)
+
+##### Chores
+
+* **build:**  build release 0.5.0 ([97126977](https://github.com/CodeTanzania/emis-api-states/commit/97126977b10799d6d2af66ebd1ae41fd629632f6))
+* **dependencies:**  update dependencies to latest versions ([f34633b7](https://github.com/CodeTanzania/emis-api-states/commit/f34633b74eda10840e998a2ce1b2a90f96f09bda))
+* **package.json:**
+  *  update version to 0.5.0 ([5f30b2e1](https://github.com/CodeTanzania/emis-api-states/commit/5f30b2e14c641d26163e35f55611eb77fc5b7363))
+  *  fix issue with lint-staged hook ([88838da1](https://github.com/CodeTanzania/emis-api-states/commit/88838da1c8cc2cc8ff3c016f54074a876313afcb))
+*  update lint-stage commit add . to commit add -A ([6f8a5a8f](https://github.com/CodeTanzania/emis-api-states/commit/6f8a5a8f3f566bdbb71cf3985b8b100ae12e652d))
+*  force latest dependencies ([2d515d5a](https://github.com/CodeTanzania/emis-api-states/commit/2d515d5a781f84b42e316f89c6c1d26da3c8597a))
+
+##### Continuous Integration
+
+* **travis:**  fix external dependency issue ([47f45d38](https://github.com/CodeTanzania/emis-api-states/commit/47f45d38ce9987adf6218eb853cae808616bb20c))
+
+##### New Features
+
+* **thunk factory:**  add onSuccess and onError callback support ([113f30c0](https://github.com/CodeTanzania/emis-api-states/commit/113f30c0638244f8f36801d1b1bd043e3f565dbe))
+* **schemas:**  allow loading schema on state initialization ([7d5f66eb](https://github.com/CodeTanzania/emis-api-states/commit/7d5f66eb3c299d2ee65c9aac05504fad823e7420))
+* ***:**  add search,paginate,filter and sort shortcuts ([ce54b407](https://github.com/CodeTanzania/emis-api-states/commit/ce54b4070edeab0d86c1c51f6077af4297eaeb6b))
+
+##### Bug Fixes
+
+* **reducers:**  hide form when post/put action is successfully ([9c0f34f3](https://github.com/CodeTanzania/emis-api-states/commit/9c0f34f3127f0a97ce7c24efd2bb87cd93da917e))
+
 #### 0.3.2 (2019-01-25)
 
 ##### Build System / Dependencies
