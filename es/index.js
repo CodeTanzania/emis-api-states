@@ -754,6 +754,7 @@ function initializeApp() {
       var setActivitySchema = actions.activity.setActivitySchema,
           setAdjustmentSchema = actions.adjustment.setAdjustmentSchema,
           setAlertSchema = actions.alert.setAlertSchema,
+          setAlertSourceSchema = actions.alertSource.setAlertSourceSchema,
           setFeatureSchema = actions.feature.setFeatureSchema,
           setIndicatorSchema = actions.indicator.setIndicatorSchema,
           setItemSchema = actions.item.setItemSchema,
@@ -768,6 +769,7 @@ function initializeApp() {
       var activitySchema = schemas.Activity,
           adjustmentSchema = schemas.Adjustment,
           alertSchema = schemas.Alert,
+          alertSourceSchema = schemas.AlertSource,
           featureSchema = schemas.Feature,
           incidentTypeSchema = schemas.IncidentType,
           indicatorSchema = schemas.Indicator,
@@ -784,6 +786,7 @@ function initializeApp() {
       dispatch$$1(setActivitySchema(activitySchema));
       dispatch$$1(setAdjustmentSchema(adjustmentSchema));
       dispatch$$1(setAlertSchema(alertSchema));
+      dispatch$$1(setAlertSourceSchema(alertSourceSchema));
       dispatch$$1(setFeatureSchema(featureSchema));
       dispatch$$1(setIndicatorSchema(indicatorSchema));
       dispatch$$1(setIncidentTypeSchema(incidentTypeSchema));
