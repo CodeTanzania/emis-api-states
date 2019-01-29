@@ -44,6 +44,7 @@ describe('App Actions', () => {
         Message: {},
         Party: {},
         Alert: {},
+        AlertSource: {},
         Item: {},
         Stock: {},
         Adjustment: {},
@@ -66,6 +67,10 @@ describe('App Actions', () => {
           payload: mockData.Adjustment,
         },
         { type: 'alert/setAlertSchema', payload: mockData.Alert },
+        {
+          type: 'alertSource/setAlertSourceSchema',
+          payload: mockData.AlertSource,
+        },
         { type: 'feature/setFeatureSchema', payload: mockData.Feature },
         { type: 'indicator/setIndicatorSchema', payload: mockData.Indicator },
         {
