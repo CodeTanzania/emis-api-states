@@ -1,3 +1,14 @@
+#### 0.6.1 (2019-01-29)
+
+##### Chores
+
+* **build:**  bundle library for version 0.6.1 ([0bdc8105](https://github.com/CodeTanzania/emis-api-states/commit/0bdc81056f40f971114d457844617c16bdf38c04))
+* **package.json:**  update package version to 0.6.1 ([3cd79377](https://github.com/CodeTanzania/emis-api-states/commit/3cd79377d7437f128222163b6ef83b4297af5400))
+
+##### Bug Fixes
+
+* **app:**  load alertSource schema during initialization ([1a099919](https://github.com/CodeTanzania/emis-api-states/commit/1a099919f93e0f4e1f65264b20fd9483ea2bc181))
+
 #### 0.6.0 (2019-01-29)
 
 ##### Chores
