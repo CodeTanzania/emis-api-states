@@ -76,6 +76,7 @@ export function initializeApp() {
           activity: { setActivitySchema },
           adjustment: { setAdjustmentSchema },
           alert: { setAlertSchema },
+          alertSource: { setAlertSourceSchema },
           feature: { setFeatureSchema },
           indicator: { setIndicatorSchema },
           item: { setItemSchema },
@@ -93,6 +94,7 @@ export function initializeApp() {
           Activity: activitySchema,
           Adjustment: adjustmentSchema,
           Alert: alertSchema,
+          AlertSource: alertSourceSchema,
           Feature: featureSchema,
           IncidentType: incidentTypeSchema,
           Indicator: indicatorSchema,
@@ -109,6 +111,7 @@ export function initializeApp() {
         dispatch(setActivitySchema(activitySchema));
         dispatch(setAdjustmentSchema(adjustmentSchema));
         dispatch(setAlertSchema(alertSchema));
+        dispatch(setAlertSourceSchema(alertSourceSchema));
         dispatch(setFeatureSchema(featureSchema));
         dispatch(setIndicatorSchema(indicatorSchema));
         dispatch(setIncidentTypeSchema(incidentTypeSchema));
