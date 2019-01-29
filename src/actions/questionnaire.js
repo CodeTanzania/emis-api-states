@@ -8,7 +8,7 @@ const questionnaireActions = generateExposedActions(
 );
 
 export const {
-  clearQuestionnairesFilter,
+  clearQuestionnaireFilters,
   clearQuestionnairesSort,
   closeQuestionnaireForm,
   filterQuestionnaires,

@@ -8,7 +8,7 @@ const stakeholderActions = generateExposedActions(
 );
 
 export const {
-  clearStakeholdersFilter,
+  clearStakeholderFilters,
   clearStakeholdersSort,
   closeStakeholderForm,
   filterStakeholders,

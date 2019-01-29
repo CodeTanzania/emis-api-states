@@ -4,7 +4,7 @@ import { actions, dispatch } from '../store';
 const stakeholderActions = generateExposedActions('stock', actions, dispatch);
 
 export const {
-  clearStocksFilter,
+  clearStockFilters,
   clearStocksSort,
   closeStockForm,
   filterStocks,

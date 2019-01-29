@@ -4,7 +4,7 @@ import { actions, dispatch } from '../store';
 const indicatorActions = generateExposedActions('indicator', actions, dispatch);
 
 export const {
-  clearIndicatorsFilter,
+  clearIndicatorFilters,
   clearIndicatorsSort,
   closeIndicatorForm,
   filterIndicators,

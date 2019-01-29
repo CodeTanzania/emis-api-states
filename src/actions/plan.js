@@ -4,7 +4,7 @@ import { actions, dispatch } from '../store';
 const planActions = generateExposedActions('plan', actions, dispatch);
 
 export const {
-  clearPlansFilter,
+  clearPlanFilters,
   clearPlansSort,
   closePlanForm,
   filterPlans,

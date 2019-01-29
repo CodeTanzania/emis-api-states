@@ -8,7 +8,7 @@ const adjustmentActions = generateExposedActions(
 );
 
 export const {
-  clearAdjustmentsFilter,
+  clearAdjustmentFilters,
   clearAdjustmentsSort,
   closeAdjustmentForm,
   filterAdjustments,

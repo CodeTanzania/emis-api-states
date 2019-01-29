@@ -4,7 +4,7 @@ import { actions, dispatch } from '../store';
 const incidentActions = generateExposedActions('incident', actions, dispatch);
 
 export const {
-  clearIncidentsFilter,
+  clearIncidentFilters,
   clearIncidentsSort,
   closeIncidentForm,
   filterIncidents,
