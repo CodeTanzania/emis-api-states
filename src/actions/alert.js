@@ -4,7 +4,7 @@ import { actions, dispatch } from '../store';
 const alertActions = generateExposedActions('alert', actions, dispatch);
 
 export const {
-  clearAlertsFilter,
+  clearAlertFilters,
   clearAlertsSort,
   closeAlertForm,
   filterAlerts,

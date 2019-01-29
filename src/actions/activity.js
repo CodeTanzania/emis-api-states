@@ -4,7 +4,7 @@ import { actions, dispatch } from '../store';
 const activityActions = generateExposedActions('activity', actions, dispatch);
 
 export const {
-  clearActivitiesFilter,
+  clearActivityFilters,
   clearActivitiesSort,
   closeActivityForm,
   filterActivities,

@@ -148,6 +148,7 @@ const resources = [
   'stakeholder',
   'stock',
   'warehouse',
+  'alertSource',
 ];
 
 const slices = createResourcesSlices(resources);

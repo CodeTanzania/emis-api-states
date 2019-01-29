@@ -4,7 +4,7 @@ import * as lib from '../src/index';
 
 describe('Library Index', () => {
   it('should expose actions from resources', () => {
-    expect(typeof lib.clearActivitiesFilter).toBe('function');
+    expect(typeof lib.clearActivityFilters).toBe('function');
     expect(typeof lib.clearActivitiesSort).toBe('function');
     expect(typeof lib.closeActivityForm).toBe('function');
     expect(typeof lib.filterActivities).toBe('function');
@@ -20,7 +20,7 @@ describe('Library Index', () => {
     expect(typeof lib.setActivitySchema).toBe('function');
     expect(typeof lib.sortActivities).toBe('function');
 
-    expect(typeof lib.clearAdjustmentsFilter).toBe('function');
+    expect(typeof lib.clearAdjustmentFilters).toBe('function');
     expect(typeof lib.clearAdjustmentsSort).toBe('function');
     expect(typeof lib.closeAdjustmentForm).toBe('function');
     expect(typeof lib.filterAdjustments).toBe('function');
@@ -36,7 +36,7 @@ describe('Library Index', () => {
     expect(typeof lib.setAdjustmentSchema).toBe('function');
     expect(typeof lib.sortAdjustments).toBe('function');
 
-    expect(typeof lib.clearAlertsFilter).toBe('function');
+    expect(typeof lib.clearAlertFilters).toBe('function');
     expect(typeof lib.clearAlertsSort).toBe('function');
     expect(typeof lib.closeAlertForm).toBe('function');
     expect(typeof lib.filterAlerts).toBe('function');
@@ -52,7 +52,23 @@ describe('Library Index', () => {
     expect(typeof lib.setAlertSchema).toBe('function');
     expect(typeof lib.sortAlerts).toBe('function');
 
-    expect(typeof lib.clearAssessmentsFilter).toBe('function');
+    expect(typeof lib.clearAlertSourceFilters).toBe('function');
+    expect(typeof lib.clearAlertSourcesSort).toBe('function');
+    expect(typeof lib.closeAlertSourceForm).toBe('function');
+    expect(typeof lib.filterAlertSources).toBe('function');
+    expect(typeof lib.getAlertSources).toBe('function');
+    expect(typeof lib.getAlertSource).toBe('function');
+    expect(typeof lib.selectAlertSource).toBe('function');
+    expect(typeof lib.openAlertSourceForm).toBe('function');
+    expect(typeof lib.paginateAlertSources).toBe('function');
+    expect(typeof lib.postAlertSource).toBe('function');
+    expect(typeof lib.putAlertSource).toBe('function');
+    expect(typeof lib.refreshAlertSources).toBe('function');
+    expect(typeof lib.searchAlertSources).toBe('function');
+    expect(typeof lib.setAlertSourceSchema).toBe('function');
+    expect(typeof lib.sortAlertSources).toBe('function');
+
+    expect(typeof lib.clearAssessmentFilters).toBe('function');
     expect(typeof lib.clearAssessmentsSort).toBe('function');
     expect(typeof lib.closeAssessmentForm).toBe('function');
     expect(typeof lib.filterAssessments).toBe('function');
@@ -68,7 +84,7 @@ describe('Library Index', () => {
     expect(typeof lib.setAssessmentSchema).toBe('function');
     expect(typeof lib.sortAssessments).toBe('function');
 
-    expect(typeof lib.clearPlansFilter).toBe('function');
+    expect(typeof lib.clearPlanFilters).toBe('function');
     expect(typeof lib.clearPlansSort).toBe('function');
     expect(typeof lib.closePlanForm).toBe('function');
     expect(typeof lib.filterPlans).toBe('function');
@@ -84,7 +100,7 @@ describe('Library Index', () => {
     expect(typeof lib.setPlanSchema).toBe('function');
     expect(typeof lib.sortPlans).toBe('function');
 
-    expect(typeof lib.clearFeaturesFilter).toBe('function');
+    expect(typeof lib.clearFeatureFilters).toBe('function');
     expect(typeof lib.clearFeaturesSort).toBe('function');
     expect(typeof lib.closeFeatureForm).toBe('function');
     expect(typeof lib.filterFeatures).toBe('function');
@@ -100,7 +116,7 @@ describe('Library Index', () => {
     expect(typeof lib.setFeatureSchema).toBe('function');
     expect(typeof lib.sortFeatures).toBe('function');
 
-    expect(typeof lib.clearIncidentsFilter).toBe('function');
+    expect(typeof lib.clearIncidentFilters).toBe('function');
     expect(typeof lib.clearIncidentsSort).toBe('function');
     expect(typeof lib.closeIncidentForm).toBe('function');
     expect(typeof lib.filterIncidents).toBe('function');
@@ -116,7 +132,7 @@ describe('Library Index', () => {
     expect(typeof lib.setIncidentSchema).toBe('function');
     expect(typeof lib.sortIncidents).toBe('function');
 
-    expect(typeof lib.clearIncidentTypesFilter).toBe('function');
+    expect(typeof lib.clearIncidentTypeFilters).toBe('function');
     expect(typeof lib.clearIncidentTypesSort).toBe('function');
     expect(typeof lib.closeIncidentTypeForm).toBe('function');
     expect(typeof lib.filterIncidentTypes).toBe('function');
@@ -132,7 +148,7 @@ describe('Library Index', () => {
     expect(typeof lib.setIncidentTypeSchema).toBe('function');
     expect(typeof lib.sortIncidentTypes).toBe('function');
 
-    expect(typeof lib.clearIndicatorsFilter).toBe('function');
+    expect(typeof lib.clearIndicatorFilters).toBe('function');
     expect(typeof lib.clearIndicatorsSort).toBe('function');
     expect(typeof lib.closeIndicatorForm).toBe('function');
     expect(typeof lib.filterIndicators).toBe('function');
@@ -148,7 +164,7 @@ describe('Library Index', () => {
     expect(typeof lib.setIndicatorSchema).toBe('function');
     expect(typeof lib.sortIndicators).toBe('function');
 
-    expect(typeof lib.clearItemsFilter).toBe('function');
+    expect(typeof lib.clearItemFilters).toBe('function');
     expect(typeof lib.clearItemsSort).toBe('function');
     expect(typeof lib.closeItemForm).toBe('function');
     expect(typeof lib.filterItems).toBe('function');
@@ -164,7 +180,7 @@ describe('Library Index', () => {
     expect(typeof lib.setItemSchema).toBe('function');
     expect(typeof lib.sortItems).toBe('function');
 
-    expect(typeof lib.clearProceduresFilter).toBe('function');
+    expect(typeof lib.clearProcedureFilters).toBe('function');
     expect(typeof lib.clearProceduresSort).toBe('function');
     expect(typeof lib.closeProcedureForm).toBe('function');
     expect(typeof lib.filterProcedures).toBe('function');
@@ -180,7 +196,7 @@ describe('Library Index', () => {
     expect(typeof lib.setProcedureSchema).toBe('function');
     expect(typeof lib.sortProcedures).toBe('function');
 
-    expect(typeof lib.clearQuestionsFilter).toBe('function');
+    expect(typeof lib.clearQuestionFilters).toBe('function');
     expect(typeof lib.clearQuestionsSort).toBe('function');
     expect(typeof lib.closeQuestionForm).toBe('function');
     expect(typeof lib.filterQuestions).toBe('function');
@@ -196,7 +212,7 @@ describe('Library Index', () => {
     expect(typeof lib.setQuestionSchema).toBe('function');
     expect(typeof lib.sortQuestions).toBe('function');
 
-    expect(typeof lib.clearQuestionnairesFilter).toBe('function');
+    expect(typeof lib.clearQuestionnaireFilters).toBe('function');
     expect(typeof lib.clearQuestionnairesSort).toBe('function');
     expect(typeof lib.closeQuestionnaireForm).toBe('function');
     expect(typeof lib.filterQuestionnaires).toBe('function');
@@ -212,7 +228,7 @@ describe('Library Index', () => {
     expect(typeof lib.setQuestionnaireSchema).toBe('function');
     expect(typeof lib.sortQuestionnaires).toBe('function');
 
-    expect(typeof lib.clearResourcesFilter).toBe('function');
+    expect(typeof lib.clearResourceFilters).toBe('function');
     expect(typeof lib.clearResourcesSort).toBe('function');
     expect(typeof lib.closeResourceForm).toBe('function');
     expect(typeof lib.filterResources).toBe('function');
@@ -228,7 +244,7 @@ describe('Library Index', () => {
     expect(typeof lib.setResourceSchema).toBe('function');
     expect(typeof lib.sortResources).toBe('function');
 
-    expect(typeof lib.clearRolesFilter).toBe('function');
+    expect(typeof lib.clearRoleFilters).toBe('function');
     expect(typeof lib.clearRolesSort).toBe('function');
     expect(typeof lib.closeRoleForm).toBe('function');
     expect(typeof lib.filterRoles).toBe('function');
@@ -244,7 +260,7 @@ describe('Library Index', () => {
     expect(typeof lib.setRoleSchema).toBe('function');
     expect(typeof lib.sortRoles).toBe('function');
 
-    expect(typeof lib.clearStakeholdersFilter).toBe('function');
+    expect(typeof lib.clearStakeholderFilters).toBe('function');
     expect(typeof lib.clearStakeholdersSort).toBe('function');
     expect(typeof lib.closeStakeholderForm).toBe('function');
     expect(typeof lib.filterStakeholders).toBe('function');
@@ -260,7 +276,7 @@ describe('Library Index', () => {
     expect(typeof lib.setStakeholderSchema).toBe('function');
     expect(typeof lib.sortStakeholders).toBe('function');
 
-    expect(typeof lib.clearWarehousesFilter).toBe('function');
+    expect(typeof lib.clearWarehouseFilters).toBe('function');
     expect(typeof lib.clearWarehousesSort).toBe('function');
     expect(typeof lib.closeWarehouseForm).toBe('function');
     expect(typeof lib.filterWarehouses).toBe('function');

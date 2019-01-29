@@ -8,7 +8,7 @@ const incidentTypeActions = generateExposedActions(
 );
 
 export const {
-  clearIncidentTypesFilter,
+  clearIncidentTypeFilters,
   clearIncidentTypesSort,
   closeIncidentTypeForm,
   filterIncidentTypes,
