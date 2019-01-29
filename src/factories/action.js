@@ -57,11 +57,6 @@ export default function generateExposedActions(
     camelize('set', resourceName, 'schema')
   );
 
-  extractedActions[camelize('clear', pluralName, 'filter')] = get(
-    actions[resource],
-    camelize('clear', pluralName, 'filter')
-  );
-
   extractedActions[camelize('clear', pluralName, 'sort')] = get(
     actions[resource],
     camelize('clear', pluralName, 'sort')

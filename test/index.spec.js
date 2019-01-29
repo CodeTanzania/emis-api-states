@@ -52,6 +52,22 @@ describe('Library Index', () => {
     expect(typeof lib.setAlertSchema).toBe('function');
     expect(typeof lib.sortAlerts).toBe('function');
 
+    expect(typeof lib.clearAlertSourceFilters).toBe('function');
+    expect(typeof lib.clearAlertSourcesSort).toBe('function');
+    expect(typeof lib.closeAlertSourceForm).toBe('function');
+    expect(typeof lib.filterAlertSources).toBe('function');
+    expect(typeof lib.getAlertSources).toBe('function');
+    expect(typeof lib.getAlertSource).toBe('function');
+    expect(typeof lib.selectAlertSource).toBe('function');
+    expect(typeof lib.openAlertSourceForm).toBe('function');
+    expect(typeof lib.paginateAlertSources).toBe('function');
+    expect(typeof lib.postAlertSource).toBe('function');
+    expect(typeof lib.putAlertSource).toBe('function');
+    expect(typeof lib.refreshAlertSources).toBe('function');
+    expect(typeof lib.searchAlertSources).toBe('function');
+    expect(typeof lib.setAlertSourceSchema).toBe('function');
+    expect(typeof lib.sortAlertSources).toBe('function');
+
     expect(typeof lib.clearAssessmentFilters).toBe('function');
     expect(typeof lib.clearAssessmentsSort).toBe('function');
     expect(typeof lib.closeAssessmentForm).toBe('function');
