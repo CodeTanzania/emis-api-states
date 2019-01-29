@@ -24,7 +24,7 @@ export function getDefaultReducers(resourceName) {
       Object.assign({}, state, { selected: action.payload }),
     [camelize('filter', plural)]: (state, action) =>
       Object.assign({}, state, { filter: action.payload }),
-    [camelize('clear', plural, 'filter')]: state =>
+    [camelize('clear', singular, 'filters')]: state =>
       Object.assign({}, state, { filter: null }),
     [camelize('sort', plural)]: (state, action) =>
       Object.assign({}, state, { sort: action.payload }),

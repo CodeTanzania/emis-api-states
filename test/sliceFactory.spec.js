@@ -39,7 +39,7 @@ describe('Slice Factory', () => {
     expect(actions).toEqual([
       'selectTodo',
       'filterTodos',
-      'clearTodosFilter',
+      'clearTodoFilters',
       'sortTodos',
       'clearTodosSort',
       'getTodosRequest',
@@ -91,7 +91,7 @@ describe('Slice Factory', () => {
       const todos = createSliceFor('todos');
 
       const { reducer } = todos;
-      const clearFiltersAction = createAction('todos/clearTodosFilter');
+      const clearFiltersAction = createAction('todos/clearTodoFilters');
       expect(
         reducer({ ...initialDefaultState, filter: {} }, clearFiltersAction)
       ).toEqual({
