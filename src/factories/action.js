@@ -72,7 +72,7 @@ export default function generateExposedActions(
   const wrappedDispatchThunkActions = {};
 
   forIn(allActions, (fn, key) => {
-    wrappedDispatchThunkActions[key] = param => dispatch(fn(param));
+    wrappedDispatchThunkActions[key] = (...params) => dispatch(fn(...params));
   });
 
   return wrappedDispatchThunkActions;

@@ -1,3 +1,14 @@
+#### 0.5.3 (2019-01-29)
+
+##### Chores
+
+* **build:**  bundle library for v0.5.3 ([3767b7d6](https://github.com/CodeTanzania/emis-api-states/commit/3767b7d60f1b0c76412df5e07a72dfe3373fb4d5))
+* **package.json:**  update package version to 0.5.3 ([19d7d821](https://github.com/CodeTanzania/emis-api-states/commit/19d7d821cc1eddedf1f808e72485e1f7ba9e76b6))
+
+##### Bug Fixes
+
+* **actions:**  allow thunks to receive more than one param ([8d8671db](https://github.com/CodeTanzania/emis-api-states/commit/8d8671db05dba4c7059395327b696739df986ab2))
+
 #### 0.5.2 (2019-01-28)
 
 ##### Chores
