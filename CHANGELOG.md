@@ -1,3 +1,23 @@
+#### 0.6.0 (2019-01-29)
+
+##### Chores
+
+* **build:**  bundle library for v0.6.0 ([9475365b](https://github.com/CodeTanzania/emis-api-states/commit/9475365b2ff5866cb5331f87f6718504e7bb7741))
+* **dependencies:**  update to latest version of api-client ([c836f69d](https://github.com/CodeTanzania/emis-api-states/commit/c836f69da208a6837b3a2237d2eaa742f7661333))
+* **package.json:**  update package version to 0.6.0 ([138c81c0](https://github.com/CodeTanzania/emis-api-states/commit/138c81c014cfc8304144f92f5ac1c16408fa1b14))
+
+##### New Features
+
+* **alert source:**  add alert source resource ([af34f777](https://github.com/CodeTanzania/emis-api-states/commit/af34f777964faa6862eda22b4cfb959b270be193))
+
+##### Bug Fixes
+
+* **actions:**  expose clear filter as a thunk and not plain action ([326da61b](https://github.com/CodeTanzania/emis-api-states/commit/326da61b17a217f8df9035ad909d4899bac6b39f))
+
+##### Refactors
+
+* **actions:**  update clear filter action name ([9c8d79f7](https://github.com/CodeTanzania/emis-api-states/commit/9c8d79f7e798f5b8125e550ec9a4157e356c3a94))
+
 #### 0.5.3 (2019-01-29)
 
 ##### Chores

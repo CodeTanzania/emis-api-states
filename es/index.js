@@ -80,7 +80,7 @@ function getDefaultReducers(resourceName) {
     return Object.assign({}, state, { selected: action.payload });
   }), defineProperty(_ref, camelize('filter', plural), function (state, action) {
     return Object.assign({}, state, { filter: action.payload });
-  }), defineProperty(_ref, camelize('clear', plural, 'filter'), function (state) {
+  }), defineProperty(_ref, camelize('clear', singular, 'filters'), function (state) {
     return Object.assign({}, state, { filter: null });
   }), defineProperty(_ref, camelize('sort', plural), function (state, action) {
     return Object.assign({}, state, { sort: action.payload });
@@ -290,7 +290,7 @@ function app() {
 }
 
 // all resources exposed by this library
-var resources = ['activity', 'adjustment', 'alert', 'assessment', 'feature', 'incident', 'incidentType', 'indicator', 'item', 'plan', 'procedure', 'question', 'questionnaire', 'resource', 'role', 'stakeholder', 'stock', 'warehouse'];
+var resources = ['activity', 'adjustment', 'alert', 'assessment', 'feature', 'incident', 'incidentType', 'indicator', 'item', 'plan', 'procedure', 'question', 'questionnaire', 'resource', 'role', 'stakeholder', 'stock', 'warehouse', 'alertSource'];
 
 var slices = createResourcesSlices(resources);
 
@@ -537,6 +537,30 @@ function createThunksFor(resource) {
     };
   };
 
+  thunks[camelize('clear', singularName, 'filters')] = function (onSuccess, onError) {
+    return function (dispatch$$1) {
+      dispatch$$1(actions[resourceName][camelize('clear', singularName, 'filters')]());
+
+      dispatch$$1(actions[resourceName][camelize('get', pluralName, 'request')]());
+
+      return client[camelize('get', pluralName)]().then(function (data) {
+        dispatch$$1(actions[resourceName][camelize('get', pluralName, 'success')](data));
+
+        // custom provided onSuccess callback
+        if (isFunction(onSuccess)) {
+          onSuccess();
+        }
+      }).catch(function (error) {
+        dispatch$$1(actions[resourceName][camelize('get', pluralName, 'failure')](error));
+
+        // custom provided onError callback
+        if (isFunction(onError)) {
+          onError();
+        }
+      });
+    };
+  };
+
   return thunks;
 }
 
@@ -576,8 +600,6 @@ function generateExposedActions(resource, actions, dispatch) {
 
   extractedActions[camelize('set', resourceName, 'schema')] = get(actions[resource], camelize('set', resourceName, 'schema'));
 
-  extractedActions[camelize('clear', pluralName, 'filter')] = get(actions[resource], camelize('clear', pluralName, 'filter'));
-
   extractedActions[camelize('clear', pluralName, 'sort')] = get(actions[resource], camelize('clear', pluralName, 'sort'));
 
   var allActions = merge({}, extractedActions, generatedThunks);
@@ -595,7 +617,7 @@ function generateExposedActions(resource, actions, dispatch) {
 
 var activityActions = generateExposedActions('activity', actions, dispatch);
 
-var clearActivitiesFilter = activityActions.clearActivitiesFilter,
+var clearActivityFilters = activityActions.clearActivityFilters,
     clearActivitiesSort = activityActions.clearActivitiesSort,
     closeActivityForm = activityActions.closeActivityForm,
     filterActivities = activityActions.filterActivities,
@@ -613,7 +635,7 @@ var clearActivitiesFilter = activityActions.clearActivitiesFilter,
 
 var adjustmentActions = generateExposedActions('adjustment', actions, dispatch);
 
-var clearAdjustmentsFilter = adjustmentActions.clearAdjustmentsFilter,
+var clearAdjustmentFilters = adjustmentActions.clearAdjustmentFilters,
     clearAdjustmentsSort = adjustmentActions.clearAdjustmentsSort,
     closeAdjustmentForm = adjustmentActions.closeAdjustmentForm,
     filterAdjustments = adjustmentActions.filterAdjustments,
@@ -631,7 +653,7 @@ var clearAdjustmentsFilter = adjustmentActions.clearAdjustmentsFilter,
 
 var alertActions = generateExposedActions('alert', actions, dispatch);
 
-var clearAlertsFilter = alertActions.clearAlertsFilter,
+var clearAlertFilters = alertActions.clearAlertFilters,
     clearAlertsSort = alertActions.clearAlertsSort,
     closeAlertForm = alertActions.closeAlertForm,
     filterAlerts = alertActions.filterAlerts,
@@ -646,6 +668,24 @@ var clearAlertsFilter = alertActions.clearAlertsFilter,
     searchAlerts = alertActions.searchAlerts,
     setAlertSchema = alertActions.setAlertSchema,
     sortAlerts = alertActions.sortAlerts;
+
+var alertActions$1 = generateExposedActions('alertSource', actions, dispatch);
+
+var clearAlertSourceFilters = alertActions$1.clearAlertSourceFilters,
+    clearAlertSourcesSort = alertActions$1.clearAlertSourcesSort,
+    closeAlertSourceForm = alertActions$1.closeAlertSourceForm,
+    filterAlertSources = alertActions$1.filterAlertSources,
+    getAlertSources = alertActions$1.getAlertSources,
+    getAlertSource = alertActions$1.getAlertSource,
+    selectAlertSource = alertActions$1.selectAlertSource,
+    openAlertSourceForm = alertActions$1.openAlertSourceForm,
+    paginateAlertSources = alertActions$1.paginateAlertSources,
+    postAlertSource = alertActions$1.postAlertSource,
+    putAlertSource = alertActions$1.putAlertSource,
+    refreshAlertSources = alertActions$1.refreshAlertSources,
+    searchAlertSources = alertActions$1.searchAlertSources,
+    setAlertSourceSchema = alertActions$1.setAlertSourceSchema,
+    sortAlertSources = alertActions$1.sortAlertSources;
 
 /**
  * Action dispatched when application initialization starts
@@ -778,7 +818,7 @@ function wrappedInitializeApp() {
 
 var assessmentActions = generateExposedActions('assessment', actions, dispatch);
 
-var clearAssessmentsFilter = assessmentActions.clearAssessmentsFilter,
+var clearAssessmentFilters = assessmentActions.clearAssessmentFilters,
     clearAssessmentsSort = assessmentActions.clearAssessmentsSort,
     closeAssessmentForm = assessmentActions.closeAssessmentForm,
     filterAssessments = assessmentActions.filterAssessments,
@@ -796,7 +836,7 @@ var clearAssessmentsFilter = assessmentActions.clearAssessmentsFilter,
 
 var featureActions = generateExposedActions('feature', actions, dispatch);
 
-var clearFeaturesFilter = featureActions.clearFeaturesFilter,
+var clearFeatureFilters = featureActions.clearFeatureFilters,
     clearFeaturesSort = featureActions.clearFeaturesSort,
     closeFeatureForm = featureActions.closeFeatureForm,
     filterFeatures = featureActions.filterFeatures,
@@ -814,7 +854,7 @@ var clearFeaturesFilter = featureActions.clearFeaturesFilter,
 
 var incidentActions = generateExposedActions('incident', actions, dispatch);
 
-var clearIncidentsFilter = incidentActions.clearIncidentsFilter,
+var clearIncidentFilters = incidentActions.clearIncidentFilters,
     clearIncidentsSort = incidentActions.clearIncidentsSort,
     closeIncidentForm = incidentActions.closeIncidentForm,
     filterIncidents = incidentActions.filterIncidents,
@@ -832,7 +872,7 @@ var clearIncidentsFilter = incidentActions.clearIncidentsFilter,
 
 var incidentTypeActions = generateExposedActions('incidentType', actions, dispatch);
 
-var clearIncidentTypesFilter = incidentTypeActions.clearIncidentTypesFilter,
+var clearIncidentTypeFilters = incidentTypeActions.clearIncidentTypeFilters,
     clearIncidentTypesSort = incidentTypeActions.clearIncidentTypesSort,
     closeIncidentTypeForm = incidentTypeActions.closeIncidentTypeForm,
     filterIncidentTypes = incidentTypeActions.filterIncidentTypes,
@@ -850,7 +890,7 @@ var clearIncidentTypesFilter = incidentTypeActions.clearIncidentTypesFilter,
 
 var indicatorActions = generateExposedActions('indicator', actions, dispatch);
 
-var clearIndicatorsFilter = indicatorActions.clearIndicatorsFilter,
+var clearIndicatorFilters = indicatorActions.clearIndicatorFilters,
     clearIndicatorsSort = indicatorActions.clearIndicatorsSort,
     closeIndicatorForm = indicatorActions.closeIndicatorForm,
     filterIndicators = indicatorActions.filterIndicators,
@@ -868,7 +908,7 @@ var clearIndicatorsFilter = indicatorActions.clearIndicatorsFilter,
 
 var itemActions = generateExposedActions('item', actions, dispatch);
 
-var clearItemsFilter = itemActions.clearItemsFilter,
+var clearItemFilters = itemActions.clearItemFilters,
     clearItemsSort = itemActions.clearItemsSort,
     closeItemForm = itemActions.closeItemForm,
     filterItems = itemActions.filterItems,
@@ -886,7 +926,7 @@ var clearItemsFilter = itemActions.clearItemsFilter,
 
 var planActions = generateExposedActions('plan', actions, dispatch);
 
-var clearPlansFilter = planActions.clearPlansFilter,
+var clearPlanFilters = planActions.clearPlanFilters,
     clearPlansSort = planActions.clearPlansSort,
     closePlanForm = planActions.closePlanForm,
     filterPlans = planActions.filterPlans,
@@ -904,7 +944,7 @@ var clearPlansFilter = planActions.clearPlansFilter,
 
 var procedureActions = generateExposedActions('procedure', actions, dispatch);
 
-var clearProceduresFilter = procedureActions.clearProceduresFilter,
+var clearProcedureFilters = procedureActions.clearProcedureFilters,
     clearProceduresSort = procedureActions.clearProceduresSort,
     closeProcedureForm = procedureActions.closeProcedureForm,
     filterProcedures = procedureActions.filterProcedures,
@@ -922,7 +962,7 @@ var clearProceduresFilter = procedureActions.clearProceduresFilter,
 
 var questionActions = generateExposedActions('question', actions, dispatch);
 
-var clearQuestionsFilter = questionActions.clearQuestionsFilter,
+var clearQuestionFilters = questionActions.clearQuestionFilters,
     clearQuestionsSort = questionActions.clearQuestionsSort,
     closeQuestionForm = questionActions.closeQuestionForm,
     filterQuestions = questionActions.filterQuestions,
@@ -940,7 +980,7 @@ var clearQuestionsFilter = questionActions.clearQuestionsFilter,
 
 var questionnaireActions = generateExposedActions('questionnaire', actions, dispatch);
 
-var clearQuestionnairesFilter = questionnaireActions.clearQuestionnairesFilter,
+var clearQuestionnaireFilters = questionnaireActions.clearQuestionnaireFilters,
     clearQuestionnairesSort = questionnaireActions.clearQuestionnairesSort,
     closeQuestionnaireForm = questionnaireActions.closeQuestionnaireForm,
     filterQuestionnaires = questionnaireActions.filterQuestionnaires,
@@ -958,7 +998,7 @@ var clearQuestionnairesFilter = questionnaireActions.clearQuestionnairesFilter,
 
 var resourceActions = generateExposedActions('resource', actions, dispatch);
 
-var clearResourcesFilter = resourceActions.clearResourcesFilter,
+var clearResourceFilters = resourceActions.clearResourceFilters,
     clearResourcesSort = resourceActions.clearResourcesSort,
     closeResourceForm = resourceActions.closeResourceForm,
     filterResources = resourceActions.filterResources,
@@ -976,7 +1016,7 @@ var clearResourcesFilter = resourceActions.clearResourcesFilter,
 
 var roleActions = generateExposedActions('role', actions, dispatch);
 
-var clearRolesFilter = roleActions.clearRolesFilter,
+var clearRoleFilters = roleActions.clearRoleFilters,
     clearRolesSort = roleActions.clearRolesSort,
     closeRoleForm = roleActions.closeRoleForm,
     filterRoles = roleActions.filterRoles,
@@ -994,7 +1034,7 @@ var clearRolesFilter = roleActions.clearRolesFilter,
 
 var stakeholderActions = generateExposedActions('stakeholder', actions, dispatch);
 
-var clearStakeholdersFilter = stakeholderActions.clearStakeholdersFilter,
+var clearStakeholderFilters = stakeholderActions.clearStakeholderFilters,
     clearStakeholdersSort = stakeholderActions.clearStakeholdersSort,
     closeStakeholderForm = stakeholderActions.closeStakeholderForm,
     filterStakeholders = stakeholderActions.filterStakeholders,
@@ -1012,7 +1052,7 @@ var clearStakeholdersFilter = stakeholderActions.clearStakeholdersFilter,
 
 var stakeholderActions$1 = generateExposedActions('stock', actions, dispatch);
 
-var clearStocksFilter = stakeholderActions$1.clearStocksFilter,
+var clearStockFilters = stakeholderActions$1.clearStockFilters,
     clearStocksSort = stakeholderActions$1.clearStocksSort,
     closeStockForm = stakeholderActions$1.closeStockForm,
     filterStocks = stakeholderActions$1.filterStocks,
@@ -1030,7 +1070,7 @@ var clearStocksFilter = stakeholderActions$1.clearStocksFilter,
 
 var warehouseActions = generateExposedActions('warehouse', actions, dispatch);
 
-var clearWarehousesFilter = warehouseActions.clearWarehousesFilter,
+var clearWarehouseFilters = warehouseActions.clearWarehouseFilters,
     clearWarehousesSort = warehouseActions.clearWarehousesSort,
     closeWarehouseForm = warehouseActions.closeWarehouseForm,
     filterWarehouses = warehouseActions.filterWarehouses,
@@ -1119,4 +1159,4 @@ function Connect(component) {
   return connect(mapStateToProps)(component);
 }
 
-export { StoreProvider, Connect, wrappedInitializeApp as initializeApp, clearActivitiesFilter, clearActivitiesSort, closeActivityForm, filterActivities, getActivities, getActivity, selectActivity, openActivityForm, paginateActivities, postActivity, putActivity, refreshActivities, searchActivities, setActivitySchema, sortActivities, clearAdjustmentsFilter, clearAdjustmentsSort, closeAdjustmentForm, filterAdjustments, getAdjustments, getAdjustment, selectAdjustment, openAdjustmentForm, paginateAdjustments, postAdjustment, putAdjustment, refreshAdjustments, searchAdjustments, setAdjustmentSchema, sortAdjustments, clearAlertsFilter, clearAlertsSort, closeAlertForm, filterAlerts, getAlerts, getAlert, selectAlert, openAlertForm, paginateAlerts, postAlert, putAlert, refreshAlerts, searchAlerts, setAlertSchema, sortAlerts, clearAssessmentsFilter, clearAssessmentsSort, closeAssessmentForm, filterAssessments, getAssessments, getAssessment, selectAssessment, openAssessmentForm, paginateAssessments, postAssessment, putAssessment, refreshAssessments, searchAssessments, setAssessmentSchema, sortAssessments, clearFeaturesFilter, clearFeaturesSort, closeFeatureForm, filterFeatures, getFeatures, getFeature, selectFeature, openFeatureForm, paginateFeatures, postFeature, putFeature, refreshFeatures, searchFeatures, setFeatureSchema, sortFeatures, clearIncidentsFilter, clearIncidentsSort, closeIncidentForm, filterIncidents, getIncidents, getIncident, selectIncident, openIncidentForm, paginateIncidents, postIncident, putIncident, refreshIncidents, searchIncidents, setIncidentSchema, sortIncidents, clearIncidentTypesFilter, clearIncidentTypesSort, closeIncidentTypeForm, filterIncidentTypes, getIncidentTypes, getIncidentType, selectIncidentType, openIncidentTypeForm, paginateIncidentTypes, postIncidentType, putIncidentType, refreshIncidentTypes, searchIncidentTypes, setIncidentTypeSchema, sortIncidentTypes, clearIndicatorsFilter, clearIndicatorsSort, closeIndicatorForm, filterIndicators, getIndicators, getIndicator, selectIndicator, openIndicatorForm, paginateIndicators, postIndicator, putIndicator, refreshIndicators, searchIndicators, setIndicatorSchema, sortIndicators, clearItemsFilter, clearItemsSort, closeItemForm, filterItems, getItems, getItem, selectItem, openItemForm, paginateItems, postItem, putItem, refreshItems, searchItems, setItemSchema, sortItems, clearPlansFilter, clearPlansSort, closePlanForm, filterPlans, getPlans, getPlan, selectPlan, openPlanForm, paginatePlans, postPlan, putPlan, refreshPlans, searchPlans, setPlanSchema, sortPlans, clearProceduresFilter, clearProceduresSort, closeProcedureForm, filterProcedures, getProcedures, getProcedure, selectProcedure, openProcedureForm, paginateProcedures, postProcedure, putProcedure, refreshProcedures, searchProcedures, setProcedureSchema, sortProcedures, clearQuestionsFilter, clearQuestionsSort, closeQuestionForm, filterQuestions, getQuestions, getQuestion, selectQuestion, openQuestionForm, paginateQuestions, postQuestion, putQuestion, refreshQuestions, searchQuestions, setQuestionSchema, sortQuestions, clearQuestionnairesFilter, clearQuestionnairesSort, closeQuestionnaireForm, filterQuestionnaires, getQuestionnaires, getQuestionnaire, selectQuestionnaire, openQuestionnaireForm, paginateQuestionnaires, postQuestionnaire, putQuestionnaire, refreshQuestionnaires, searchQuestionnaires, setQuestionnaireSchema, sortQuestionnaires, clearResourcesFilter, clearResourcesSort, closeResourceForm, filterResources, getResources, getResource, selectResource, openResourceForm, paginateResources, postResource, putResource, refreshResources, searchResources, setResourceSchema, sortResources, clearRolesFilter, clearRolesSort, closeRoleForm, filterRoles, getRoles, getRole, selectRole, openRoleForm, paginateRoles, postRole, putRole, refreshRoles, searchRoles, setRoleSchema, sortRoles, clearStakeholdersFilter, clearStakeholdersSort, closeStakeholderForm, filterStakeholders, getStakeholders, getStakeholder, selectStakeholder, openStakeholderForm, paginateStakeholders, postStakeholder, putStakeholder, refreshStakeholders, searchStakeholders, setStakeholderSchema, sortStakeholders, clearStocksFilter, clearStocksSort, closeStockForm, filterStocks, getStocks, getStock, selectStock, openStockForm, paginateStocks, postStock, putStock, refreshStocks, searchStocks, setStockSchema, sortStocks, clearWarehousesFilter, clearWarehousesSort, closeWarehouseForm, filterWarehouses, getWarehouses, getWarehouse, selectWarehouse, openWarehouseForm, paginateWarehouses, postWarehouse, putWarehouse, refreshWarehouses, searchWarehouses, setWarehouseSchema, sortWarehouses };
+export { StoreProvider, Connect, wrappedInitializeApp as initializeApp, clearActivityFilters, clearActivitiesSort, closeActivityForm, filterActivities, getActivities, getActivity, selectActivity, openActivityForm, paginateActivities, postActivity, putActivity, refreshActivities, searchActivities, setActivitySchema, sortActivities, clearAdjustmentFilters, clearAdjustmentsSort, closeAdjustmentForm, filterAdjustments, getAdjustments, getAdjustment, selectAdjustment, openAdjustmentForm, paginateAdjustments, postAdjustment, putAdjustment, refreshAdjustments, searchAdjustments, setAdjustmentSchema, sortAdjustments, clearAlertFilters, clearAlertsSort, closeAlertForm, filterAlerts, getAlerts, getAlert, selectAlert, openAlertForm, paginateAlerts, postAlert, putAlert, refreshAlerts, searchAlerts, setAlertSchema, sortAlerts, clearAlertSourceFilters, clearAlertSourcesSort, closeAlertSourceForm, filterAlertSources, getAlertSources, getAlertSource, selectAlertSource, openAlertSourceForm, paginateAlertSources, postAlertSource, putAlertSource, refreshAlertSources, searchAlertSources, setAlertSourceSchema, sortAlertSources, clearAssessmentFilters, clearAssessmentsSort, closeAssessmentForm, filterAssessments, getAssessments, getAssessment, selectAssessment, openAssessmentForm, paginateAssessments, postAssessment, putAssessment, refreshAssessments, searchAssessments, setAssessmentSchema, sortAssessments, clearFeatureFilters, clearFeaturesSort, closeFeatureForm, filterFeatures, getFeatures, getFeature, selectFeature, openFeatureForm, paginateFeatures, postFeature, putFeature, refreshFeatures, searchFeatures, setFeatureSchema, sortFeatures, clearIncidentFilters, clearIncidentsSort, closeIncidentForm, filterIncidents, getIncidents, getIncident, selectIncident, openIncidentForm, paginateIncidents, postIncident, putIncident, refreshIncidents, searchIncidents, setIncidentSchema, sortIncidents, clearIncidentTypeFilters, clearIncidentTypesSort, closeIncidentTypeForm, filterIncidentTypes, getIncidentTypes, getIncidentType, selectIncidentType, openIncidentTypeForm, paginateIncidentTypes, postIncidentType, putIncidentType, refreshIncidentTypes, searchIncidentTypes, setIncidentTypeSchema, sortIncidentTypes, clearIndicatorFilters, clearIndicatorsSort, closeIndicatorForm, filterIndicators, getIndicators, getIndicator, selectIndicator, openIndicatorForm, paginateIndicators, postIndicator, putIndicator, refreshIndicators, searchIndicators, setIndicatorSchema, sortIndicators, clearItemFilters, clearItemsSort, closeItemForm, filterItems, getItems, getItem, selectItem, openItemForm, paginateItems, postItem, putItem, refreshItems, searchItems, setItemSchema, sortItems, clearPlanFilters, clearPlansSort, closePlanForm, filterPlans, getPlans, getPlan, selectPlan, openPlanForm, paginatePlans, postPlan, putPlan, refreshPlans, searchPlans, setPlanSchema, sortPlans, clearProcedureFilters, clearProceduresSort, closeProcedureForm, filterProcedures, getProcedures, getProcedure, selectProcedure, openProcedureForm, paginateProcedures, postProcedure, putProcedure, refreshProcedures, searchProcedures, setProcedureSchema, sortProcedures, clearQuestionFilters, clearQuestionsSort, closeQuestionForm, filterQuestions, getQuestions, getQuestion, selectQuestion, openQuestionForm, paginateQuestions, postQuestion, putQuestion, refreshQuestions, searchQuestions, setQuestionSchema, sortQuestions, clearQuestionnaireFilters, clearQuestionnairesSort, closeQuestionnaireForm, filterQuestionnaires, getQuestionnaires, getQuestionnaire, selectQuestionnaire, openQuestionnaireForm, paginateQuestionnaires, postQuestionnaire, putQuestionnaire, refreshQuestionnaires, searchQuestionnaires, setQuestionnaireSchema, sortQuestionnaires, clearResourceFilters, clearResourcesSort, closeResourceForm, filterResources, getResources, getResource, selectResource, openResourceForm, paginateResources, postResource, putResource, refreshResources, searchResources, setResourceSchema, sortResources, clearRoleFilters, clearRolesSort, closeRoleForm, filterRoles, getRoles, getRole, selectRole, openRoleForm, paginateRoles, postRole, putRole, refreshRoles, searchRoles, setRoleSchema, sortRoles, clearStakeholderFilters, clearStakeholdersSort, closeStakeholderForm, filterStakeholders, getStakeholders, getStakeholder, selectStakeholder, openStakeholderForm, paginateStakeholders, postStakeholder, putStakeholder, refreshStakeholders, searchStakeholders, setStakeholderSchema, sortStakeholders, clearStockFilters, clearStocksSort, closeStockForm, filterStocks, getStocks, getStock, selectStock, openStockForm, paginateStocks, postStock, putStock, refreshStocks, searchStocks, setStockSchema, sortStocks, clearWarehouseFilters, clearWarehousesSort, closeWarehouseForm, filterWarehouses, getWarehouses, getWarehouse, selectWarehouse, openWarehouseForm, paginateWarehouses, postWarehouse, putWarehouse, refreshWarehouses, searchWarehouses, setWarehouseSchema, sortWarehouses };
