@@ -309,6 +309,83 @@ describe('Thunk Factory', () => {
       });
   });
 
+  it('should reload resources when clear resource sort succeed', () => {
+    const store = mockStore({
+      plans: {
+        list: [],
+        sort: {},
+      },
+    });
+
+    const mockData = {
+      data: {
+        data: [{ name: 'Finish off' }],
+        page: 1,
+        pages: 1,
+        total: 1,
+      },
+    };
+    getPlans.mockResolvedValueOnce(mockData);
+
+    const planThunks = createThunkFor('plans');
+    const expectedActions = [
+      { type: 'plan/clearPlansSort', payload: undefined },
+      { type: 'plan/getPlansRequest', payload: undefined },
+      { type: 'plan/getPlansSuccess', payload: mockData },
+    ];
+
+    const onSuccess = jest.fn();
+    const onError = jest.fn();
+
+    return store
+      .dispatch(planThunks.clearPlansSort(onSuccess, onError))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(onSuccess).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledTimes(0);
+      });
+  });
+
+  it('should dispatch error action when clear resource sort fails', () => {
+    const store = mockStore({
+      plans: {
+        list: [],
+        error: null,
+      },
+    });
+
+    const error = {
+      status: 404,
+      code: 404,
+      name: 'Error',
+      message: 'Not Found',
+      developerMessage: 'Not Found',
+      userMessage: 'Not Found',
+      error: 'Error',
+      error_description: 'Not Found',
+    };
+
+    getPlans.mockRejectedValueOnce(error);
+
+    const planThunks = createThunkFor('plans');
+    const expectedActions = [
+      { type: 'plan/clearPlansSort', payload: undefined },
+      { type: 'plan/getPlansRequest', payload: undefined },
+      { type: 'plan/getPlansFailure', payload: error },
+    ];
+
+    const onSuccess = jest.fn();
+    const onError = jest.fn();
+
+    return store
+      .dispatch(planThunks.clearPlansSort(onSuccess, onError))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(onSuccess).toHaveBeenCalledTimes(0);
+        expect(onError).toHaveBeenCalledTimes(1);
+      });
+  });
+
   it('should dispatch required actions when search resources succeed', () => {
     const store = mockStore({
       plans: {

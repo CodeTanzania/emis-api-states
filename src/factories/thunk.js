@@ -341,5 +341,36 @@ export default function createThunksFor(resource) {
       });
   };
 
+  thunks[camelize('clear', pluralName, 'sort')] = (
+    onSuccess,
+    onError
+  ) => dispatch => {
+    dispatch(actions[resourceName][camelize('clear', pluralName, 'sort')]());
+
+    dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
+
+    return client[camelize('get', pluralName)]()
+      .then(data => {
+        dispatch(
+          actions[resourceName][camelize('get', pluralName, 'success')](data)
+        );
+
+        // custom provided onSuccess callback
+        if (isFunction(onSuccess)) {
+          onSuccess();
+        }
+      })
+      .catch(error => {
+        dispatch(
+          actions[resourceName][camelize('get', pluralName, 'failure')](error)
+        );
+
+        // custom provided onError callback
+        if (isFunction(onError)) {
+          onError();
+        }
+      });
+  };
+
   return thunks;
 }
