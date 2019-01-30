@@ -43,36 +43,6 @@ export default function createThunksFor(resource) {
       );
   };
 
-  thunks[camelize('get', pluralName)] = param => dispatch => {
-    dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
-    return client[camelize('get', pluralName)](param)
-      .then(data =>
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'success')](data)
-        )
-      )
-      .catch(error =>
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'failure')](error)
-        )
-      );
-  };
-
-  thunks[camelize('get', pluralName)] = param => dispatch => {
-    dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
-    return client[camelize('get', pluralName)](param)
-      .then(data =>
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'success')](data)
-        )
-      )
-      .catch(error =>
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'failure')](error)
-        )
-      );
-  };
-
   thunks[camelize('get', singularName)] = param => dispatch => {
     dispatch(actions[resourceName][camelize('get', singularName, 'request')]());
     return client[camelize('get', singularName)](param)
