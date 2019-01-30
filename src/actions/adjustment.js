@@ -11,6 +11,7 @@ export const {
   clearAdjustmentFilters,
   clearAdjustmentsSort,
   closeAdjustmentForm,
+  deleteAdjustment,
   filterAdjustments,
   getAdjustments,
   getAdjustment,

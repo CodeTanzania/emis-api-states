@@ -7,6 +7,7 @@ export const {
   clearQuestionFilters,
   clearQuestionsSort,
   closeQuestionForm,
+  deleteQuestion,
   filterQuestions,
   getQuestions,
   getQuestion,

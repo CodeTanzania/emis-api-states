@@ -7,6 +7,7 @@ export const {
   clearActivityFilters,
   clearActivitiesSort,
   closeActivityForm,
+  deleteActivity,
   filterActivities,
   getActivities,
   getActivity,

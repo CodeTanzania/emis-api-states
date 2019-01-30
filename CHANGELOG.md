@@ -1,3 +1,21 @@
+#### 0.7.0 (2019-01-30)
+
+##### Chores
+
+* **build:**  bundle library v0.7.0 ([a8691c5e](https://github.com/CodeTanzania/emis-api-states/commit/a8691c5eee1fa9dac22d42afba5f6f447b79550d))
+* **package.json:**  update package version to 0.7.0 ([68ad9cc8](https://github.com/CodeTanzania/emis-api-states/commit/68ad9cc8cb870e54f59b372006eedae2bea51881))
+
+##### New Features
+
+* **action:**  add delete resource action ([e5562f94](https://github.com/CodeTanzania/emis-api-states/commit/e5562f94495b1ba136a15a721124d2a9e3fa9192))
+
+##### Bug Fixes
+
+* **actions:**
+  *  make sort and clear sort action maintain page ([6eb82d34](https://github.com/CodeTanzania/emis-api-states/commit/6eb82d347ad8c6db4e2cae5d000169b2841b222e))
+  *  expose clear resource sort as a thunk action ([85e22ba5](https://github.com/CodeTanzania/emis-api-states/commit/85e22ba5048e2f613547611375f527e94d6844b1))
+  *  make pagination maintain set filter values ([eb402960](https://github.com/CodeTanzania/emis-api-states/commit/eb4029607112d8e6ff6d18358000a8bb4f0db046))
+
 #### 0.6.1 (2019-01-29)
 
 ##### Chores

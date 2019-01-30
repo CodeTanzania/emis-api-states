@@ -7,6 +7,7 @@ export const {
   clearItemFilters,
   clearItemsSort,
   closeItemForm,
+  deleteItem,
   filterItems,
   getItems,
   getItem,

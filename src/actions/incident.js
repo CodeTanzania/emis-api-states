@@ -7,6 +7,7 @@ export const {
   clearIncidentFilters,
   clearIncidentsSort,
   closeIncidentForm,
+  deleteIncident,
   filterIncidents,
   getIncidents,
   getIncident,

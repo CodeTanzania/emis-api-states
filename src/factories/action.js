@@ -1,4 +1,4 @@
-import { singularize, pluralize } from 'inflection';
+import { singularize } from 'inflection';
 import forIn from 'lodash/forIn';
 import get from 'lodash/get';
 import merge from 'lodash/merge';
@@ -29,7 +29,6 @@ export default function generateExposedActions(
   thunks = null
 ) {
   const resourceName = singularize(upperFirst(resource));
-  const pluralName = pluralize(upperFirst(resource));
 
   const generatedThunks = createThunkFor(resourceName);
 
@@ -55,11 +54,6 @@ export default function generateExposedActions(
   extractedActions[camelize('set', resourceName, 'schema')] = get(
     actions[resource],
     camelize('set', resourceName, 'schema')
-  );
-
-  extractedActions[camelize('clear', pluralName, 'sort')] = get(
-    actions[resource],
-    camelize('clear', pluralName, 'sort')
   );
 
   const allActions = merge({}, extractedActions, generatedThunks);

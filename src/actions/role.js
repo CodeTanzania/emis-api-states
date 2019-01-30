@@ -7,6 +7,7 @@ export const {
   clearRoleFilters,
   clearRolesSort,
   closeRoleForm,
+  deleteRole,
   filterRoles,
   getRoles,
   getRole,

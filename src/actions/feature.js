@@ -7,6 +7,7 @@ export const {
   clearFeatureFilters,
   clearFeaturesSort,
   closeFeatureForm,
+  deleteFeature,
   filterFeatures,
   getFeatures,
   getFeature,

@@ -7,6 +7,7 @@ export const {
   clearWarehouseFilters,
   clearWarehousesSort,
   closeWarehouseForm,
+  deleteWarehouse,
   filterWarehouses,
   getWarehouses,
   getWarehouse,

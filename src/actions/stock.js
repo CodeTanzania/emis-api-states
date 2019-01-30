@@ -7,6 +7,7 @@ export const {
   clearStockFilters,
   clearStocksSort,
   closeStockForm,
+  deleteStock,
   filterStocks,
   getStocks,
   getStock,

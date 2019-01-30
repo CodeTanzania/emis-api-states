@@ -7,6 +7,7 @@ export const {
   clearIndicatorFilters,
   clearIndicatorsSort,
   closeIndicatorForm,
+  deleteIndicator,
   filterIndicators,
   getIndicators,
   getIndicator,
