@@ -277,14 +277,15 @@ export default function createThunksFor(resource) {
       });
   };
 
-  thunks[camelize('paginate', pluralName)] = (
-    page,
-    onSuccess,
-    onError
-  ) => dispatch => {
+  thunks[camelize('paginate', pluralName)] = (page, onSuccess, onError) => (
+    dispatch,
+    getState
+  ) => {
+    const { filter } = getState()[storeKey];
+
     dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
 
-    return client[camelize('get', pluralName)]({ page })
+    return client[camelize('get', pluralName)]({ page, filter })
       .then(data => {
         dispatch(
           actions[resourceName][camelize('get', pluralName, 'success')](data)

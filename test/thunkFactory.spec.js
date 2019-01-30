@@ -159,6 +159,8 @@ describe('Thunk Factory', () => {
     const store = mockStore({
       plans: {
         list: [],
+        page: 1,
+        filter: {},
       },
     });
 
@@ -458,6 +460,7 @@ describe('Thunk Factory', () => {
     const store = mockStore({
       plans: {
         list: [],
+        filter: {},
       },
     });
 
@@ -486,6 +489,7 @@ describe('Thunk Factory', () => {
         expect(store.getActions()).toEqual(expectedActions);
         expect(onSuccess).toHaveBeenCalledTimes(1);
         expect(onError).toHaveBeenCalledTimes(0);
+        expect(getPlans).toHaveBeenCalledWith({ page: 1, filter: {} });
       });
   });
 
