@@ -246,15 +246,16 @@ export default function createThunksFor(resource) {
       });
   };
 
-  thunks[camelize('sort', pluralName)] = (
-    order,
-    onSuccess,
-    onError
-  ) => dispatch => {
+  thunks[camelize('sort', pluralName)] = (order, onSuccess, onError) => (
+    dispatch,
+    getState
+  ) => {
+    const { page } = getState()[storeKey];
+
     dispatch(actions[resourceName][camelize('sort', pluralName)](order));
     dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
 
-    return client[camelize('get', pluralName)]({ sort: order })
+    return client[camelize('get', pluralName)]({ page, sort: order })
       .then(data => {
         dispatch(
           actions[resourceName][camelize('get', pluralName, 'success')](data)
@@ -341,15 +342,17 @@ export default function createThunksFor(resource) {
       });
   };
 
-  thunks[camelize('clear', pluralName, 'sort')] = (
-    onSuccess,
-    onError
-  ) => dispatch => {
+  thunks[camelize('clear', pluralName, 'sort')] = (onSuccess, onError) => (
+    dispatch,
+    getState
+  ) => {
+    const { page } = getState()[storeKey];
+
     dispatch(actions[resourceName][camelize('clear', pluralName, 'sort')]());
 
     dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
 
-    return client[camelize('get', pluralName)]()
+    return client[camelize('get', pluralName)]({ page })
       .then(data => {
         dispatch(
           actions[resourceName][camelize('get', pluralName, 'success')](data)

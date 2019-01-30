@@ -313,7 +313,7 @@ describe('Thunk Factory', () => {
     const store = mockStore({
       plans: {
         list: [],
-        sort: {},
+        page: 1,
       },
     });
 
@@ -343,6 +343,7 @@ describe('Thunk Factory', () => {
         expect(store.getActions()).toEqual(expectedActions);
         expect(onSuccess).toHaveBeenCalledTimes(1);
         expect(onError).toHaveBeenCalledTimes(0);
+        expect(getPlans).toHaveBeenCalledWith({ page: 1 });
       });
   });
 
@@ -351,6 +352,7 @@ describe('Thunk Factory', () => {
       plans: {
         list: [],
         error: null,
+        page: 1,
       },
     });
 
@@ -383,6 +385,7 @@ describe('Thunk Factory', () => {
         expect(store.getActions()).toEqual(expectedActions);
         expect(onSuccess).toHaveBeenCalledTimes(0);
         expect(onError).toHaveBeenCalledTimes(1);
+        expect(getPlans).toHaveBeenCalledWith({ page: 1 });
       });
   });
 
@@ -463,6 +466,7 @@ describe('Thunk Factory', () => {
     const store = mockStore({
       plans: {
         list: [],
+        page: 1,
       },
     });
 
@@ -492,6 +496,7 @@ describe('Thunk Factory', () => {
         expect(store.getActions()).toEqual(expectedActions);
         expect(onSuccess).toHaveBeenCalledTimes(1);
         expect(onError).toHaveBeenCalledTimes(0);
+        expect(getPlans).toHaveBeenCalledWith({ page: 1, sort: { name: -1 } });
       });
   });
 
@@ -499,6 +504,7 @@ describe('Thunk Factory', () => {
     const store = mockStore({
       plans: {
         list: [],
+        page: 1,
       },
     });
 
@@ -530,6 +536,7 @@ describe('Thunk Factory', () => {
         expect(store.getActions()).toEqual(expectedActions);
         expect(onSuccess).toHaveBeenCalledTimes(0);
         expect(onError).toHaveBeenCalledTimes(1);
+        expect(getPlans).toHaveBeenCalledWith({ page: 1, sort: { name: -1 } });
       });
   });
 
