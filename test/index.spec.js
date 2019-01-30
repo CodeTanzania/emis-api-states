@@ -7,6 +7,7 @@ describe('Library Index', () => {
     expect(typeof lib.clearActivityFilters).toBe('function');
     expect(typeof lib.clearActivitiesSort).toBe('function');
     expect(typeof lib.closeActivityForm).toBe('function');
+    expect(typeof lib.deleteActivity).toBe('function');
     expect(typeof lib.filterActivities).toBe('function');
     expect(typeof lib.getActivities).toBe('function');
     expect(typeof lib.getActivity).toBe('function');
@@ -23,6 +24,7 @@ describe('Library Index', () => {
     expect(typeof lib.clearAdjustmentFilters).toBe('function');
     expect(typeof lib.clearAdjustmentsSort).toBe('function');
     expect(typeof lib.closeAdjustmentForm).toBe('function');
+    expect(typeof lib.deleteAdjustment).toBe('function');
     expect(typeof lib.filterAdjustments).toBe('function');
     expect(typeof lib.getAdjustments).toBe('function');
     expect(typeof lib.getAdjustment).toBe('function');
@@ -39,6 +41,7 @@ describe('Library Index', () => {
     expect(typeof lib.clearAlertFilters).toBe('function');
     expect(typeof lib.clearAlertsSort).toBe('function');
     expect(typeof lib.closeAlertForm).toBe('function');
+    expect(typeof lib.deleteAlert).toBe('function');
     expect(typeof lib.filterAlerts).toBe('function');
     expect(typeof lib.getAlerts).toBe('function');
     expect(typeof lib.getAlert).toBe('function');
@@ -55,6 +58,7 @@ describe('Library Index', () => {
     expect(typeof lib.clearAlertSourceFilters).toBe('function');
     expect(typeof lib.clearAlertSourcesSort).toBe('function');
     expect(typeof lib.closeAlertSourceForm).toBe('function');
+    expect(typeof lib.deleteAlertSource).toBe('function');
     expect(typeof lib.filterAlertSources).toBe('function');
     expect(typeof lib.getAlertSources).toBe('function');
     expect(typeof lib.getAlertSource).toBe('function');
@@ -71,6 +75,7 @@ describe('Library Index', () => {
     expect(typeof lib.clearAssessmentFilters).toBe('function');
     expect(typeof lib.clearAssessmentsSort).toBe('function');
     expect(typeof lib.closeAssessmentForm).toBe('function');
+    expect(typeof lib.deleteAssessment).toBe('function');
     expect(typeof lib.filterAssessments).toBe('function');
     expect(typeof lib.getAssessments).toBe('function');
     expect(typeof lib.getAssessment).toBe('function');
@@ -87,6 +92,7 @@ describe('Library Index', () => {
     expect(typeof lib.clearPlanFilters).toBe('function');
     expect(typeof lib.clearPlansSort).toBe('function');
     expect(typeof lib.closePlanForm).toBe('function');
+    expect(typeof lib.deletePlan).toBe('function');
     expect(typeof lib.filterPlans).toBe('function');
     expect(typeof lib.getPlans).toBe('function');
     expect(typeof lib.getPlan).toBe('function');
@@ -103,6 +109,7 @@ describe('Library Index', () => {
     expect(typeof lib.clearFeatureFilters).toBe('function');
     expect(typeof lib.clearFeaturesSort).toBe('function');
     expect(typeof lib.closeFeatureForm).toBe('function');
+    expect(typeof lib.deleteFeature).toBe('function');
     expect(typeof lib.filterFeatures).toBe('function');
     expect(typeof lib.getFeatures).toBe('function');
     expect(typeof lib.getFeature).toBe('function');
@@ -119,6 +126,7 @@ describe('Library Index', () => {
     expect(typeof lib.clearIncidentFilters).toBe('function');
     expect(typeof lib.clearIncidentsSort).toBe('function');
     expect(typeof lib.closeIncidentForm).toBe('function');
+    expect(typeof lib.deleteIncident).toBe('function');
     expect(typeof lib.filterIncidents).toBe('function');
     expect(typeof lib.getIncidents).toBe('function');
     expect(typeof lib.getIncident).toBe('function');
@@ -135,6 +143,7 @@ describe('Library Index', () => {
     expect(typeof lib.clearIncidentTypeFilters).toBe('function');
     expect(typeof lib.clearIncidentTypesSort).toBe('function');
     expect(typeof lib.closeIncidentTypeForm).toBe('function');
+    expect(typeof lib.deleteIncidentType).toBe('function');
     expect(typeof lib.filterIncidentTypes).toBe('function');
     expect(typeof lib.getIncidentTypes).toBe('function');
     expect(typeof lib.getIncidentType).toBe('function');
@@ -151,6 +160,7 @@ describe('Library Index', () => {
     expect(typeof lib.clearIndicatorFilters).toBe('function');
     expect(typeof lib.clearIndicatorsSort).toBe('function');
     expect(typeof lib.closeIndicatorForm).toBe('function');
+    expect(typeof lib.deleteIndicator).toBe('function');
     expect(typeof lib.filterIndicators).toBe('function');
     expect(typeof lib.getIndicators).toBe('function');
     expect(typeof lib.getIndicator).toBe('function');
@@ -167,6 +177,7 @@ describe('Library Index', () => {
     expect(typeof lib.clearItemFilters).toBe('function');
     expect(typeof lib.clearItemsSort).toBe('function');
     expect(typeof lib.closeItemForm).toBe('function');
+    expect(typeof lib.deleteItem).toBe('function');
     expect(typeof lib.filterItems).toBe('function');
     expect(typeof lib.getItems).toBe('function');
     expect(typeof lib.getItem).toBe('function');
@@ -183,6 +194,7 @@ describe('Library Index', () => {
     expect(typeof lib.clearProcedureFilters).toBe('function');
     expect(typeof lib.clearProceduresSort).toBe('function');
     expect(typeof lib.closeProcedureForm).toBe('function');
+    expect(typeof lib.deleteProcedure).toBe('function');
     expect(typeof lib.filterProcedures).toBe('function');
     expect(typeof lib.getProcedures).toBe('function');
     expect(typeof lib.getProcedure).toBe('function');
@@ -199,6 +211,7 @@ describe('Library Index', () => {
     expect(typeof lib.clearQuestionFilters).toBe('function');
     expect(typeof lib.clearQuestionsSort).toBe('function');
     expect(typeof lib.closeQuestionForm).toBe('function');
+    expect(typeof lib.deleteQuestion).toBe('function');
     expect(typeof lib.filterQuestions).toBe('function');
     expect(typeof lib.getQuestions).toBe('function');
     expect(typeof lib.getQuestion).toBe('function');
@@ -215,6 +228,7 @@ describe('Library Index', () => {
     expect(typeof lib.clearQuestionnaireFilters).toBe('function');
     expect(typeof lib.clearQuestionnairesSort).toBe('function');
     expect(typeof lib.closeQuestionnaireForm).toBe('function');
+    expect(typeof lib.deleteQuestionnaire).toBe('function');
     expect(typeof lib.filterQuestionnaires).toBe('function');
     expect(typeof lib.getQuestionnaires).toBe('function');
     expect(typeof lib.getQuestionnaire).toBe('function');
@@ -231,6 +245,7 @@ describe('Library Index', () => {
     expect(typeof lib.clearResourceFilters).toBe('function');
     expect(typeof lib.clearResourcesSort).toBe('function');
     expect(typeof lib.closeResourceForm).toBe('function');
+    expect(typeof lib.deleteResource).toBe('function');
     expect(typeof lib.filterResources).toBe('function');
     expect(typeof lib.getResources).toBe('function');
     expect(typeof lib.getResource).toBe('function');
@@ -247,6 +262,7 @@ describe('Library Index', () => {
     expect(typeof lib.clearRoleFilters).toBe('function');
     expect(typeof lib.clearRolesSort).toBe('function');
     expect(typeof lib.closeRoleForm).toBe('function');
+    expect(typeof lib.deleteRole).toBe('function');
     expect(typeof lib.filterRoles).toBe('function');
     expect(typeof lib.getRoles).toBe('function');
     expect(typeof lib.getRole).toBe('function');
@@ -263,6 +279,7 @@ describe('Library Index', () => {
     expect(typeof lib.clearStakeholderFilters).toBe('function');
     expect(typeof lib.clearStakeholdersSort).toBe('function');
     expect(typeof lib.closeStakeholderForm).toBe('function');
+    expect(typeof lib.deleteStakeholder).toBe('function');
     expect(typeof lib.filterStakeholders).toBe('function');
     expect(typeof lib.getStakeholders).toBe('function');
     expect(typeof lib.getStakeholder).toBe('function');
@@ -279,6 +296,7 @@ describe('Library Index', () => {
     expect(typeof lib.clearWarehouseFilters).toBe('function');
     expect(typeof lib.clearWarehousesSort).toBe('function');
     expect(typeof lib.closeWarehouseForm).toBe('function');
+    expect(typeof lib.deleteWarehouse).toBe('function');
     expect(typeof lib.filterWarehouses).toBe('function');
     expect(typeof lib.getWarehouses).toBe('function');
     expect(typeof lib.getWarehouse).toBe('function');

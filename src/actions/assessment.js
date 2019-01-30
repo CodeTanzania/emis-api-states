@@ -11,6 +11,7 @@ export const {
   clearAssessmentFilters,
   clearAssessmentsSort,
   closeAssessmentForm,
+  deleteAssessment,
   filterAssessments,
   getAssessments,
   getAssessment,

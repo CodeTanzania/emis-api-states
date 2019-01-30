@@ -154,6 +154,43 @@ export default function createThunksFor(resource) {
       });
   };
 
+  thunks[camelize('delete', singularName)] = (
+    param,
+    onSuccess,
+    onError
+  ) => dispatch => {
+    dispatch(
+      actions[resourceName][camelize('delete', singularName, 'request')]()
+    );
+    return client[camelize('delete', singularName)](param)
+      .then(data => {
+        dispatch(
+          actions[resourceName][camelize('delete', singularName, 'success')](
+            data
+          )
+        );
+
+        dispatch(thunks[camelize('get', pluralName)]());
+
+        // custom provided onSuccess callback
+        if (isFunction(onSuccess)) {
+          onSuccess();
+        }
+      })
+      .catch(error => {
+        dispatch(
+          actions[resourceName][camelize('delete', singularName, 'failure')](
+            error
+          )
+        );
+
+        // custom provided onError callback
+        if (isFunction(onError)) {
+          onError();
+        }
+      });
+  };
+
   thunks[camelize('filter', pluralName)] = (
     filter,
     onSuccess,

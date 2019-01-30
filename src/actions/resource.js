@@ -7,6 +7,7 @@ export const {
   clearResourceFilters,
   clearResourcesSort,
   closeResourceForm,
+  deleteResource,
   filterResources,
   getResources,
   getResource,

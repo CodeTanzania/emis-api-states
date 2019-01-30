@@ -7,6 +7,7 @@ export const {
   clearPlanFilters,
   clearPlansSort,
   closePlanForm,
+  deletePlan,
   filterPlans,
   getPlans,
   getPlan,

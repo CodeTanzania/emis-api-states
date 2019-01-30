@@ -1,4 +1,5 @@
 import {
+  deletePlan,
   getPlan,
   getPlans,
   postPlan,
@@ -825,6 +826,86 @@ describe('Thunk Factory', () => {
 
     return store
       .dispatch(planThunks.putPlan({}, onSuccess, onError))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(onSuccess).toHaveBeenCalledTimes(0);
+        expect(onError).toHaveBeenCalledTimes(1);
+      });
+  });
+
+  it('should dispatch required actions when delete resource succeed', () => {
+    const store = mockStore({
+      plans: {
+        list: [],
+      },
+    });
+
+    const mockData = {
+      name: 'Finish off',
+    };
+
+    const mockGetData = {
+      data: {
+        data: [{ name: 'Finish off' }],
+        page: 1,
+        pages: 1,
+        total: 1,
+      },
+    };
+
+    const onSuccess = jest.fn();
+    const onError = jest.fn();
+
+    deletePlan.mockResolvedValueOnce(mockData);
+    getPlans.mockResolvedValueOnce(mockGetData);
+
+    const planThunks = createThunkFor('plans');
+    const expectedActions = [
+      { type: 'plan/deletePlanRequest', payload: undefined },
+      { type: 'plan/deletePlanSuccess', payload: mockData },
+      { type: 'plan/getPlansRequest', payload: undefined },
+      { type: 'plan/getPlansSuccess', payload: mockGetData },
+    ];
+
+    return store
+      .dispatch(planThunks.deletePlan({}, onSuccess, onError))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(onSuccess).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledTimes(0);
+      });
+  });
+
+  it('should dispatch required actions when delete resource fails', () => {
+    const store = mockStore({
+      plans: {
+        list: [],
+      },
+    });
+
+    const error = {
+      status: 404,
+      code: 404,
+      name: 'Error',
+      message: 'Not Found',
+      developerMessage: 'Not Found',
+      userMessage: 'Not Found',
+      error: 'Error',
+      error_description: 'Not Found',
+    };
+
+    deletePlan.mockRejectedValueOnce(error);
+
+    const planThunks = createThunkFor('plans');
+    const expectedActions = [
+      { type: 'plan/deletePlanRequest', payload: undefined },
+      { type: 'plan/deletePlanFailure', payload: error },
+    ];
+    const onSuccess = jest.fn();
+    const onError = jest.fn();
+
+    return store
+      .dispatch(planThunks.deletePlan({}, onSuccess, onError))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
         expect(onSuccess).toHaveBeenCalledTimes(0);

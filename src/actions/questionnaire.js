@@ -11,6 +11,7 @@ export const {
   clearQuestionnaireFilters,
   clearQuestionnairesSort,
   closeQuestionnaireForm,
+  deleteQuestionnaire,
   filterQuestionnaires,
   getQuestionnaires,
   getQuestionnaire,

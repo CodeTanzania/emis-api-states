@@ -7,6 +7,7 @@ export const {
   clearAlertSourceFilters,
   clearAlertSourcesSort,
   closeAlertSourceForm,
+  deleteAlertSource,
   filterAlertSources,
   getAlertSources,
   getAlertSource,

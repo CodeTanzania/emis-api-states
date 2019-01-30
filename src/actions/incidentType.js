@@ -11,6 +11,7 @@ export const {
   clearIncidentTypeFilters,
   clearIncidentTypesSort,
   closeIncidentTypeForm,
+  deleteIncidentType,
   filterIncidentTypes,
   getIncidentTypes,
   getIncidentType,

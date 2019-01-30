@@ -11,6 +11,7 @@ export const {
   clearStakeholderFilters,
   clearStakeholdersSort,
   closeStakeholderForm,
+  deleteStakeholder,
   filterStakeholders,
   getStakeholders,
   getStakeholder,

@@ -59,6 +59,12 @@ export function getDefaultReducers(resourceName) {
       Object.assign({}, state, { posting: false, showForm: false }),
     [camelize('put', singular, 'Failure')]: (state, action) =>
       Object.assign({}, state, { posting: false, error: action.payload }),
+    [camelize('delete', singular, 'Request')]: state =>
+      Object.assign({}, state, { posting: true }),
+    [camelize('delete', singular, 'Success')]: state =>
+      Object.assign({}, state, { posting: false }),
+    [camelize('delete', singular, 'Failure')]: (state, action) =>
+      Object.assign({}, state, { posting: false, error: action.payload }),
     [camelize('open', singular, 'Form')]: state =>
       Object.assign({}, state, { showForm: true }),
     [camelize('close', singular, 'Form')]: state =>

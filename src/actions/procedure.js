@@ -7,6 +7,7 @@ export const {
   clearProcedureFilters,
   clearProceduresSort,
   closeProcedureForm,
+  deleteProcedure,
   filterProcedures,
   getProcedures,
   getProcedure,
