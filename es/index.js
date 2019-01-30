@@ -347,32 +347,10 @@ function createThunksFor(resource) {
     };
   };
 
-  thunks[camelize('get', pluralName)] = function (param) {
-    return function (dispatch$$1) {
-      dispatch$$1(actions[resourceName][camelize('get', pluralName, 'request')]());
-      return client[camelize('get', pluralName)](param).then(function (data) {
-        return dispatch$$1(actions[resourceName][camelize('get', pluralName, 'success')](data));
-      }).catch(function (error) {
-        return dispatch$$1(actions[resourceName][camelize('get', pluralName, 'failure')](error));
-      });
-    };
-  };
-
-  thunks[camelize('get', pluralName)] = function (param) {
-    return function (dispatch$$1) {
-      dispatch$$1(actions[resourceName][camelize('get', pluralName, 'request')]());
-      return client[camelize('get', pluralName)](param).then(function (data) {
-        return dispatch$$1(actions[resourceName][camelize('get', pluralName, 'success')](data));
-      }).catch(function (error) {
-        return dispatch$$1(actions[resourceName][camelize('get', pluralName, 'failure')](error));
-      });
-    };
-  };
-
-  thunks[camelize('get', singularName)] = function (param) {
+  thunks[camelize('get', singularName)] = function (id) {
     return function (dispatch$$1) {
       dispatch$$1(actions[resourceName][camelize('get', singularName, 'request')]());
-      return client[camelize('get', singularName)](param).then(function (data) {
+      return client[camelize('get', singularName)](id).then(function (data) {
         return dispatch$$1(actions[resourceName][camelize('get', singularName, 'success')](data));
       }).catch(function (error) {
         return dispatch$$1(actions[resourceName][camelize('get', singularName, 'failure')](error));
@@ -426,13 +404,18 @@ function createThunksFor(resource) {
     };
   };
 
-  thunks[camelize('delete', singularName)] = function (param, onSuccess, onError) {
-    return function (dispatch$$1) {
+  thunks[camelize('delete', singularName)] = function (id, onSuccess, onError) {
+    return function (dispatch$$1, getState) {
       dispatch$$1(actions[resourceName][camelize('delete', singularName, 'request')]());
-      return client[camelize('delete', singularName)](param).then(function (data) {
+      return client[camelize('delete', singularName)](id).then(function (data) {
         dispatch$$1(actions[resourceName][camelize('delete', singularName, 'success')](data));
 
-        dispatch$$1(thunks[camelize('get', pluralName)]());
+        var _getState$storeKey = getState()[storeKey],
+            page = _getState$storeKey.page,
+            filter = _getState$storeKey.filter;
+
+
+        dispatch$$1(thunks[camelize('get', pluralName)]({ page: page, filter: filter }));
 
         // custom provided onSuccess callback
         if (isFunction(onSuccess)) {
@@ -476,9 +459,9 @@ function createThunksFor(resource) {
     return function (dispatch$$1, getState) {
       dispatch$$1(actions[resourceName][camelize('get', pluralName, 'request')]());
 
-      var _getState$storeKey = getState()[storeKey],
-          page = _getState$storeKey.page,
-          filter = _getState$storeKey.filter;
+      var _getState$storeKey2 = getState()[storeKey],
+          page = _getState$storeKey2.page,
+          filter = _getState$storeKey2.filter;
 
 
       return client[camelize('get', pluralName)]({ page: page, filter: filter }).then(function (data) {
