@@ -43,9 +43,9 @@ export default function createThunksFor(resource) {
       );
   };
 
-  thunks[camelize('get', singularName)] = param => dispatch => {
+  thunks[camelize('get', singularName)] = id => dispatch => {
     dispatch(actions[resourceName][camelize('get', singularName, 'request')]());
-    return client[camelize('get', singularName)](param)
+    return client[camelize('get', singularName)](id)
       .then(data =>
         dispatch(
           actions[resourceName][camelize('get', singularName, 'success')](data)
