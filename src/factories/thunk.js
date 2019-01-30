@@ -43,39 +43,9 @@ export default function createThunksFor(resource) {
       );
   };
 
-  thunks[camelize('get', pluralName)] = param => dispatch => {
-    dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
-    return client[camelize('get', pluralName)](param)
-      .then(data =>
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'success')](data)
-        )
-      )
-      .catch(error =>
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'failure')](error)
-        )
-      );
-  };
-
-  thunks[camelize('get', pluralName)] = param => dispatch => {
-    dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
-    return client[camelize('get', pluralName)](param)
-      .then(data =>
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'success')](data)
-        )
-      )
-      .catch(error =>
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'failure')](error)
-        )
-      );
-  };
-
-  thunks[camelize('get', singularName)] = param => dispatch => {
+  thunks[camelize('get', singularName)] = id => dispatch => {
     dispatch(actions[resourceName][camelize('get', singularName, 'request')]());
-    return client[camelize('get', singularName)](param)
+    return client[camelize('get', singularName)](id)
       .then(data =>
         dispatch(
           actions[resourceName][camelize('get', singularName, 'success')](data)
@@ -154,15 +124,14 @@ export default function createThunksFor(resource) {
       });
   };
 
-  thunks[camelize('delete', singularName)] = (
-    param,
-    onSuccess,
-    onError
-  ) => dispatch => {
+  thunks[camelize('delete', singularName)] = (id, onSuccess, onError) => (
+    dispatch,
+    getState
+  ) => {
     dispatch(
       actions[resourceName][camelize('delete', singularName, 'request')]()
     );
-    return client[camelize('delete', singularName)](param)
+    return client[camelize('delete', singularName)](id)
       .then(data => {
         dispatch(
           actions[resourceName][camelize('delete', singularName, 'success')](
@@ -170,7 +139,9 @@ export default function createThunksFor(resource) {
           )
         );
 
-        dispatch(thunks[camelize('get', pluralName)]());
+        const { page, filter } = getState()[storeKey];
+
+        dispatch(thunks[camelize('get', pluralName)]({ page, filter }));
 
         // custom provided onSuccess callback
         if (isFunction(onSuccess)) {
