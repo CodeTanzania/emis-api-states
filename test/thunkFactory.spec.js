@@ -837,6 +837,8 @@ describe('Thunk Factory', () => {
     const store = mockStore({
       plans: {
         list: [],
+        page: 1,
+        filter: null,
       },
     });
 
@@ -868,11 +870,15 @@ describe('Thunk Factory', () => {
     ];
 
     return store
-      .dispatch(planThunks.deletePlan({}, onSuccess, onError))
+      .dispatch(planThunks.deletePlan('id', onSuccess, onError))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
         expect(onSuccess).toHaveBeenCalledTimes(1);
         expect(onError).toHaveBeenCalledTimes(0);
+        expect(getPlans).toHaveBeenCalledWith({
+          page: 1,
+          filter: null,
+        });
       });
   });
 

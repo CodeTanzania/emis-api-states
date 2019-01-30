@@ -154,15 +154,14 @@ export default function createThunksFor(resource) {
       });
   };
 
-  thunks[camelize('delete', singularName)] = (
-    param,
-    onSuccess,
-    onError
-  ) => dispatch => {
+  thunks[camelize('delete', singularName)] = (id, onSuccess, onError) => (
+    dispatch,
+    getState
+  ) => {
     dispatch(
       actions[resourceName][camelize('delete', singularName, 'request')]()
     );
-    return client[camelize('delete', singularName)](param)
+    return client[camelize('delete', singularName)](id)
       .then(data => {
         dispatch(
           actions[resourceName][camelize('delete', singularName, 'success')](
@@ -170,7 +169,9 @@ export default function createThunksFor(resource) {
           )
         );
 
-        dispatch(thunks[camelize('get', pluralName)]());
+        const { page, filter } = getState()[storeKey];
+
+        dispatch(thunks[camelize('get', pluralName)]({ page, filter }));
 
         // custom provided onSuccess callback
         if (isFunction(onSuccess)) {
