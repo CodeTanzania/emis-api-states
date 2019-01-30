@@ -1,3 +1,20 @@
+#### 0.7.1 (2019-01-30)
+
+##### Chores
+
+* **build:**  bundle library v0.7.1 ([eccd1e9e](https://github.com/CodeTanzania/emis-api-states/commit/eccd1e9ed6b23a6d6cd1edb135d535dab1ca2765))
+* **package.json:**  update package version to 0.7.1 ([c4acf847](https://github.com/CodeTanzania/emis-api-states/commit/c4acf847f63093f2845dc8d28017f602a2a90f9f))
+
+##### Bug Fixes
+
+* **actions:**  on delete action maintain page and filters ([496f6934](https://github.com/CodeTanzania/emis-api-states/commit/496f6934215fb51ff7f7afd874e1ec9fd9f05507))
+
+##### Refactors
+
+* **thunk factory:**
+  *  update get <resource> method signature ([a8ee70e2](https://github.com/CodeTanzania/emis-api-states/commit/a8ee70e2cabff29ee59779a9bf165e254e1a2037))
+  *  remove code duplicates ([49070ce9](https://github.com/CodeTanzania/emis-api-states/commit/49070ce9318cebfd79901d98fd61422371d0f8c4))
+
 #### 0.7.0 (2019-01-30)
 
 ##### Chores
