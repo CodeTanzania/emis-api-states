@@ -253,7 +253,7 @@ describe('Thunk Factory', () => {
 
     const planThunks = createThunkFor('plans');
     const expectedActions = [
-      { type: 'plan/clearPlanFilters', payload: undefined },
+      { type: 'plan/filterPlans', payload: null },
       { type: 'plan/getPlansRequest', payload: undefined },
       { type: 'plan/getPlansSuccess', payload: mockData },
     ];
@@ -270,11 +270,49 @@ describe('Thunk Factory', () => {
       });
   });
 
+  it('should reload resources when clearing part of filters succeed', () => {
+    const store = mockStore({
+      plans: {
+        list: [],
+        filter: { name: 'Test', age: 12 },
+      },
+    });
+
+    const mockData = {
+      data: {
+        data: [{ name: 'Finish off' }],
+        page: 1,
+        pages: 1,
+        total: 1,
+      },
+    };
+    getPlans.mockResolvedValueOnce(mockData);
+
+    const planThunks = createThunkFor('plans');
+    const expectedActions = [
+      { type: 'plan/filterPlans', payload: { name: 'Test' } },
+      { type: 'plan/getPlansRequest', payload: undefined },
+      { type: 'plan/getPlansSuccess', payload: mockData },
+    ];
+
+    const onSuccess = jest.fn();
+    const onError = jest.fn();
+
+    return store
+      .dispatch(planThunks.clearPlanFilters(onSuccess, onError, ['name']))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(onSuccess).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledTimes(0);
+      });
+  });
+
   it('should dispatch error action when clear filters fails', () => {
     const store = mockStore({
       plans: {
         list: [],
         error: null,
+        filter: { name: 'Test' },
       },
     });
 
@@ -293,7 +331,7 @@ describe('Thunk Factory', () => {
 
     const planThunks = createThunkFor('plans');
     const expectedActions = [
-      { type: 'plan/clearPlanFilters', payload: undefined },
+      { type: 'plan/filterPlans', payload: null },
       { type: 'plan/getPlansRequest', payload: undefined },
       { type: 'plan/getPlansFailure', payload: error },
     ];
