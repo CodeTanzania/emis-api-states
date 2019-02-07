@@ -349,6 +349,7 @@ export default function createThunksFor(resource) {
     onSuccess,
     onError
   ) => dispatch => {
+    dispatch(actions[resourceName][camelize('search', pluralName)](query));
     dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
 
     return client[camelize('get', pluralName)]({ q: query })
@@ -442,11 +443,11 @@ export default function createThunksFor(resource) {
     dispatch,
     getState
   ) => {
-    const { filter } = getState()[storeKey];
+    const { filter, q } = getState()[storeKey];
 
     dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
 
-    return client[camelize('get', pluralName)]({ page, filter })
+    return client[camelize('get', pluralName)]({ page, filter, q })
       .then(data => {
         dispatch(
           actions[resourceName][camelize('get', pluralName, 'success')](data)

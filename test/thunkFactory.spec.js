@@ -432,6 +432,7 @@ describe('Thunk Factory', () => {
     const store = mockStore({
       plans: {
         list: [],
+        q: undefined,
       },
     });
 
@@ -447,6 +448,7 @@ describe('Thunk Factory', () => {
 
     const planThunks = createThunkFor('plans');
     const expectedActions = [
+      { type: 'plan/searchPlans', payload: 'Test' },
       { type: 'plan/getPlansRequest', payload: undefined },
       { type: 'plan/getPlansSuccess', payload: mockData },
     ];
@@ -485,6 +487,7 @@ describe('Thunk Factory', () => {
 
     const planThunks = createThunkFor('plans');
     const expectedActions = [
+      { type: 'plan/searchPlans', payload: 'Test' },
       { type: 'plan/getPlansRequest', payload: undefined },
       { type: 'plan/getPlansFailure', payload: error },
     ];
