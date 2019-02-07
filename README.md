@@ -44,7 +44,9 @@ The following is the list of all resources exposed by this library.
 - Stock
 - Warehouse
 
-For each resource you can get it's exposed actions as follows
+  For each resource you can get it's exposed actions as follows;
+
+  > Replace activities/activity with the name of the module you want
 
 ```js
 import {
@@ -142,6 +144,8 @@ export Connect(AlertList, {
 
 ### How to use exposed actions
 
+Some of these actions accepts two callback functions which will be executed on Success and Error scenarios as shown below;
+
 #### Fetch Data
 
 ```js
@@ -157,7 +161,7 @@ getActivity(activityId);
 ```js
 import { postActivity } from '@codetanzania/emis-api-states';
 
-postActivity(activity);
+postActivity(activity, onSuccess, onError);
 ```
 
 #### Update Data
@@ -167,7 +171,7 @@ postActivity(activity);
 ```js
 import { putActivity } from '@codetanzania/emis-api-states';
 
-putActivity(activity);
+putActivity(activity, onSuccess, onError);
 ```
 
 #### Archive/Delete Data
@@ -175,7 +179,7 @@ putActivity(activity);
 ```js
 import { deleteActivity } from '@codetanzania/emis-api-states';
 
-deleteActivity(activityId);
+deleteActivity(activityId, onSuccess, onError);
 ```
 
 #### Searching
@@ -194,11 +198,13 @@ import {
   clearActivityFilters,
 } from '@codetanzania/emis-api-states';
 
-filterActivities({ plan: planId });
+filterActivities({ plan: planId }, onSuccess, onError);
 
 // clearing filters
+clearActivityFilters(onSuccess, onError);
 
-clearActivityFilters();
+//  keep some filters from being cleared. This won't reset plan field in filter object
+clearActivityFilters(onSuccess, onError, ['plan']);
 ```
 
 #### Pagination
@@ -217,11 +223,11 @@ import {
   clearActivitiesSort,
 } from '@codetanzania/emis-api-state';
 
-sortActivities({ name: 1 });
+sortActivities({ name: 1 }, onSuccess, onError);
 
 // clear sort
 
-clearActivitiesSort();
+clearActivitiesSort(onSuccess, onError);
 ```
 
 > Note: This library depends on [emis-api-client](https://github.com/CodeTanzania/emis-api-client) to work, so in order to specify API URL add `.env` file on your project root folder and specify your API URL under `REACT_APP_EMIS_API_URL=[specify API BASE URL here]`

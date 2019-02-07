@@ -1,3 +1,32 @@
+#### 0.8.0 (2019-02-07)
+
+##### Build System / Dependencies
+
+* **rollup:**  add more lodash functions as external dependencies ([558a6074](https://github.com/CodeTanzania/emis-api-states/commit/558a60741ea772c347989d0eb650bd8073abe208))
+
+##### Chores
+
+* **build:**  bundle library for v0.8.0 ([91fc257f](https://github.com/CodeTanzania/emis-api-states/commit/91fc257f69ea39c4cd73d5e4f432c6bc9251c365))
+* **package.json:**  update package version to 0.8.0 ([5393040f](https://github.com/CodeTanzania/emis-api-states/commit/5393040f925522569c819f50522cb9f640f51013))
+
+##### Documentation Changes
+
+* **readme:**  update library usage instructions ([05f100b0](https://github.com/CodeTanzania/emis-api-states/commit/05f100b008ee4fd913c0081ef155c8e0e6ab0b1b))
+* **readme.md:**  update library usage section ([c3e9a5e3](https://github.com/CodeTanzania/emis-api-states/commit/c3e9a5e3131e53171f95dd04e2a13e82bffb1afb))
+
+##### New Features
+
+* **thunks:**  allow clearing some of the applied filters ([d8fcd4a0](https://github.com/CodeTanzania/emis-api-states/commit/d8fcd4a0d2bd0ed81fec13fd2d2c152085cb0688))
+
+##### Bug Fixes
+
+* **thunks:**  maintain search query string on pagination ([0a89b0a5](https://github.com/CodeTanzania/emis-api-states/commit/0a89b0a54d87b432e0a811d0ca384d5870585d2d))
+* **store:**  set warehouse schema ([50e64cb9](https://github.com/CodeTanzania/emis-api-states/commit/50e64cb97352582ea7fd279fe7c55a979385caf5))
+
+##### Refactors
+
+* **thunks:**  remove code duplication and reuse existing thunks ([2ca0ca13](https://github.com/CodeTanzania/emis-api-states/commit/2ca0ca13f4191da6468a22a5fc4ab453f3d4f8a3))
+
 #### 0.7.1 (2019-01-30)
 
 ##### Chores
