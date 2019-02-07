@@ -36,24 +36,42 @@ export default function createThunksFor(resource) {
    * @description A thunk that will be dispatched when fetching data from API
    *
    * @param {Object} param - Param object to be passed to API client
+   * @param {Function} onSuccess - Callback to be called when fetching
+   * resources from the API succeed
+   * @param {Function} onError - Callback to be called when fetching
+   * resources from the API fails
    * @returns {Function} - Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
    */
-  thunks[camelize('get', pluralName)] = param => dispatch => {
+  thunks[camelize('get', pluralName)] = (
+    param,
+    onSuccess,
+    onError
+  ) => dispatch => {
     dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
     return client[camelize('get', pluralName)](param)
-      .then(data =>
+      .then(data => {
         dispatch(
           actions[resourceName][camelize('get', pluralName, 'success')](data)
-        )
-      )
-      .catch(error =>
+        );
+
+        // custom provided onSuccess callback
+        if (isFunction(onSuccess)) {
+          onSuccess();
+        }
+      })
+      .catch(error => {
         dispatch(
           actions[resourceName][camelize('get', pluralName, 'failure')](error)
-        )
-      );
+        );
+
+        // custom provided onError callback
+        if (isFunction(onError)) {
+          onError();
+        }
+      });
   };
 
   /**
@@ -63,24 +81,42 @@ export default function createThunksFor(resource) {
    * single resource data from the API
    *
    * @param {string} id - Resource unique identification
+   * @param {Function} onSuccess - Callback to be called when getting a
+   * resource from the API succeed
+   * @param {Function} onError - Callback to be called when getting a resource
+   * from the API fails
    * @returns {Function} - Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
    */
-  thunks[camelize('get', singularName)] = id => dispatch => {
+  thunks[camelize('get', singularName)] = (
+    id,
+    onSuccess,
+    onError
+  ) => dispatch => {
     dispatch(actions[resourceName][camelize('get', singularName, 'request')]());
     return client[camelize('get', singularName)](id)
-      .then(data =>
+      .then(data => {
         dispatch(
           actions[resourceName][camelize('get', singularName, 'success')](data)
-        )
-      )
-      .catch(error =>
+        );
+
+        // custom provided onSuccess callback
+        if (isFunction(onSuccess)) {
+          onSuccess();
+        }
+      })
+      .catch(error => {
         dispatch(
           actions[resourceName][camelize('get', singularName, 'failure')](error)
-        )
-      );
+        );
+
+        // custom provided onError callback
+        if (isFunction(onError)) {
+          onError();
+        }
+      });
   };
 
   /**
@@ -214,13 +250,14 @@ export default function createThunksFor(resource) {
 
         const { page, filter } = getState()[storeKey];
 
-        dispatch(thunks[camelize('get', pluralName)]({ page, filter }));
-
         // custom provided onSuccess callback
         if (isFunction(onSuccess)) {
           onSuccess();
         }
+
+        return dispatch(thunks[camelize('get', pluralName)]({ page, filter }));
       })
+
       .catch(error => {
         dispatch(
           actions[resourceName][camelize('delete', singularName, 'failure')](
@@ -257,29 +294,10 @@ export default function createThunksFor(resource) {
     onError
   ) => dispatch => {
     dispatch(actions[resourceName][camelize('filter', pluralName)](filter));
-    dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
 
-    return client[camelize('get', pluralName)]({ filter })
-      .then(data => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'success')](data)
-        );
-
-        // custom provided onSuccess callback
-        if (isFunction(onSuccess)) {
-          onSuccess();
-        }
-      })
-      .catch(error => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'failure')](error)
-        );
-
-        // custom provided onError callback
-        if (isFunction(onError)) {
-          onError();
-        }
-      });
+    return dispatch(
+      thunks[camelize('get', pluralName)]({ filter }, onSuccess, onError)
+    );
   };
 
   /**
@@ -301,31 +319,19 @@ export default function createThunksFor(resource) {
     dispatch,
     getState
   ) => {
-    dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
+    const { page, filter, q } = getState()[storeKey];
 
-    const { page, filter } = getState()[storeKey];
-
-    return client[camelize('get', pluralName)]({ page, filter })
-      .then(data => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'success')](data)
-        );
-
-        // custom provided onSuccess callback
-        if (isFunction(onSuccess)) {
-          onSuccess();
-        }
-      })
-      .catch(error => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'failure')](error)
-        );
-
-        // custom provided onError callback
-        if (isFunction(onError)) {
-          onError();
-        }
-      });
+    return dispatch(
+      thunks[camelize('get', pluralName)](
+        {
+          page,
+          filter,
+          q,
+        },
+        onSuccess,
+        onError
+      )
+    );
   };
 
   /**
@@ -350,29 +356,10 @@ export default function createThunksFor(resource) {
     onError
   ) => dispatch => {
     dispatch(actions[resourceName][camelize('search', pluralName)](query));
-    dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
 
-    return client[camelize('get', pluralName)]({ q: query })
-      .then(data => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'success')](data)
-        );
-
-        // custom provided onSuccess callback
-        if (isFunction(onSuccess)) {
-          onSuccess();
-        }
-      })
-      .catch(error => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'failure')](error)
-        );
-
-        // custom provided onError callback
-        if (isFunction(onError)) {
-          onError();
-        }
-      });
+    return dispatch(
+      thunks[camelize('get', pluralName)]({ q: query }, onSuccess, onError)
+    );
   };
 
   /**
@@ -398,29 +385,14 @@ export default function createThunksFor(resource) {
     const { page } = getState()[storeKey];
 
     dispatch(actions[resourceName][camelize('sort', pluralName)](order));
-    dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
 
-    return client[camelize('get', pluralName)]({ page, sort: order })
-      .then(data => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'success')](data)
-        );
-
-        // custom provided onSuccess callback
-        if (isFunction(onSuccess)) {
-          onSuccess();
-        }
-      })
-      .catch(error => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'failure')](error)
-        );
-
-        // custom provided onError callback
-        if (isFunction(onError)) {
-          onError();
-        }
-      });
+    return dispatch(
+      thunks[camelize('get', pluralName)](
+        { page, sort: order },
+        onSuccess,
+        onError
+      )
+    );
   };
 
   /**
@@ -445,29 +417,13 @@ export default function createThunksFor(resource) {
   ) => {
     const { filter, q } = getState()[storeKey];
 
-    dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
-
-    return client[camelize('get', pluralName)]({ page, filter, q })
-      .then(data => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'success')](data)
-        );
-
-        // custom provided onSuccess callback
-        if (isFunction(onSuccess)) {
-          onSuccess();
-        }
-      })
-      .catch(error => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'failure')](error)
-        );
-
-        // custom provided onError callback
-        if (isFunction(onError)) {
-          onError();
-        }
-      });
+    return dispatch(
+      thunks[camelize('get', pluralName)](
+        { page, filter, q },
+        onSuccess,
+        onError
+      )
+    );
   };
 
   /**
@@ -529,29 +485,9 @@ export default function createThunksFor(resource) {
 
     dispatch(actions[resourceName][camelize('clear', pluralName, 'sort')]());
 
-    dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
-
-    return client[camelize('get', pluralName)]({ page })
-      .then(data => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'success')](data)
-        );
-
-        // custom provided onSuccess callback
-        if (isFunction(onSuccess)) {
-          onSuccess();
-        }
-      })
-      .catch(error => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'failure')](error)
-        );
-
-        // custom provided onError callback
-        if (isFunction(onError)) {
-          onError();
-        }
-      });
+    return dispatch(
+      thunks[camelize('get', pluralName)]({ page }, onSuccess, onError)
+    );
   };
 
   return thunks;
