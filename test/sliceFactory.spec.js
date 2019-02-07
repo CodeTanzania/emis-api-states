@@ -20,6 +20,7 @@ describe('Slice Factory', () => {
     schema: null,
     filter: null,
     sort: null,
+    q: undefined,
   };
 
   it('should create a slice provided slice name', () => {
@@ -39,8 +40,8 @@ describe('Slice Factory', () => {
     expect(actions).toEqual([
       'selectTodo',
       'filterTodos',
-      'clearTodoFilters',
       'sortTodos',
+      'searchTodos',
       'clearTodosSort',
       'getTodosRequest',
       'getTodosSuccess',
@@ -90,19 +91,6 @@ describe('Slice Factory', () => {
       });
     });
 
-    it('should handle clear filter action', () => {
-      const todos = createSliceFor('todos');
-
-      const { reducer } = todos;
-      const clearFiltersAction = createAction('todos/clearTodoFilters');
-      expect(
-        reducer({ ...initialDefaultState, filter: {} }, clearFiltersAction)
-      ).toEqual({
-        ...initialDefaultState,
-        filter: null,
-      });
-    });
-
     it('should handle sort action', () => {
       const todos = createSliceFor('todos');
 
@@ -126,6 +114,19 @@ describe('Slice Factory', () => {
       ).toEqual({
         ...initialDefaultState,
         sort: null,
+      });
+    });
+
+    it('should handle search action', () => {
+      const todos = createSliceFor('todos');
+
+      const { reducer } = todos;
+      const searchTodosAction = createAction('todos/searchTodos', {
+        q: 'Test query string',
+      });
+      expect(reducer(initialDefaultState, searchTodosAction)).toEqual({
+        ...initialDefaultState,
+        q: searchTodosAction.payload,
       });
     });
 
@@ -288,6 +289,55 @@ describe('Slice Factory', () => {
       });
     });
 
+    it('should handle delete request action', () => {
+      const todos = createSliceFor('todos');
+
+      const { reducer } = todos;
+
+      const deleteTodoAction = createAction('todos/deleteTodoRequest');
+
+      expect(
+        reducer({ ...initialDefaultState, posting: false }, deleteTodoAction)
+      ).toEqual({
+        ...initialDefaultState,
+        posting: true,
+      });
+    });
+
+    it('should handle delete success action', () => {
+      const todos = createSliceFor('todos');
+
+      const { reducer } = todos;
+
+      const deleteTodoAction = createAction('todos/deleteTodoSuccess');
+
+      expect(
+        reducer({ ...initialDefaultState, posting: true }, deleteTodoAction)
+      ).toEqual({
+        ...initialDefaultState,
+        posting: false,
+      });
+    });
+
+    it('should handle delete failure action', () => {
+      const todos = createSliceFor('todos');
+
+      const { reducer } = todos;
+
+      const deleteTodoAction = createAction(
+        'todos/deleteTodoFailure',
+        new Error()
+      );
+
+      expect(
+        reducer({ ...initialDefaultState, posting: true }, deleteTodoAction)
+      ).toEqual({
+        ...initialDefaultState,
+        posting: false,
+        error: deleteTodoAction.payload,
+      });
+    });
+
     it('should handle open resource form action', () => {
       const todos = createSliceFor('todos');
 
@@ -355,6 +405,7 @@ describe('Slice Factory', () => {
         schema: null,
         filter: null,
         sort: null,
+        q: undefined,
       });
     });
   });

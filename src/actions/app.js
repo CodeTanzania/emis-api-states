@@ -88,6 +88,7 @@ export function initializeApp() {
           role: { setRoleSchema },
           stakeholder: { setStakeholderSchema },
           stock: { setStockSchema },
+          warehouse: { setWarehouseSchema },
         } = actions;
 
         const {
@@ -106,6 +107,7 @@ export function initializeApp() {
           Role: roleSchema,
           Party: stakeholderSchema,
           Stock: stockSchema,
+          Warehouse: warehouseSchema,
         } = schemas;
 
         dispatch(setActivitySchema(activitySchema));
@@ -123,6 +125,7 @@ export function initializeApp() {
         dispatch(setRoleSchema(roleSchema));
         dispatch(setStakeholderSchema(stakeholderSchema));
         dispatch(setStockSchema(stockSchema));
+        dispatch(setWarehouseSchema(warehouseSchema));
         dispatch(initializeAppSuccess());
       })
       .catch(error => {

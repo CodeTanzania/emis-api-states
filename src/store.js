@@ -100,10 +100,9 @@ export function createResourcesSlices(resources) {
 }
 
 /**
- * App reducer for controlling application initialization state
- *
  * @function
  * @name app
+ * @description App reducer for controlling application initialization state
  *
  * @param {Object} state - previous app state value
  * @param {Object} action - dispatched action object

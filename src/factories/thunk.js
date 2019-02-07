@@ -1,5 +1,7 @@
 import * as client from '@codetanzania/emis-api-client';
 import { pluralize, singularize } from 'inflection';
+import isEmpty from 'lodash/isEmpty';
+import pick from 'lodash/pick';
 import lowerFirst from 'lodash/lowerFirst';
 import upperFirst from 'lodash/upperFirst';
 import isFunction from 'lodash/isFunction';
@@ -17,7 +19,7 @@ import { actions } from '../store';
  * @param {string} resource - resource name
  * @returns {Object} thunks - resource thunks
  *
- * @version 0.2.0
+ * @version 0.3.0
  * @since 0.1.0
  */
 export default function createThunksFor(resource) {
@@ -28,36 +30,111 @@ export default function createThunksFor(resource) {
 
   const thunks = {};
 
-  thunks[camelize('get', pluralName)] = param => dispatch => {
+  /**
+   * @function
+   * @name get<Resource Plural Name>
+   * @description A thunk that will be dispatched when fetching data from API
+   *
+   * @param {Object} param - Param object to be passed to API client
+   * @param {Function} onSuccess - Callback to be called when fetching
+   * resources from the API succeed
+   * @param {Function} onError - Callback to be called when fetching
+   * resources from the API fails
+   * @returns {Function} - Thunk function
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  thunks[camelize('get', pluralName)] = (
+    param,
+    onSuccess,
+    onError
+  ) => dispatch => {
     dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
     return client[camelize('get', pluralName)](param)
-      .then(data =>
+      .then(data => {
         dispatch(
           actions[resourceName][camelize('get', pluralName, 'success')](data)
-        )
-      )
-      .catch(error =>
+        );
+
+        // custom provided onSuccess callback
+        if (isFunction(onSuccess)) {
+          onSuccess();
+        }
+      })
+      .catch(error => {
         dispatch(
           actions[resourceName][camelize('get', pluralName, 'failure')](error)
-        )
-      );
+        );
+
+        // custom provided onError callback
+        if (isFunction(onError)) {
+          onError();
+        }
+      });
   };
 
-  thunks[camelize('get', singularName)] = id => dispatch => {
+  /**
+   * @function
+   * @name get<Resource Singular Name>
+   * @description A thunk that will be dispatched when fetching
+   * single resource data from the API
+   *
+   * @param {string} id - Resource unique identification
+   * @param {Function} onSuccess - Callback to be called when getting a
+   * resource from the API succeed
+   * @param {Function} onError - Callback to be called when getting a resource
+   * from the API fails
+   * @returns {Function} - Thunk function
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  thunks[camelize('get', singularName)] = (
+    id,
+    onSuccess,
+    onError
+  ) => dispatch => {
     dispatch(actions[resourceName][camelize('get', singularName, 'request')]());
     return client[camelize('get', singularName)](id)
-      .then(data =>
+      .then(data => {
         dispatch(
           actions[resourceName][camelize('get', singularName, 'success')](data)
-        )
-      )
-      .catch(error =>
+        );
+
+        // custom provided onSuccess callback
+        if (isFunction(onSuccess)) {
+          onSuccess();
+        }
+      })
+      .catch(error => {
         dispatch(
           actions[resourceName][camelize('get', singularName, 'failure')](error)
-        )
-      );
+        );
+
+        // custom provided onError callback
+        if (isFunction(onError)) {
+          onError();
+        }
+      });
   };
 
+  /**
+   * @function
+   * @name post<Resource Singular Name>
+   * @description A thunk that will be dispatched when creating a single
+   * resource data in the API
+   *
+   * @param {Object} param - Resource  object to be created/Saved
+   * @param {Function} onSuccess - Callback to be executed when posting a
+   * resource succeed
+   * @param {Function} onError - Callback to be executed when posting
+   * resource fails
+   * @returns {Function} - Thunk function
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
   thunks[camelize('post', singularName)] = (
     param,
     onSuccess,
@@ -93,6 +170,22 @@ export default function createThunksFor(resource) {
       });
   };
 
+  /**
+   * @function
+   * @name put<Resource Singular Name>
+   * @description A thunk that will be dispatched when updating a single
+   * resource data in the API
+   *
+   * @param {Object} param - Resource  object to be updated
+   * @param {Function} onSuccess - Callback to be executed when updating a
+   * resource succeed
+   * @param {Function} onError - Callback to be executed when updating a
+   * resource fails
+   * @returns {Function} - Thunk function
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
   thunks[camelize('put', singularName)] = (
     param,
     onSuccess,
@@ -124,6 +217,22 @@ export default function createThunksFor(resource) {
       });
   };
 
+  /**
+   * @function
+   * @name delete<Resource Singular Name>
+   * @description A thunk that will be dispatched when deleting/archiving
+   * a single resource data in the API
+   *
+   * @param {string} id - Resource unique identification
+   * @param {Function} onSuccess - Callback to be executed when updating a
+   * resource succeed
+   * @param {Function} onError - Callback to be executed when updating a
+   * resource fails
+   * @returns {Function} - Thunk function
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
   thunks[camelize('delete', singularName)] = (id, onSuccess, onError) => (
     dispatch,
     getState
@@ -141,13 +250,14 @@ export default function createThunksFor(resource) {
 
         const { page, filter } = getState()[storeKey];
 
-        dispatch(thunks[camelize('get', pluralName)]({ page, filter }));
-
         // custom provided onSuccess callback
         if (isFunction(onSuccess)) {
           onSuccess();
         }
+
+        return dispatch(thunks[camelize('get', pluralName)]({ page, filter }));
       })
+
       .catch(error => {
         dispatch(
           actions[resourceName][camelize('delete', singularName, 'failure')](
@@ -162,98 +272,112 @@ export default function createThunksFor(resource) {
       });
   };
 
+  /**
+   * @function
+   * @name filter<Resource Plural Name>
+   * @description A thunk that will be dispatched when filtering resources
+   *  data in the API
+   *
+   * @param {Object} filter - Resource filter criteria object
+   * @param {Function} onSuccess - Callback to be executed when filtering
+   * resources succeed
+   * @param {Function} onError - Callback to be executed when filtering
+   * resources fails
+   * @returns {Function} - Thunk function
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
   thunks[camelize('filter', pluralName)] = (
     filter,
     onSuccess,
     onError
   ) => dispatch => {
     dispatch(actions[resourceName][camelize('filter', pluralName)](filter));
-    dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
 
-    return client[camelize('get', pluralName)]({ filter })
-      .then(data => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'success')](data)
-        );
-
-        // custom provided onSuccess callback
-        if (isFunction(onSuccess)) {
-          onSuccess();
-        }
-      })
-      .catch(error => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'failure')](error)
-        );
-
-        // custom provided onError callback
-        if (isFunction(onError)) {
-          onError();
-        }
-      });
+    return dispatch(
+      thunks[camelize('get', pluralName)]({ filter }, onSuccess, onError)
+    );
   };
 
+  /**
+   * @function
+   * @name refresh<Resource Plural Name>
+   * @description A thunk that will be dispatched when refreshing resources
+   *  data in the API
+   *
+   * @param {Function} onSuccess - Callback to be executed when refreshing
+   * resources succeed
+   * @param {Function} onError - Callback to be executed when refreshing
+   * resources fails
+   * @returns {Function} - Thunk function
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
   thunks[camelize('refresh', pluralName)] = (onSuccess, onError) => (
     dispatch,
     getState
   ) => {
-    dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
+    const { page, filter, q } = getState()[storeKey];
 
-    const { page, filter } = getState()[storeKey];
-
-    return client[camelize('get', pluralName)]({ page, filter })
-      .then(data => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'success')](data)
-        );
-
-        // custom provided onSuccess callback
-        if (isFunction(onSuccess)) {
-          onSuccess();
-        }
-      })
-      .catch(error => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'failure')](error)
-        );
-
-        // custom provided onError callback
-        if (isFunction(onError)) {
-          onError();
-        }
-      });
+    return dispatch(
+      thunks[camelize('get', pluralName)](
+        {
+          page,
+          filter,
+          q,
+        },
+        onSuccess,
+        onError
+      )
+    );
   };
 
+  /**
+   * @function
+   * @name search<Resource Plural Name>
+   * @description A thunk that will be dispatched when searching resources
+   *  data in the API
+   *
+   * @param {string} query - Search query string
+   * @param {Function} onSuccess - Callback to be executed when searching
+   * resources succeed
+   * @param {Function} onError - Callback to be executed when searching
+   * resources fails
+   * @returns {Function} - Thunk function
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
   thunks[camelize('search', pluralName)] = (
     query,
     onSuccess,
     onError
   ) => dispatch => {
-    dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
+    dispatch(actions[resourceName][camelize('search', pluralName)](query));
 
-    return client[camelize('get', pluralName)]({ q: query })
-      .then(data => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'success')](data)
-        );
-
-        // custom provided onSuccess callback
-        if (isFunction(onSuccess)) {
-          onSuccess();
-        }
-      })
-      .catch(error => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'failure')](error)
-        );
-
-        // custom provided onError callback
-        if (isFunction(onError)) {
-          onError();
-        }
-      });
+    return dispatch(
+      thunks[camelize('get', pluralName)]({ q: query }, onSuccess, onError)
+    );
   };
 
+  /**
+   * @function
+   * @name sort<Resource Plural Name>
+   * @description A thunk that will be dispatched when sorting resources
+   *  data in the API
+   *
+   * @param {Object} order - sort order object
+   * @param {Function} onSuccess - Callback to be executed when sorting
+   * resources succeed
+   * @param {Function} onError - Callback to be executed when sorting
+   * resources fails
+   * @returns {Function} - Thunk function
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
   thunks[camelize('sort', pluralName)] = (order, onSuccess, onError) => (
     dispatch,
     getState
@@ -261,95 +385,98 @@ export default function createThunksFor(resource) {
     const { page } = getState()[storeKey];
 
     dispatch(actions[resourceName][camelize('sort', pluralName)](order));
-    dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
 
-    return client[camelize('get', pluralName)]({ page, sort: order })
-      .then(data => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'success')](data)
-        );
-
-        // custom provided onSuccess callback
-        if (isFunction(onSuccess)) {
-          onSuccess();
-        }
-      })
-      .catch(error => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'failure')](error)
-        );
-
-        // custom provided onError callback
-        if (isFunction(onError)) {
-          onError();
-        }
-      });
+    return dispatch(
+      thunks[camelize('get', pluralName)](
+        { page, sort: order },
+        onSuccess,
+        onError
+      )
+    );
   };
 
+  /**
+   * @function
+   * @name paginate<Resource Plural Name>
+   * @description A thunk that will be dispatched when paginating resources
+   *  data in the API
+   *
+   * @param {number} page - paginate to page
+   * @param {Function} onSuccess - Callback to be executed when paginating
+   * resources succeed
+   * @param {Function} onError - Callback to be executed when paginating
+   * resources fails
+   * @returns {Function} - Thunk function
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
   thunks[camelize('paginate', pluralName)] = (page, onSuccess, onError) => (
     dispatch,
     getState
   ) => {
-    const { filter } = getState()[storeKey];
+    const { filter, q } = getState()[storeKey];
 
-    dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
-
-    return client[camelize('get', pluralName)]({ page, filter })
-      .then(data => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'success')](data)
-        );
-
-        // custom provided onSuccess callback
-        if (isFunction(onSuccess)) {
-          onSuccess();
-        }
-      })
-      .catch(error => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'failure')](error)
-        );
-
-        // custom provided onError callback
-        if (isFunction(onError)) {
-          onError();
-        }
-      });
+    return dispatch(
+      thunks[camelize('get', pluralName)](
+        { page, filter, q },
+        onSuccess,
+        onError
+      )
+    );
   };
 
+  /**
+   * @function
+   * @name clear<Resource Singular Name>Filters
+   * @description A thunk that will be dispatched when clearing filters on
+   * resources data in the API
+   *
+   * @param {Function} onSuccess - Callback to be executed when filters are
+   *  cleared and resources data is reloaded successfully
+   * @param {Function} onError - Callback to be executed when filters are
+   * cleared and resources data fails to reload
+   * @param {string[]} keep - list of filter names to be kept
+   * @returns {Function} - Thunk Function
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
   thunks[camelize('clear', singularName, 'filters')] = (
     onSuccess,
-    onError
-  ) => dispatch => {
-    dispatch(
-      actions[resourceName][camelize('clear', singularName, 'filters')]()
+    onError,
+    keep = []
+  ) => (dispatch, getState) => {
+    if (!isEmpty(keep)) {
+      // keep specified filters
+      let keptFilters = pick(getState()[storeKey].filter, keep);
+      keptFilters = isEmpty(keptFilters) ? null : keptFilters;
+      return dispatch(
+        thunks[camelize('filter', pluralName)](keptFilters, onSuccess, onError)
+      );
+    }
+
+    // clear all filters
+    return dispatch(
+      thunks[camelize('filter', pluralName)](null, onSuccess, onError)
     );
-
-    dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
-
-    return client[camelize('get', pluralName)]()
-      .then(data => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'success')](data)
-        );
-
-        // custom provided onSuccess callback
-        if (isFunction(onSuccess)) {
-          onSuccess();
-        }
-      })
-      .catch(error => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'failure')](error)
-        );
-
-        // custom provided onError callback
-        if (isFunction(onError)) {
-          onError();
-        }
-      });
   };
 
+  /**
+   * @function
+   * @name clear<Resource Plural Name>Sort
+   * @description A thunk that will be dispatched when clearing sort order on
+   * resources data in the API
+   *
+   * @param {Function} onSuccess - Callback to be executed when sort are
+   *  cleared and resources data is reloaded successfully
+   * @param {Function} onError - Callback to be executed when sort are
+   * cleared and resources data fails to reload
+   * @returns {Function} - Thunk function
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
   thunks[camelize('clear', pluralName, 'sort')] = (onSuccess, onError) => (
     dispatch,
     getState
@@ -358,29 +485,9 @@ export default function createThunksFor(resource) {
 
     dispatch(actions[resourceName][camelize('clear', pluralName, 'sort')]());
 
-    dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
-
-    return client[camelize('get', pluralName)]({ page })
-      .then(data => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'success')](data)
-        );
-
-        // custom provided onSuccess callback
-        if (isFunction(onSuccess)) {
-          onSuccess();
-        }
-      })
-      .catch(error => {
-        dispatch(
-          actions[resourceName][camelize('get', pluralName, 'failure')](error)
-        );
-
-        // custom provided onError callback
-        if (isFunction(onError)) {
-          onError();
-        }
-      });
+    return dispatch(
+      thunks[camelize('get', pluralName)]({ page }, onSuccess, onError)
+    );
   };
 
   return thunks;

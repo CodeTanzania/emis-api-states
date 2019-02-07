@@ -21,9 +21,96 @@ yarn add @codetanzania/emis-api-states
 ## Usage
 
 All actions exposed by `emis-api-states` are wrapped with dispatch function, so the is no need to dispatch them again just invoke them.
+
+The following is the list of all resources exposed by this library.
+
+- Activity
+- Adjustment
+- Alert
+- AlertSource
+- Assessment
+- Feature
+- Incident
+- IncidentType
+- Indicator
+- Item
+- Plan
+- Procedure
+- Question
+- Questionnaire
+- Resource
+- Role
+- Stakeholder
+- Stock
+- Warehouse
+
+  For each resource you can get it's exposed actions as follows;
+
+  > Replace activities/activity with the name of the module you want
+
+```js
+import {
+  clearActivityFilters,
+  clearActivitiesSort,
+  closeActivityForm,
+  deleteActivity,
+  filterActivities,
+  getActivities,
+  getActivity,
+  selectActivity,
+  openActivityForm,
+  paginateActivities,
+  postActivity,
+  putActivity,
+  refreshActivities,
+  searchActivities,
+  sortActivities,
+} from '@codetanzania/emis-api-states';
+```
+
+### Store Structure
+
+The structure of the store for each resource is
+
+```js
+const store = {
+  activities: {
+    list: [],
+    selected: null,
+    page: 1,
+    total: 0,
+    pages: 1,
+    loading: false,
+    posting: false,
+    showForm: false,
+    schema: null,
+    filter: null,
+    sort: null,
+  },
+  alerts: {
+    list: [],
+    selected: null,
+    page: 1,
+    total: 0,
+    pages: 1,
+    loading: false,
+    posting: false,
+    showForm: false,
+    schema: null,
+    filter: null,
+    sort: null,
+  },
+  ...
+};
+```
+
+### StoreProvider
+
+This is a wrapper around react-redux `Provider` component. You can use it as follows
+
 ```jsx
-import { render } from 'react-dom'
-import { StoreProvider, Connect } from '@codetanzania/emis-api-states';
+import { render } from 'react-dom';
+import { StoreProvider } from '@codetanzania/emis-api-states';
 
 // store provider
 render(
@@ -32,9 +119,17 @@ render(
   </StoreProvider>,
   document.getElementById('root')
 );
+```
+
+### Connect
+
+This is a wrapper around react-redux `connect` HOC with little improvement over it. You can use it as follows
+
+```js
+import {Connect} from '@codetanzania/emis-api-states';
 
 // for component
-function AlertList({ alerts }){
+function ActivityList({ activities }){
   return(
     // jsx stuff
   );
@@ -42,21 +137,97 @@ function AlertList({ alerts }){
 
 // connect AlertList component to store
 export Connect(AlertList, {
-    alerts: 'alerts.list'
+    activities: 'activities.list'
 });
 
+```
 
-// using actions
-import { getPlans } from '@codetanzania/emis-api-states';
+### How to use exposed actions
 
-function PlanList ({ plans }){
+Some of these actions accepts two callback functions which will be executed on Success and Error scenarios as shown below;
 
-  return (
-    <Button onClick={getPlans}>Refresh</Button>
-  )
-}
+#### Fetch Data
 
+```js
+import { getActivities, getActivity } from '@codetanzania/emis-api-states';
 
+getActivities();
+
+getActivity(activityId);
+```
+
+#### Create Data
+
+```js
+import { postActivity } from '@codetanzania/emis-api-states';
+
+postActivity(activity, onSuccess, onError);
+```
+
+#### Update Data
+
+> Note the `activity` here should have a valid `_id` property
+
+```js
+import { putActivity } from '@codetanzania/emis-api-states';
+
+putActivity(activity, onSuccess, onError);
+```
+
+#### Archive/Delete Data
+
+```js
+import { deleteActivity } from '@codetanzania/emis-api-states';
+
+deleteActivity(activityId, onSuccess, onError);
+```
+
+#### Searching
+
+```js
+import { searchActivities } from '@codetanzania/emis-api-states';
+
+searchActivities(searchQueryString);
+```
+
+#### Filtering
+
+```js
+import {
+  filterActivities,
+  clearActivityFilters,
+} from '@codetanzania/emis-api-states';
+
+filterActivities({ plan: planId }, onSuccess, onError);
+
+// clearing filters
+clearActivityFilters(onSuccess, onError);
+
+//  keep some filters from being cleared. This won't reset plan field in filter object
+clearActivityFilters(onSuccess, onError, ['plan']);
+```
+
+#### Pagination
+
+```js
+import { paginateActivities } from '@codetanzania/emis-api-state';
+
+paginateActivity(pageNumber);
+```
+
+#### Sorting
+
+```js
+import {
+  sortActivities,
+  clearActivitiesSort,
+} from '@codetanzania/emis-api-state';
+
+sortActivities({ name: 1 }, onSuccess, onError);
+
+// clear sort
+
+clearActivitiesSort(onSuccess, onError);
 ```
 
 > Note: This library depends on [emis-api-client](https://github.com/CodeTanzania/emis-api-client) to work, so in order to specify API URL add `.env` file on your project root folder and specify your API URL under `REACT_APP_EMIS_API_URL=[specify API BASE URL here]`

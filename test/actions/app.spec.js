@@ -55,6 +55,7 @@ describe('App Actions', () => {
         Plan: {},
         Activity: {},
         Procedure: {},
+        Warehouse: {},
       };
 
       getSchemas.mockResolvedValueOnce(mockData);
@@ -97,6 +98,7 @@ describe('App Actions', () => {
           type: 'stock/setStockSchema',
           payload: mockData.Stock,
         },
+        { type: 'warehouse/setWarehouseSchema', payload: mockData.Warehouse },
         { type: 'app/initializeSuccess' },
       ];
 
