@@ -350,15 +350,20 @@ export default function createThunksFor(resource) {
    * @version 0.1.0
    * @since 0.1.0
    */
-  thunks[camelize('search', pluralName)] = (
-    query,
-    onSuccess,
-    onError
-  ) => dispatch => {
+  thunks[camelize('search', pluralName)] = (query, onSuccess, onError) => (
+    dispatch,
+    getState
+  ) => {
     dispatch(actions[resourceName][camelize('search', pluralName)](query));
 
+    const { filter } = getState()[storeKey];
+
     return dispatch(
-      thunks[camelize('get', pluralName)]({ q: query }, onSuccess, onError)
+      thunks[camelize('get', pluralName)](
+        { q: query, filter },
+        onSuccess,
+        onError
+      )
     );
   };
 
