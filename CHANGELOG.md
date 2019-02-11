@@ -1,3 +1,18 @@
+#### 0.8.1 (2019-02-11)
+
+##### Build System / Dependencies
+
+* **npm:**  improve commands to run commit scripts ([72b3ce97](https://github.com/CodeTanzania/emis-api-states/commit/72b3ce9760a81d0ced284d6efd090c7f96d86539))
+
+##### Chores
+
+* **build:**  bundle library for version 0.8.1 ([7a0b804d](https://github.com/CodeTanzania/emis-api-states/commit/7a0b804db3995ac023a9b231f2c21a6b11ad38ee))
+* **package.json:**  update package version to 0.8.1 ([298b4845](https://github.com/CodeTanzania/emis-api-states/commit/298b48455e948cedf78f5fbad3b292ff86ebc2f7))
+
+##### Bug Fixes
+
+* **thunks:**  maintain filters on search ([539671b6](https://github.com/CodeTanzania/emis-api-states/commit/539671b68d02abaa840fd542a221592055dc076b))
+
 #### 0.8.0 (2019-02-07)
 
 ##### Build System / Dependencies
