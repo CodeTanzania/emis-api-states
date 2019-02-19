@@ -1,4 +1,4 @@
-import { getSchemas } from '@codetanzania/emis-api-client';
+import { httpActions } from '@codetanzania/emis-api-client';
 import {
   actions,
   dispatch as storeDispatch,
@@ -7,6 +7,7 @@ import {
   INITIALIZE_APP_SUCCESS,
 } from '../store';
 
+const { getSchemas } = httpActions;
 /**
  * Action dispatched when application initialization starts
  *
@@ -75,9 +76,12 @@ export function initializeApp() {
         const {
           activity: { setActivitySchema },
           adjustment: { setAdjustmentSchema },
+          agency: { setAgencySchema },
           alert: { setAlertSchema },
           alertSource: { setAlertSourceSchema },
+          district: { setDistrictSchema },
           feature: { setFeatureSchema },
+          focalPerson: { setFocalPersonSchema },
           indicator: { setIndicatorSchema },
           item: { setItemSchema },
           incidentType: { setIncidentTypeSchema },
@@ -85,8 +89,8 @@ export function initializeApp() {
           procedure: { setProcedureSchema },
           question: { setQuestionSchema },
           questionnaire: { setQuestionnaireSchema },
+          region: { setRegionSchema },
           role: { setRoleSchema },
-          stakeholder: { setStakeholderSchema },
           stock: { setStockSchema },
           warehouse: { setWarehouseSchema },
         } = actions;
@@ -94,9 +98,12 @@ export function initializeApp() {
         const {
           Activity: activitySchema,
           Adjustment: adjustmentSchema,
+          Agency: agencySchema,
           Alert: alertSchema,
           AlertSource: alertSourceSchema,
+          District: districtSchema,
           Feature: featureSchema,
+          FocalPerson: focalPersonSchema,
           IncidentType: incidentTypeSchema,
           Indicator: indicatorSchema,
           Item: itemSchema,
@@ -104,17 +111,20 @@ export function initializeApp() {
           Procedure: procedureSchema,
           Question: questionSchema,
           Questionnaire: questionnaireSchema,
+          Region: regionSchema,
           Role: roleSchema,
-          Party: stakeholderSchema,
           Stock: stockSchema,
           Warehouse: warehouseSchema,
         } = schemas;
 
         dispatch(setActivitySchema(activitySchema));
         dispatch(setAdjustmentSchema(adjustmentSchema));
+        dispatch(setAgencySchema(agencySchema));
         dispatch(setAlertSchema(alertSchema));
         dispatch(setAlertSourceSchema(alertSourceSchema));
+        dispatch(setDistrictSchema(districtSchema));
         dispatch(setFeatureSchema(featureSchema));
+        dispatch(setFocalPersonSchema(focalPersonSchema));
         dispatch(setIndicatorSchema(indicatorSchema));
         dispatch(setIncidentTypeSchema(incidentTypeSchema));
         dispatch(setItemSchema(itemSchema));
@@ -122,8 +132,8 @@ export function initializeApp() {
         dispatch(setProcedureSchema(procedureSchema));
         dispatch(setQuestionSchema(questionSchema));
         dispatch(setQuestionnaireSchema(questionnaireSchema));
+        dispatch(setRegionSchema(regionSchema));
         dispatch(setRoleSchema(roleSchema));
-        dispatch(setStakeholderSchema(stakeholderSchema));
         dispatch(setStockSchema(stockSchema));
         dispatch(setWarehouseSchema(warehouseSchema));
         dispatch(initializeAppSuccess());

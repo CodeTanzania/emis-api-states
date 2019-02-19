@@ -1,14 +1,9 @@
-import {
-  deletePlan,
-  getPlan,
-  getPlans,
-  postPlan,
-  putPlan,
-} from '@codetanzania/emis-api-client';
+import { httpActions } from '@codetanzania/emis-api-client';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import createThunkFor from '../src/factories/thunk';
 
+const { deletePlan, getPlan, getPlans, postPlan, putPlan } = httpActions;
 jest.mock('@codetanzania/emis-api-client');
 const mockStore = configureMockStore([thunk]);
 

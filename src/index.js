@@ -75,11 +75,14 @@ export function Connect(component, stateToProps = null) {
 /* Export resource actions */
 export * from './actions/activity';
 export * from './actions/adjustment';
+export * from './actions/agency';
 export * from './actions/alert';
 export * from './actions/alertSource';
 export { wrappedInitializeApp as initializeApp } from './actions/app';
 export * from './actions/assessment';
+export * from './actions/district';
 export * from './actions/feature';
+export * from './actions/focalPerson';
 export * from './actions/incident';
 export * from './actions/incidentType';
 export * from './actions/indicator';
@@ -88,8 +91,8 @@ export * from './actions/plan';
 export * from './actions/procedure';
 export * from './actions/question';
 export * from './actions/questionnaire';
+export * from './actions/region';
 export * from './actions/resource';
 export * from './actions/role';
-export * from './actions/stakeholder';
 export * from './actions/stock';
 export * from './actions/warehouse';
