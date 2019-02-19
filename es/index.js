@@ -11,8 +11,7 @@ import { combineReducers } from 'redux';
 import { createSlice, configureStore } from 'redux-starter-kit';
 import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
-import * as client from '@codetanzania/emis-api-client';
-import { getSchemas } from '@codetanzania/emis-api-client';
+import { httpActions } from '@codetanzania/emis-api-client';
 import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
 import lowerFirst from 'lodash/lowerFirst';
@@ -298,7 +297,7 @@ function app() {
 }
 
 // all resources exposed by this library
-var resources = ['activity', 'adjustment', 'alert', 'assessment', 'feature', 'incident', 'incidentType', 'indicator', 'item', 'plan', 'procedure', 'question', 'questionnaire', 'resource', 'role', 'stakeholder', 'stock', 'warehouse', 'alertSource'];
+var resources = ['activity', 'adjustment', 'agency', 'alert', 'assessment', 'district', 'feature', 'incident', 'incidentType', 'indicator', 'item', 'plan', 'procedure', 'question', 'questionnaire', 'region', 'resource', 'role', 'focalPerson', 'stock', 'warehouse', 'alertSource'];
 
 var slices = createResourcesSlices(resources);
 
@@ -324,8 +323,8 @@ var dispatch = store.dispatch;
  * Custom thunk implementations can be added to the specific resource
  * actions module
  *
- * @param {string} resource - resource name
- * @returns {Object} thunks - resource thunks
+ * @param {string} resource  resource name
+ * @returns {Object} thunks  resource thunks
  *
  * @version 0.3.0
  * @since 0.1.0
@@ -343,28 +342,28 @@ function createThunksFor(resource) {
    * @name get<Resource Plural Name>
    * @description A thunk that will be dispatched when fetching data from API
    *
-   * @param {Object} param - Param object to be passed to API client
-   * @param {Function} onSuccess - Callback to be called when fetching
+   * @param {Object} param  Param object to be passed to API client
+   * @param {Function} onSuccess  Callback to be called when fetching
    * resources from the API succeed
-   * @param {Function} onError - Callback to be called when fetching
+   * @param {Function} onError  Callback to be called when fetching
    * resources from the API fails
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
    */
   thunks[camelize('get', pluralName)] = function (param, onSuccess, onError) {
-    return function (dispatch$$1) {
-      dispatch$$1(actions[resourceName][camelize('get', pluralName, 'request')]());
-      return client[camelize('get', pluralName)](param).then(function (data) {
-        dispatch$$1(actions[resourceName][camelize('get', pluralName, 'success')](data));
+    return function (dispatch) {
+      dispatch(actions[resourceName][camelize('get', pluralName, 'request')]());
+      return httpActions[camelize('get', pluralName)](param).then(function (data) {
+        dispatch(actions[resourceName][camelize('get', pluralName, 'success')](data));
 
         // custom provided onSuccess callback
         if (isFunction(onSuccess)) {
           onSuccess();
         }
       }).catch(function (error) {
-        dispatch$$1(actions[resourceName][camelize('get', pluralName, 'failure')](error));
+        dispatch(actions[resourceName][camelize('get', pluralName, 'failure')](error));
 
         // custom provided onError callback
         if (isFunction(onError)) {
@@ -380,28 +379,28 @@ function createThunksFor(resource) {
    * @description A thunk that will be dispatched when fetching
    * single resource data from the API
    *
-   * @param {string} id - Resource unique identification
-   * @param {Function} onSuccess - Callback to be called when getting a
+   * @param {string} id  Resource unique identification
+   * @param {Function} onSuccess  Callback to be called when getting a
    * resource from the API succeed
-   * @param {Function} onError - Callback to be called when getting a resource
+   * @param {Function} onError  Callback to be called when getting a resource
    * from the API fails
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
    */
   thunks[camelize('get', singularName)] = function (id, onSuccess, onError) {
-    return function (dispatch$$1) {
-      dispatch$$1(actions[resourceName][camelize('get', singularName, 'request')]());
-      return client[camelize('get', singularName)](id).then(function (data) {
-        dispatch$$1(actions[resourceName][camelize('get', singularName, 'success')](data));
+    return function (dispatch) {
+      dispatch(actions[resourceName][camelize('get', singularName, 'request')]());
+      return httpActions[camelize('get', singularName)](id).then(function (data) {
+        dispatch(actions[resourceName][camelize('get', singularName, 'success')](data));
 
         // custom provided onSuccess callback
         if (isFunction(onSuccess)) {
           onSuccess();
         }
       }).catch(function (error) {
-        dispatch$$1(actions[resourceName][camelize('get', singularName, 'failure')](error));
+        dispatch(actions[resourceName][camelize('get', singularName, 'failure')](error));
 
         // custom provided onError callback
         if (isFunction(onError)) {
@@ -417,30 +416,30 @@ function createThunksFor(resource) {
    * @description A thunk that will be dispatched when creating a single
    * resource data in the API
    *
-   * @param {Object} param - Resource  object to be created/Saved
-   * @param {Function} onSuccess - Callback to be executed when posting a
+   * @param {Object} param  Resource  object to be created/Saved
+   * @param {Function} onSuccess  Callback to be executed when posting a
    * resource succeed
-   * @param {Function} onError - Callback to be executed when posting
+   * @param {Function} onError  Callback to be executed when posting
    * resource fails
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
    */
   thunks[camelize('post', singularName)] = function (param, onSuccess, onError) {
-    return function (dispatch$$1) {
-      dispatch$$1(actions[resourceName][camelize('post', singularName, 'request')]());
-      return client[camelize('post', singularName)](param).then(function (data) {
-        dispatch$$1(actions[resourceName][camelize('post', singularName, 'success')](data));
+    return function (dispatch) {
+      dispatch(actions[resourceName][camelize('post', singularName, 'request')]());
+      return httpActions[camelize('post', singularName)](param).then(function (data) {
+        dispatch(actions[resourceName][camelize('post', singularName, 'success')](data));
 
-        dispatch$$1(thunks[camelize('get', pluralName)]());
+        dispatch(thunks[camelize('get', pluralName)]());
 
         // custom provided onSuccess callback
         if (isFunction(onSuccess)) {
           onSuccess();
         }
       }).catch(function (error) {
-        dispatch$$1(actions[resourceName][camelize('post', singularName, 'failure')](error));
+        dispatch(actions[resourceName][camelize('post', singularName, 'failure')](error));
 
         // custom provided onError callback
         if (isFunction(onError)) {
@@ -456,30 +455,30 @@ function createThunksFor(resource) {
    * @description A thunk that will be dispatched when updating a single
    * resource data in the API
    *
-   * @param {Object} param - Resource  object to be updated
-   * @param {Function} onSuccess - Callback to be executed when updating a
+   * @param {Object} param  Resource  object to be updated
+   * @param {Function} onSuccess  Callback to be executed when updating a
    * resource succeed
-   * @param {Function} onError - Callback to be executed when updating a
+   * @param {Function} onError  Callback to be executed when updating a
    * resource fails
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
    */
   thunks[camelize('put', singularName)] = function (param, onSuccess, onError) {
-    return function (dispatch$$1) {
-      dispatch$$1(actions[resourceName][camelize('put', singularName, 'request')]());
-      return client[camelize('put', singularName)](param).then(function (data) {
-        dispatch$$1(actions[resourceName][camelize('put', singularName, 'success')](data));
+    return function (dispatch) {
+      dispatch(actions[resourceName][camelize('put', singularName, 'request')]());
+      return httpActions[camelize('put', singularName)](param).then(function (data) {
+        dispatch(actions[resourceName][camelize('put', singularName, 'success')](data));
 
-        dispatch$$1(thunks[camelize('get', pluralName)]());
+        dispatch(thunks[camelize('get', pluralName)]());
 
         // custom provided onSuccess callback
         if (isFunction(onSuccess)) {
           onSuccess();
         }
       }).catch(function (error) {
-        dispatch$$1(actions[resourceName][camelize('put', singularName, 'failure')](error));
+        dispatch(actions[resourceName][camelize('put', singularName, 'failure')](error));
 
         // custom provided onError callback
         if (isFunction(onError)) {
@@ -495,21 +494,21 @@ function createThunksFor(resource) {
    * @description A thunk that will be dispatched when deleting/archiving
    * a single resource data in the API
    *
-   * @param {string} id - Resource unique identification
-   * @param {Function} onSuccess - Callback to be executed when updating a
+   * @param {string} id  Resource unique identification
+   * @param {Function} onSuccess  Callback to be executed when updating a
    * resource succeed
-   * @param {Function} onError - Callback to be executed when updating a
+   * @param {Function} onError  Callback to be executed when updating a
    * resource fails
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
    */
   thunks[camelize('delete', singularName)] = function (id, onSuccess, onError) {
-    return function (dispatch$$1, getState) {
-      dispatch$$1(actions[resourceName][camelize('delete', singularName, 'request')]());
-      return client[camelize('delete', singularName)](id).then(function (data) {
-        dispatch$$1(actions[resourceName][camelize('delete', singularName, 'success')](data));
+    return function (dispatch, getState) {
+      dispatch(actions[resourceName][camelize('delete', singularName, 'request')]());
+      return httpActions[camelize('delete', singularName)](id).then(function (data) {
+        dispatch(actions[resourceName][camelize('delete', singularName, 'success')](data));
 
         var _getState$storeKey = getState()[storeKey],
             page = _getState$storeKey.page,
@@ -521,9 +520,9 @@ function createThunksFor(resource) {
           onSuccess();
         }
 
-        return dispatch$$1(thunks[camelize('get', pluralName)]({ page: page, filter: filter }));
+        return dispatch(thunks[camelize('get', pluralName)]({ page: page, filter: filter }));
       }).catch(function (error) {
-        dispatch$$1(actions[resourceName][camelize('delete', singularName, 'failure')](error));
+        dispatch(actions[resourceName][camelize('delete', singularName, 'failure')](error));
 
         // custom provided onError callback
         if (isFunction(onError)) {
@@ -535,25 +534,53 @@ function createThunksFor(resource) {
 
   /**
    * @function
+   * @name fetch<Resource Name>
+   * @description A thunk that for fetching data from the API the difference
+   * between this and get thunk is this will apply all the criteria on fetch.
+   * Pagination, filters, Search Query and sort.
+   *
+   * @param {Function} onSuccess Callback to be called when fetching
+   * resources from the API succeed
+   * @param {Function} onError Callback to be called when fetching
+   * resources from the API fails
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  thunks[camelize('fetch', pluralName)] = function (onSuccess, onError) {
+    return function (dispatch, getState) {
+      var _getState$storeKey2 = getState()[storeKey],
+          page = _getState$storeKey2.page,
+          sort = _getState$storeKey2.sort,
+          filter = _getState$storeKey2.filter,
+          q = _getState$storeKey2.q;
+
+
+      return dispatch(thunks[camelize('get', pluralName)]({ page: page, filter: filter, sort: sort, q: q }, onSuccess, onError));
+    };
+  };
+
+  /**
+   * @function
    * @name filter<Resource Plural Name>
    * @description A thunk that will be dispatched when filtering resources
    *  data in the API
    *
-   * @param {Object} filter - Resource filter criteria object
-   * @param {Function} onSuccess - Callback to be executed when filtering
+   * @param {Object} filter  Resource filter criteria object
+   * @param {Function} onSuccess  Callback to be executed when filtering
    * resources succeed
-   * @param {Function} onError - Callback to be executed when filtering
+   * @param {Function} onError  Callback to be executed when filtering
    * resources fails
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
    */
   thunks[camelize('filter', pluralName)] = function (filter, onSuccess, onError) {
-    return function (dispatch$$1) {
-      dispatch$$1(actions[resourceName][camelize('filter', pluralName)](filter));
+    return function (dispatch) {
+      dispatch(actions[resourceName][camelize('filter', pluralName)](filter));
 
-      return dispatch$$1(thunks[camelize('get', pluralName)]({ filter: filter }, onSuccess, onError));
+      return dispatch(thunks[camelize('get', pluralName)]({ filter: filter }, onSuccess, onError));
     };
   };
 
@@ -563,24 +590,24 @@ function createThunksFor(resource) {
    * @description A thunk that will be dispatched when refreshing resources
    *  data in the API
    *
-   * @param {Function} onSuccess - Callback to be executed when refreshing
+   * @param {Function} onSuccess  Callback to be executed when refreshing
    * resources succeed
-   * @param {Function} onError - Callback to be executed when refreshing
+   * @param {Function} onError  Callback to be executed when refreshing
    * resources fails
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
    */
   thunks[camelize('refresh', pluralName)] = function (onSuccess, onError) {
-    return function (dispatch$$1, getState) {
-      var _getState$storeKey2 = getState()[storeKey],
-          page = _getState$storeKey2.page,
-          filter = _getState$storeKey2.filter,
-          q = _getState$storeKey2.q;
+    return function (dispatch, getState) {
+      var _getState$storeKey3 = getState()[storeKey],
+          page = _getState$storeKey3.page,
+          filter = _getState$storeKey3.filter,
+          q = _getState$storeKey3.q;
 
 
-      return dispatch$$1(thunks[camelize('get', pluralName)]({
+      return dispatch(thunks[camelize('get', pluralName)]({
         page: page,
         filter: filter,
         q: q
@@ -594,24 +621,24 @@ function createThunksFor(resource) {
    * @description A thunk that will be dispatched when searching resources
    *  data in the API
    *
-   * @param {string} query - Search query string
-   * @param {Function} onSuccess - Callback to be executed when searching
+   * @param {string} query  Search query string
+   * @param {Function} onSuccess  Callback to be executed when searching
    * resources succeed
-   * @param {Function} onError - Callback to be executed when searching
+   * @param {Function} onError  Callback to be executed when searching
    * resources fails
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
    */
   thunks[camelize('search', pluralName)] = function (query, onSuccess, onError) {
-    return function (dispatch$$1, getState) {
-      dispatch$$1(actions[resourceName][camelize('search', pluralName)](query));
+    return function (dispatch, getState) {
+      dispatch(actions[resourceName][camelize('search', pluralName)](query));
 
       var filter = getState()[storeKey].filter;
 
 
-      return dispatch$$1(thunks[camelize('get', pluralName)]({ q: query, filter: filter }, onSuccess, onError));
+      return dispatch(thunks[camelize('get', pluralName)]({ q: query, filter: filter }, onSuccess, onError));
     };
   };
 
@@ -621,24 +648,24 @@ function createThunksFor(resource) {
    * @description A thunk that will be dispatched when sorting resources
    *  data in the API
    *
-   * @param {Object} order - sort order object
-   * @param {Function} onSuccess - Callback to be executed when sorting
+   * @param {Object} order  sort order object
+   * @param {Function} onSuccess  Callback to be executed when sorting
    * resources succeed
-   * @param {Function} onError - Callback to be executed when sorting
+   * @param {Function} onError  Callback to be executed when sorting
    * resources fails
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
    */
   thunks[camelize('sort', pluralName)] = function (order, onSuccess, onError) {
-    return function (dispatch$$1, getState) {
+    return function (dispatch, getState) {
       var page = getState()[storeKey].page;
 
 
-      dispatch$$1(actions[resourceName][camelize('sort', pluralName)](order));
+      dispatch(actions[resourceName][camelize('sort', pluralName)](order));
 
-      return dispatch$$1(thunks[camelize('get', pluralName)]({ page: page, sort: order }, onSuccess, onError));
+      return dispatch(thunks[camelize('get', pluralName)]({ page: page, sort: order }, onSuccess, onError));
     };
   };
 
@@ -648,24 +675,24 @@ function createThunksFor(resource) {
    * @description A thunk that will be dispatched when paginating resources
    *  data in the API
    *
-   * @param {number} page - paginate to page
-   * @param {Function} onSuccess - Callback to be executed when paginating
+   * @param {number} page  paginate to page
+   * @param {Function} onSuccess  Callback to be executed when paginating
    * resources succeed
-   * @param {Function} onError - Callback to be executed when paginating
+   * @param {Function} onError  Callback to be executed when paginating
    * resources fails
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
    */
   thunks[camelize('paginate', pluralName)] = function (page, onSuccess, onError) {
-    return function (dispatch$$1, getState) {
-      var _getState$storeKey3 = getState()[storeKey],
-          filter = _getState$storeKey3.filter,
-          q = _getState$storeKey3.q;
+    return function (dispatch, getState) {
+      var _getState$storeKey4 = getState()[storeKey],
+          filter = _getState$storeKey4.filter,
+          q = _getState$storeKey4.q;
 
 
-      return dispatch$$1(thunks[camelize('get', pluralName)]({ page: page, filter: filter, q: q }, onSuccess, onError));
+      return dispatch(thunks[camelize('get', pluralName)]({ page: page, filter: filter, q: q }, onSuccess, onError));
     };
   };
 
@@ -675,28 +702,28 @@ function createThunksFor(resource) {
    * @description A thunk that will be dispatched when clearing filters on
    * resources data in the API
    *
-   * @param {Function} onSuccess - Callback to be executed when filters are
+   * @param {Function} onSuccess  Callback to be executed when filters are
    *  cleared and resources data is reloaded successfully
-   * @param {Function} onError - Callback to be executed when filters are
+   * @param {Function} onError  Callback to be executed when filters are
    * cleared and resources data fails to reload
-   * @param {string[]} keep - list of filter names to be kept
-   * @returns {Function} - Thunk Function
+   * @param {string[]} keep  list of filter names to be kept
+   * @returns {Function}  Thunk Function
    *
    * @version 0.1.0
    * @since 0.1.0
    */
   thunks[camelize('clear', singularName, 'filters')] = function (onSuccess, onError) {
     var keep = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-    return function (dispatch$$1, getState) {
+    return function (dispatch, getState) {
       if (!isEmpty(keep)) {
         // keep specified filters
         var keptFilters = pick(getState()[storeKey].filter, keep);
         keptFilters = isEmpty(keptFilters) ? null : keptFilters;
-        return dispatch$$1(thunks[camelize('filter', pluralName)](keptFilters, onSuccess, onError));
+        return dispatch(thunks[camelize('filter', pluralName)](keptFilters, onSuccess, onError));
       }
 
       // clear all filters
-      return dispatch$$1(thunks[camelize('filter', pluralName)](null, onSuccess, onError));
+      return dispatch(thunks[camelize('filter', pluralName)](null, onSuccess, onError));
     };
   };
 
@@ -706,23 +733,23 @@ function createThunksFor(resource) {
    * @description A thunk that will be dispatched when clearing sort order on
    * resources data in the API
    *
-   * @param {Function} onSuccess - Callback to be executed when sort are
+   * @param {Function} onSuccess  Callback to be executed when sort are
    *  cleared and resources data is reloaded successfully
-   * @param {Function} onError - Callback to be executed when sort are
+   * @param {Function} onError  Callback to be executed when sort are
    * cleared and resources data fails to reload
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
    */
   thunks[camelize('clear', pluralName, 'sort')] = function (onSuccess, onError) {
-    return function (dispatch$$1, getState) {
+    return function (dispatch, getState) {
       var page = getState()[storeKey].page;
 
 
-      dispatch$$1(actions[resourceName][camelize('clear', pluralName, 'sort')]());
+      dispatch(actions[resourceName][camelize('clear', pluralName, 'sort')]());
 
-      return dispatch$$1(thunks[camelize('get', pluralName)]({ page: page }, onSuccess, onError));
+      return dispatch(thunks[camelize('get', pluralName)]({ page: page }, onSuccess, onError));
     };
   };
 
@@ -815,6 +842,25 @@ var clearAdjustmentFilters = adjustmentActions.clearAdjustmentFilters,
     setAdjustmentSchema = adjustmentActions.setAdjustmentSchema,
     sortAdjustments = adjustmentActions.sortAdjustments;
 
+var stakeholderActions = generateExposedActions('agency', actions, dispatch);
+
+var clearAgencyFilters = stakeholderActions.clearAgencyFilters,
+    clearAgenciesSort = stakeholderActions.clearAgenciesSort,
+    closeAgencyForm = stakeholderActions.closeAgencyForm,
+    deleteAgency = stakeholderActions.deleteAgency,
+    filterAgencies = stakeholderActions.filterAgencies,
+    getAgencies = stakeholderActions.getAgencies,
+    getAgency = stakeholderActions.getAgency,
+    selectAgency = stakeholderActions.selectAgency,
+    openAgencyForm = stakeholderActions.openAgencyForm,
+    paginateAgencies = stakeholderActions.paginateAgencies,
+    postAgency = stakeholderActions.postAgency,
+    putAgency = stakeholderActions.putAgency,
+    refreshAgencies = stakeholderActions.refreshAgencies,
+    searchAgencies = stakeholderActions.searchAgencies,
+    setAgencySchema = stakeholderActions.setAgencySchema,
+    sortAgencies = stakeholderActions.sortAgencies;
+
 var alertActions = generateExposedActions('alert', actions, dispatch);
 
 var clearAlertFilters = alertActions.clearAlertFilters,
@@ -853,6 +899,7 @@ var clearAlertSourceFilters = alertActions$1.clearAlertSourceFilters,
     setAlertSourceSchema = alertActions$1.setAlertSourceSchema,
     sortAlertSources = alertActions$1.sortAlertSources;
 
+var getSchemas = httpActions.getSchemas;
 /**
  * Action dispatched when application initialization starts
  *
@@ -864,6 +911,7 @@ var clearAlertSourceFilters = alertActions$1.clearAlertSourceFilters,
  * @version 0.1.0
  * @since 0.1.0
  */
+
 function initializeAppStart() {
   return { type: INITIALIZE_APP_START };
 }
@@ -914,14 +962,17 @@ function initializeAppFailure(error) {
  * @since 0.1.0
  */
 function initializeApp() {
-  return function (dispatch$$1) {
-    dispatch$$1(initializeAppStart());
+  return function (dispatch) {
+    dispatch(initializeAppStart());
     return getSchemas().then(function (schemas) {
       var setActivitySchema = actions.activity.setActivitySchema,
           setAdjustmentSchema = actions.adjustment.setAdjustmentSchema,
+          setAgencySchema = actions.agency.setAgencySchema,
           setAlertSchema = actions.alert.setAlertSchema,
           setAlertSourceSchema = actions.alertSource.setAlertSourceSchema,
+          setDistrictSchema = actions.district.setDistrictSchema,
           setFeatureSchema = actions.feature.setFeatureSchema,
+          setFocalPersonSchema = actions.focalPerson.setFocalPersonSchema,
           setIndicatorSchema = actions.indicator.setIndicatorSchema,
           setItemSchema = actions.item.setItemSchema,
           setIncidentTypeSchema = actions.incidentType.setIncidentTypeSchema,
@@ -929,15 +980,18 @@ function initializeApp() {
           setProcedureSchema = actions.procedure.setProcedureSchema,
           setQuestionSchema = actions.question.setQuestionSchema,
           setQuestionnaireSchema = actions.questionnaire.setQuestionnaireSchema,
+          setRegionSchema = actions.region.setRegionSchema,
           setRoleSchema = actions.role.setRoleSchema,
-          setStakeholderSchema = actions.stakeholder.setStakeholderSchema,
           setStockSchema = actions.stock.setStockSchema,
           setWarehouseSchema = actions.warehouse.setWarehouseSchema;
       var activitySchema = schemas.Activity,
           adjustmentSchema = schemas.Adjustment,
+          agencySchema = schemas.Agency,
           alertSchema = schemas.Alert,
           alertSourceSchema = schemas.AlertSource,
+          districtSchema = schemas.District,
           featureSchema = schemas.Feature,
+          focalPersonSchema = schemas.FocalPerson,
           incidentTypeSchema = schemas.IncidentType,
           indicatorSchema = schemas.Indicator,
           itemSchema = schemas.Item,
@@ -945,31 +999,34 @@ function initializeApp() {
           procedureSchema = schemas.Procedure,
           questionSchema = schemas.Question,
           questionnaireSchema = schemas.Questionnaire,
+          regionSchema = schemas.Region,
           roleSchema = schemas.Role,
-          stakeholderSchema = schemas.Party,
           stockSchema = schemas.Stock,
           warehouseSchema = schemas.Warehouse;
 
 
-      dispatch$$1(setActivitySchema(activitySchema));
-      dispatch$$1(setAdjustmentSchema(adjustmentSchema));
-      dispatch$$1(setAlertSchema(alertSchema));
-      dispatch$$1(setAlertSourceSchema(alertSourceSchema));
-      dispatch$$1(setFeatureSchema(featureSchema));
-      dispatch$$1(setIndicatorSchema(indicatorSchema));
-      dispatch$$1(setIncidentTypeSchema(incidentTypeSchema));
-      dispatch$$1(setItemSchema(itemSchema));
-      dispatch$$1(setPlanSchema(planSchema));
-      dispatch$$1(setProcedureSchema(procedureSchema));
-      dispatch$$1(setQuestionSchema(questionSchema));
-      dispatch$$1(setQuestionnaireSchema(questionnaireSchema));
-      dispatch$$1(setRoleSchema(roleSchema));
-      dispatch$$1(setStakeholderSchema(stakeholderSchema));
-      dispatch$$1(setStockSchema(stockSchema));
-      dispatch$$1(setWarehouseSchema(warehouseSchema));
-      dispatch$$1(initializeAppSuccess());
+      dispatch(setActivitySchema(activitySchema));
+      dispatch(setAdjustmentSchema(adjustmentSchema));
+      dispatch(setAgencySchema(agencySchema));
+      dispatch(setAlertSchema(alertSchema));
+      dispatch(setAlertSourceSchema(alertSourceSchema));
+      dispatch(setDistrictSchema(districtSchema));
+      dispatch(setFeatureSchema(featureSchema));
+      dispatch(setFocalPersonSchema(focalPersonSchema));
+      dispatch(setIndicatorSchema(indicatorSchema));
+      dispatch(setIncidentTypeSchema(incidentTypeSchema));
+      dispatch(setItemSchema(itemSchema));
+      dispatch(setPlanSchema(planSchema));
+      dispatch(setProcedureSchema(procedureSchema));
+      dispatch(setQuestionSchema(questionSchema));
+      dispatch(setQuestionnaireSchema(questionnaireSchema));
+      dispatch(setRegionSchema(regionSchema));
+      dispatch(setRoleSchema(roleSchema));
+      dispatch(setStockSchema(stockSchema));
+      dispatch(setWarehouseSchema(warehouseSchema));
+      dispatch(initializeAppSuccess());
     }).catch(function (error) {
-      dispatch$$1(initializeAppFailure(error));
+      dispatch(initializeAppFailure(error));
     });
   };
 }
@@ -1007,24 +1064,62 @@ var clearAssessmentFilters = assessmentActions.clearAssessmentFilters,
     setAssessmentSchema = assessmentActions.setAssessmentSchema,
     sortAssessments = assessmentActions.sortAssessments;
 
-var featureActions = generateExposedActions('feature', actions, dispatch);
+var featureActions = generateExposedActions('district', actions, dispatch);
 
-var clearFeatureFilters = featureActions.clearFeatureFilters,
-    clearFeaturesSort = featureActions.clearFeaturesSort,
-    closeFeatureForm = featureActions.closeFeatureForm,
-    deleteFeature = featureActions.deleteFeature,
-    filterFeatures = featureActions.filterFeatures,
-    getFeatures = featureActions.getFeatures,
-    getFeature = featureActions.getFeature,
-    selectFeature = featureActions.selectFeature,
-    openFeatureForm = featureActions.openFeatureForm,
-    paginateFeatures = featureActions.paginateFeatures,
-    postFeature = featureActions.postFeature,
-    putFeature = featureActions.putFeature,
-    refreshFeatures = featureActions.refreshFeatures,
-    searchFeatures = featureActions.searchFeatures,
-    setFeatureSchema = featureActions.setFeatureSchema,
-    sortFeatures = featureActions.sortFeatures;
+var clearDistrictFilters = featureActions.clearDistrictFilters,
+    clearDistrictsSort = featureActions.clearDistrictsSort,
+    closeDistrictForm = featureActions.closeDistrictForm,
+    deleteDistrict = featureActions.deleteDistrict,
+    filterDistricts = featureActions.filterDistricts,
+    getDistricts = featureActions.getDistricts,
+    getDistrict = featureActions.getDistrict,
+    selectDistrict = featureActions.selectDistrict,
+    openDistrictForm = featureActions.openDistrictForm,
+    paginateDistricts = featureActions.paginateDistricts,
+    postDistrict = featureActions.postDistrict,
+    putDistrict = featureActions.putDistrict,
+    refreshDistricts = featureActions.refreshDistricts,
+    searchDistricts = featureActions.searchDistricts,
+    setDistrictSchema = featureActions.setDistrictSchema,
+    sortDistricts = featureActions.sortDistricts;
+
+var featureActions$1 = generateExposedActions('feature', actions, dispatch);
+
+var clearFeatureFilters = featureActions$1.clearFeatureFilters,
+    clearFeaturesSort = featureActions$1.clearFeaturesSort,
+    closeFeatureForm = featureActions$1.closeFeatureForm,
+    deleteFeature = featureActions$1.deleteFeature,
+    filterFeatures = featureActions$1.filterFeatures,
+    getFeatures = featureActions$1.getFeatures,
+    getFeature = featureActions$1.getFeature,
+    selectFeature = featureActions$1.selectFeature,
+    openFeatureForm = featureActions$1.openFeatureForm,
+    paginateFeatures = featureActions$1.paginateFeatures,
+    postFeature = featureActions$1.postFeature,
+    putFeature = featureActions$1.putFeature,
+    refreshFeatures = featureActions$1.refreshFeatures,
+    searchFeatures = featureActions$1.searchFeatures,
+    setFeatureSchema = featureActions$1.setFeatureSchema,
+    sortFeatures = featureActions$1.sortFeatures;
+
+var stakeholderActions$1 = generateExposedActions('focalPerson', actions, dispatch);
+
+var clearFocalPersonFilters = stakeholderActions$1.clearFocalPersonFilters,
+    clearFocalPeopleSort = stakeholderActions$1.clearFocalPeopleSort,
+    closeFocalPersonForm = stakeholderActions$1.closeFocalPersonForm,
+    deleteFocalPerson = stakeholderActions$1.deleteFocalPerson,
+    filterFocalPeople = stakeholderActions$1.filterFocalPeople,
+    getFocalPeople = stakeholderActions$1.getFocalPeople,
+    getFocalPerson = stakeholderActions$1.getFocalPerson,
+    selectFocalPerson = stakeholderActions$1.selectFocalPerson,
+    openFocalPersonForm = stakeholderActions$1.openFocalPersonForm,
+    paginateFocalPeople = stakeholderActions$1.paginateFocalPeople,
+    postFocalPerson = stakeholderActions$1.postFocalPerson,
+    putFocalPerson = stakeholderActions$1.putFocalPerson,
+    refreshFocalPeople = stakeholderActions$1.refreshFocalPeople,
+    searchFocalPeople = stakeholderActions$1.searchFocalPeople,
+    setFocalPersonSchema = stakeholderActions$1.setFocalPersonSchema,
+    sortFocalPeople = stakeholderActions$1.sortFocalPeople;
 
 var incidentActions = generateExposedActions('incident', actions, dispatch);
 
@@ -1178,6 +1273,25 @@ var clearQuestionnaireFilters = questionnaireActions.clearQuestionnaireFilters,
     setQuestionnaireSchema = questionnaireActions.setQuestionnaireSchema,
     sortQuestionnaires = questionnaireActions.sortQuestionnaires;
 
+var featureActions$2 = generateExposedActions('region', actions, dispatch);
+
+var clearRegionFilters = featureActions$2.clearRegionFilters,
+    clearRegionsSort = featureActions$2.clearRegionsSort,
+    closeRegionForm = featureActions$2.closeRegionForm,
+    deleteRegion = featureActions$2.deleteRegion,
+    filterRegions = featureActions$2.filterRegions,
+    getRegions = featureActions$2.getRegions,
+    getRegion = featureActions$2.getRegion,
+    selectRegion = featureActions$2.selectRegion,
+    openRegionForm = featureActions$2.openRegionForm,
+    paginateRegions = featureActions$2.paginateRegions,
+    postRegion = featureActions$2.postRegion,
+    putRegion = featureActions$2.putRegion,
+    refreshRegions = featureActions$2.refreshRegions,
+    searchRegions = featureActions$2.searchRegions,
+    setRegionSchema = featureActions$2.setRegionSchema,
+    sortRegions = featureActions$2.sortRegions;
+
 var resourceActions = generateExposedActions('resource', actions, dispatch);
 
 var clearResourceFilters = resourceActions.clearResourceFilters,
@@ -1216,43 +1330,24 @@ var clearRoleFilters = roleActions.clearRoleFilters,
     setRoleSchema = roleActions.setRoleSchema,
     sortRoles = roleActions.sortRoles;
 
-var stakeholderActions = generateExposedActions('stakeholder', actions, dispatch);
+var stakeholderActions$2 = generateExposedActions('stock', actions, dispatch);
 
-var clearStakeholderFilters = stakeholderActions.clearStakeholderFilters,
-    clearStakeholdersSort = stakeholderActions.clearStakeholdersSort,
-    closeStakeholderForm = stakeholderActions.closeStakeholderForm,
-    deleteStakeholder = stakeholderActions.deleteStakeholder,
-    filterStakeholders = stakeholderActions.filterStakeholders,
-    getStakeholders = stakeholderActions.getStakeholders,
-    getStakeholder = stakeholderActions.getStakeholder,
-    selectStakeholder = stakeholderActions.selectStakeholder,
-    openStakeholderForm = stakeholderActions.openStakeholderForm,
-    paginateStakeholders = stakeholderActions.paginateStakeholders,
-    postStakeholder = stakeholderActions.postStakeholder,
-    putStakeholder = stakeholderActions.putStakeholder,
-    refreshStakeholders = stakeholderActions.refreshStakeholders,
-    searchStakeholders = stakeholderActions.searchStakeholders,
-    setStakeholderSchema = stakeholderActions.setStakeholderSchema,
-    sortStakeholders = stakeholderActions.sortStakeholders;
-
-var stakeholderActions$1 = generateExposedActions('stock', actions, dispatch);
-
-var clearStockFilters = stakeholderActions$1.clearStockFilters,
-    clearStocksSort = stakeholderActions$1.clearStocksSort,
-    closeStockForm = stakeholderActions$1.closeStockForm,
-    deleteStock = stakeholderActions$1.deleteStock,
-    filterStocks = stakeholderActions$1.filterStocks,
-    getStocks = stakeholderActions$1.getStocks,
-    getStock = stakeholderActions$1.getStock,
-    selectStock = stakeholderActions$1.selectStock,
-    openStockForm = stakeholderActions$1.openStockForm,
-    paginateStocks = stakeholderActions$1.paginateStocks,
-    postStock = stakeholderActions$1.postStock,
-    putStock = stakeholderActions$1.putStock,
-    refreshStocks = stakeholderActions$1.refreshStocks,
-    searchStocks = stakeholderActions$1.searchStocks,
-    setStockSchema = stakeholderActions$1.setStockSchema,
-    sortStocks = stakeholderActions$1.sortStocks;
+var clearStockFilters = stakeholderActions$2.clearStockFilters,
+    clearStocksSort = stakeholderActions$2.clearStocksSort,
+    closeStockForm = stakeholderActions$2.closeStockForm,
+    deleteStock = stakeholderActions$2.deleteStock,
+    filterStocks = stakeholderActions$2.filterStocks,
+    getStocks = stakeholderActions$2.getStocks,
+    getStock = stakeholderActions$2.getStock,
+    selectStock = stakeholderActions$2.selectStock,
+    openStockForm = stakeholderActions$2.openStockForm,
+    paginateStocks = stakeholderActions$2.paginateStocks,
+    postStock = stakeholderActions$2.postStock,
+    putStock = stakeholderActions$2.putStock,
+    refreshStocks = stakeholderActions$2.refreshStocks,
+    searchStocks = stakeholderActions$2.searchStocks,
+    setStockSchema = stakeholderActions$2.setStockSchema,
+    sortStocks = stakeholderActions$2.sortStocks;
 
 var warehouseActions = generateExposedActions('warehouse', actions, dispatch);
 
@@ -1346,4 +1441,4 @@ function Connect(component) {
   return connect(mapStateToProps)(component);
 }
 
-export { StoreProvider, Connect, wrappedInitializeApp as initializeApp, clearActivityFilters, clearActivitiesSort, closeActivityForm, deleteActivity, filterActivities, getActivities, getActivity, selectActivity, openActivityForm, paginateActivities, postActivity, putActivity, refreshActivities, searchActivities, setActivitySchema, sortActivities, clearAdjustmentFilters, clearAdjustmentsSort, closeAdjustmentForm, deleteAdjustment, filterAdjustments, getAdjustments, getAdjustment, selectAdjustment, openAdjustmentForm, paginateAdjustments, postAdjustment, putAdjustment, refreshAdjustments, searchAdjustments, setAdjustmentSchema, sortAdjustments, clearAlertFilters, clearAlertsSort, closeAlertForm, deleteAlert, filterAlerts, getAlerts, getAlert, selectAlert, openAlertForm, paginateAlerts, postAlert, putAlert, refreshAlerts, searchAlerts, setAlertSchema, sortAlerts, clearAlertSourceFilters, clearAlertSourcesSort, closeAlertSourceForm, deleteAlertSource, filterAlertSources, getAlertSources, getAlertSource, selectAlertSource, openAlertSourceForm, paginateAlertSources, postAlertSource, putAlertSource, refreshAlertSources, searchAlertSources, setAlertSourceSchema, sortAlertSources, clearAssessmentFilters, clearAssessmentsSort, closeAssessmentForm, deleteAssessment, filterAssessments, getAssessments, getAssessment, selectAssessment, openAssessmentForm, paginateAssessments, postAssessment, putAssessment, refreshAssessments, searchAssessments, setAssessmentSchema, sortAssessments, clearFeatureFilters, clearFeaturesSort, closeFeatureForm, deleteFeature, filterFeatures, getFeatures, getFeature, selectFeature, openFeatureForm, paginateFeatures, postFeature, putFeature, refreshFeatures, searchFeatures, setFeatureSchema, sortFeatures, clearIncidentFilters, clearIncidentsSort, closeIncidentForm, deleteIncident, filterIncidents, getIncidents, getIncident, selectIncident, openIncidentForm, paginateIncidents, postIncident, putIncident, refreshIncidents, searchIncidents, setIncidentSchema, sortIncidents, clearIncidentTypeFilters, clearIncidentTypesSort, closeIncidentTypeForm, deleteIncidentType, filterIncidentTypes, getIncidentTypes, getIncidentType, selectIncidentType, openIncidentTypeForm, paginateIncidentTypes, postIncidentType, putIncidentType, refreshIncidentTypes, searchIncidentTypes, setIncidentTypeSchema, sortIncidentTypes, clearIndicatorFilters, clearIndicatorsSort, closeIndicatorForm, deleteIndicator, filterIndicators, getIndicators, getIndicator, selectIndicator, openIndicatorForm, paginateIndicators, postIndicator, putIndicator, refreshIndicators, searchIndicators, setIndicatorSchema, sortIndicators, clearItemFilters, clearItemsSort, closeItemForm, deleteItem, filterItems, getItems, getItem, selectItem, openItemForm, paginateItems, postItem, putItem, refreshItems, searchItems, setItemSchema, sortItems, clearPlanFilters, clearPlansSort, closePlanForm, deletePlan, filterPlans, getPlans, getPlan, selectPlan, openPlanForm, paginatePlans, postPlan, putPlan, refreshPlans, searchPlans, setPlanSchema, sortPlans, clearProcedureFilters, clearProceduresSort, closeProcedureForm, deleteProcedure, filterProcedures, getProcedures, getProcedure, selectProcedure, openProcedureForm, paginateProcedures, postProcedure, putProcedure, refreshProcedures, searchProcedures, setProcedureSchema, sortProcedures, clearQuestionFilters, clearQuestionsSort, closeQuestionForm, deleteQuestion, filterQuestions, getQuestions, getQuestion, selectQuestion, openQuestionForm, paginateQuestions, postQuestion, putQuestion, refreshQuestions, searchQuestions, setQuestionSchema, sortQuestions, clearQuestionnaireFilters, clearQuestionnairesSort, closeQuestionnaireForm, deleteQuestionnaire, filterQuestionnaires, getQuestionnaires, getQuestionnaire, selectQuestionnaire, openQuestionnaireForm, paginateQuestionnaires, postQuestionnaire, putQuestionnaire, refreshQuestionnaires, searchQuestionnaires, setQuestionnaireSchema, sortQuestionnaires, clearResourceFilters, clearResourcesSort, closeResourceForm, deleteResource, filterResources, getResources, getResource, selectResource, openResourceForm, paginateResources, postResource, putResource, refreshResources, searchResources, setResourceSchema, sortResources, clearRoleFilters, clearRolesSort, closeRoleForm, deleteRole, filterRoles, getRoles, getRole, selectRole, openRoleForm, paginateRoles, postRole, putRole, refreshRoles, searchRoles, setRoleSchema, sortRoles, clearStakeholderFilters, clearStakeholdersSort, closeStakeholderForm, deleteStakeholder, filterStakeholders, getStakeholders, getStakeholder, selectStakeholder, openStakeholderForm, paginateStakeholders, postStakeholder, putStakeholder, refreshStakeholders, searchStakeholders, setStakeholderSchema, sortStakeholders, clearStockFilters, clearStocksSort, closeStockForm, deleteStock, filterStocks, getStocks, getStock, selectStock, openStockForm, paginateStocks, postStock, putStock, refreshStocks, searchStocks, setStockSchema, sortStocks, clearWarehouseFilters, clearWarehousesSort, closeWarehouseForm, deleteWarehouse, filterWarehouses, getWarehouses, getWarehouse, selectWarehouse, openWarehouseForm, paginateWarehouses, postWarehouse, putWarehouse, refreshWarehouses, searchWarehouses, setWarehouseSchema, sortWarehouses };
+export { StoreProvider, Connect, wrappedInitializeApp as initializeApp, clearActivityFilters, clearActivitiesSort, closeActivityForm, deleteActivity, filterActivities, getActivities, getActivity, selectActivity, openActivityForm, paginateActivities, postActivity, putActivity, refreshActivities, searchActivities, setActivitySchema, sortActivities, clearAdjustmentFilters, clearAdjustmentsSort, closeAdjustmentForm, deleteAdjustment, filterAdjustments, getAdjustments, getAdjustment, selectAdjustment, openAdjustmentForm, paginateAdjustments, postAdjustment, putAdjustment, refreshAdjustments, searchAdjustments, setAdjustmentSchema, sortAdjustments, clearAgencyFilters, clearAgenciesSort, closeAgencyForm, deleteAgency, filterAgencies, getAgencies, getAgency, selectAgency, openAgencyForm, paginateAgencies, postAgency, putAgency, refreshAgencies, searchAgencies, setAgencySchema, sortAgencies, clearAlertFilters, clearAlertsSort, closeAlertForm, deleteAlert, filterAlerts, getAlerts, getAlert, selectAlert, openAlertForm, paginateAlerts, postAlert, putAlert, refreshAlerts, searchAlerts, setAlertSchema, sortAlerts, clearAlertSourceFilters, clearAlertSourcesSort, closeAlertSourceForm, deleteAlertSource, filterAlertSources, getAlertSources, getAlertSource, selectAlertSource, openAlertSourceForm, paginateAlertSources, postAlertSource, putAlertSource, refreshAlertSources, searchAlertSources, setAlertSourceSchema, sortAlertSources, clearAssessmentFilters, clearAssessmentsSort, closeAssessmentForm, deleteAssessment, filterAssessments, getAssessments, getAssessment, selectAssessment, openAssessmentForm, paginateAssessments, postAssessment, putAssessment, refreshAssessments, searchAssessments, setAssessmentSchema, sortAssessments, clearDistrictFilters, clearDistrictsSort, closeDistrictForm, deleteDistrict, filterDistricts, getDistricts, getDistrict, selectDistrict, openDistrictForm, paginateDistricts, postDistrict, putDistrict, refreshDistricts, searchDistricts, setDistrictSchema, sortDistricts, clearFeatureFilters, clearFeaturesSort, closeFeatureForm, deleteFeature, filterFeatures, getFeatures, getFeature, selectFeature, openFeatureForm, paginateFeatures, postFeature, putFeature, refreshFeatures, searchFeatures, setFeatureSchema, sortFeatures, clearFocalPersonFilters, clearFocalPeopleSort, closeFocalPersonForm, deleteFocalPerson, filterFocalPeople, getFocalPeople, getFocalPerson, selectFocalPerson, openFocalPersonForm, paginateFocalPeople, postFocalPerson, putFocalPerson, refreshFocalPeople, searchFocalPeople, setFocalPersonSchema, sortFocalPeople, clearIncidentFilters, clearIncidentsSort, closeIncidentForm, deleteIncident, filterIncidents, getIncidents, getIncident, selectIncident, openIncidentForm, paginateIncidents, postIncident, putIncident, refreshIncidents, searchIncidents, setIncidentSchema, sortIncidents, clearIncidentTypeFilters, clearIncidentTypesSort, closeIncidentTypeForm, deleteIncidentType, filterIncidentTypes, getIncidentTypes, getIncidentType, selectIncidentType, openIncidentTypeForm, paginateIncidentTypes, postIncidentType, putIncidentType, refreshIncidentTypes, searchIncidentTypes, setIncidentTypeSchema, sortIncidentTypes, clearIndicatorFilters, clearIndicatorsSort, closeIndicatorForm, deleteIndicator, filterIndicators, getIndicators, getIndicator, selectIndicator, openIndicatorForm, paginateIndicators, postIndicator, putIndicator, refreshIndicators, searchIndicators, setIndicatorSchema, sortIndicators, clearItemFilters, clearItemsSort, closeItemForm, deleteItem, filterItems, getItems, getItem, selectItem, openItemForm, paginateItems, postItem, putItem, refreshItems, searchItems, setItemSchema, sortItems, clearPlanFilters, clearPlansSort, closePlanForm, deletePlan, filterPlans, getPlans, getPlan, selectPlan, openPlanForm, paginatePlans, postPlan, putPlan, refreshPlans, searchPlans, setPlanSchema, sortPlans, clearProcedureFilters, clearProceduresSort, closeProcedureForm, deleteProcedure, filterProcedures, getProcedures, getProcedure, selectProcedure, openProcedureForm, paginateProcedures, postProcedure, putProcedure, refreshProcedures, searchProcedures, setProcedureSchema, sortProcedures, clearQuestionFilters, clearQuestionsSort, closeQuestionForm, deleteQuestion, filterQuestions, getQuestions, getQuestion, selectQuestion, openQuestionForm, paginateQuestions, postQuestion, putQuestion, refreshQuestions, searchQuestions, setQuestionSchema, sortQuestions, clearQuestionnaireFilters, clearQuestionnairesSort, closeQuestionnaireForm, deleteQuestionnaire, filterQuestionnaires, getQuestionnaires, getQuestionnaire, selectQuestionnaire, openQuestionnaireForm, paginateQuestionnaires, postQuestionnaire, putQuestionnaire, refreshQuestionnaires, searchQuestionnaires, setQuestionnaireSchema, sortQuestionnaires, clearRegionFilters, clearRegionsSort, closeRegionForm, deleteRegion, filterRegions, getRegions, getRegion, selectRegion, openRegionForm, paginateRegions, postRegion, putRegion, refreshRegions, searchRegions, setRegionSchema, sortRegions, clearResourceFilters, clearResourcesSort, closeResourceForm, deleteResource, filterResources, getResources, getResource, selectResource, openResourceForm, paginateResources, postResource, putResource, refreshResources, searchResources, setResourceSchema, sortResources, clearRoleFilters, clearRolesSort, closeRoleForm, deleteRole, filterRoles, getRoles, getRole, selectRole, openRoleForm, paginateRoles, postRole, putRole, refreshRoles, searchRoles, setRoleSchema, sortRoles, clearStockFilters, clearStocksSort, closeStockForm, deleteStock, filterStocks, getStocks, getStock, selectStock, openStockForm, paginateStocks, postStock, putStock, refreshStocks, searchStocks, setStockSchema, sortStocks, clearWarehouseFilters, clearWarehousesSort, closeWarehouseForm, deleteWarehouse, filterWarehouses, getWarehouses, getWarehouse, selectWarehouse, openWarehouseForm, paginateWarehouses, postWarehouse, putWarehouse, refreshWarehouses, searchWarehouses, setWarehouseSchema, sortWarehouses };

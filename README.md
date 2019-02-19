@@ -24,25 +24,28 @@ All actions exposed by `emis-api-states` are wrapped with dispatch function, so 
 
 The following is the list of all resources exposed by this library.
 
-- Activity
-- Adjustment
-- Alert
-- AlertSource
-- Assessment
-- Feature
-- Incident
-- IncidentType
-- Indicator
-- Item
-- Plan
-- Procedure
-- Question
-- Questionnaire
-- Resource
-- Role
-- Stakeholder
-- Stock
-- Warehouse
+- activity
+- adjustment
+- agency
+- alert
+- alertSource
+- assessment
+- district
+- feature
+- focalPerson
+- incident
+- incidentType
+- indicator
+- item
+- plan
+- procedure
+- question
+- questionnaire
+- region
+- resource
+- role
+- stock
+- warehouse
 
   For each resource you can get it's exposed actions as follows;
 
