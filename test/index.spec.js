@@ -38,6 +38,23 @@ describe('Library Index', () => {
     expect(typeof lib.setAdjustmentSchema).toBe('function');
     expect(typeof lib.sortAdjustments).toBe('function');
 
+    expect(typeof lib.clearAgencyFilters).toBe('function');
+    expect(typeof lib.clearAgenciesSort).toBe('function');
+    expect(typeof lib.closeAgencyForm).toBe('function');
+    expect(typeof lib.deleteAgency).toBe('function');
+    expect(typeof lib.filterAgencies).toBe('function');
+    expect(typeof lib.getAgencies).toBe('function');
+    expect(typeof lib.getAgency).toBe('function');
+    expect(typeof lib.selectAgency).toBe('function');
+    expect(typeof lib.openAgencyForm).toBe('function');
+    expect(typeof lib.paginateAgencies).toBe('function');
+    expect(typeof lib.postAgency).toBe('function');
+    expect(typeof lib.putAgency).toBe('function');
+    expect(typeof lib.refreshAgencies).toBe('function');
+    expect(typeof lib.searchAgencies).toBe('function');
+    expect(typeof lib.setAgencySchema).toBe('function');
+    expect(typeof lib.sortAgencies).toBe('function');
+
     expect(typeof lib.clearAlertFilters).toBe('function');
     expect(typeof lib.clearAlertsSort).toBe('function');
     expect(typeof lib.closeAlertForm).toBe('function');
@@ -89,6 +106,23 @@ describe('Library Index', () => {
     expect(typeof lib.setAssessmentSchema).toBe('function');
     expect(typeof lib.sortAssessments).toBe('function');
 
+    expect(typeof lib.clearDistrictFilters).toBe('function');
+    expect(typeof lib.clearDistrictsSort).toBe('function');
+    expect(typeof lib.closeDistrictForm).toBe('function');
+    expect(typeof lib.deleteDistrict).toBe('function');
+    expect(typeof lib.filterDistricts).toBe('function');
+    expect(typeof lib.getDistricts).toBe('function');
+    expect(typeof lib.getDistrict).toBe('function');
+    expect(typeof lib.selectDistrict).toBe('function');
+    expect(typeof lib.openDistrictForm).toBe('function');
+    expect(typeof lib.paginateDistricts).toBe('function');
+    expect(typeof lib.postDistrict).toBe('function');
+    expect(typeof lib.putDistrict).toBe('function');
+    expect(typeof lib.refreshDistricts).toBe('function');
+    expect(typeof lib.searchDistricts).toBe('function');
+    expect(typeof lib.setDistrictSchema).toBe('function');
+    expect(typeof lib.sortDistricts).toBe('function');
+
     expect(typeof lib.clearPlanFilters).toBe('function');
     expect(typeof lib.clearPlansSort).toBe('function');
     expect(typeof lib.closePlanForm).toBe('function');
@@ -122,6 +156,23 @@ describe('Library Index', () => {
     expect(typeof lib.searchFeatures).toBe('function');
     expect(typeof lib.setFeatureSchema).toBe('function');
     expect(typeof lib.sortFeatures).toBe('function');
+
+    expect(typeof lib.clearFocalPersonFilters).toBe('function');
+    expect(typeof lib.clearFocalPeopleSort).toBe('function');
+    expect(typeof lib.closeFocalPersonForm).toBe('function');
+    expect(typeof lib.deleteFocalPerson).toBe('function');
+    expect(typeof lib.filterFocalPeople).toBe('function');
+    expect(typeof lib.getFocalPeople).toBe('function');
+    expect(typeof lib.getFocalPerson).toBe('function');
+    expect(typeof lib.selectFocalPerson).toBe('function');
+    expect(typeof lib.openFocalPersonForm).toBe('function');
+    expect(typeof lib.paginateFocalPeople).toBe('function');
+    expect(typeof lib.postFocalPerson).toBe('function');
+    expect(typeof lib.putFocalPerson).toBe('function');
+    expect(typeof lib.refreshFocalPeople).toBe('function');
+    expect(typeof lib.searchFocalPeople).toBe('function');
+    expect(typeof lib.setFocalPersonSchema).toBe('function');
+    expect(typeof lib.sortFocalPeople).toBe('function');
 
     expect(typeof lib.clearIncidentFilters).toBe('function');
     expect(typeof lib.clearIncidentsSort).toBe('function');
@@ -242,6 +293,23 @@ describe('Library Index', () => {
     expect(typeof lib.setQuestionnaireSchema).toBe('function');
     expect(typeof lib.sortQuestionnaires).toBe('function');
 
+    expect(typeof lib.clearRegionFilters).toBe('function');
+    expect(typeof lib.clearRegionsSort).toBe('function');
+    expect(typeof lib.closeRegionForm).toBe('function');
+    expect(typeof lib.deleteRegion).toBe('function');
+    expect(typeof lib.filterRegions).toBe('function');
+    expect(typeof lib.getRegions).toBe('function');
+    expect(typeof lib.getRegion).toBe('function');
+    expect(typeof lib.selectRegion).toBe('function');
+    expect(typeof lib.openRegionForm).toBe('function');
+    expect(typeof lib.paginateRegions).toBe('function');
+    expect(typeof lib.postRegion).toBe('function');
+    expect(typeof lib.putRegion).toBe('function');
+    expect(typeof lib.refreshRegions).toBe('function');
+    expect(typeof lib.searchRegions).toBe('function');
+    expect(typeof lib.setRegionSchema).toBe('function');
+    expect(typeof lib.sortRegions).toBe('function');
+
     expect(typeof lib.clearResourceFilters).toBe('function');
     expect(typeof lib.clearResourcesSort).toBe('function');
     expect(typeof lib.closeResourceForm).toBe('function');
@@ -275,23 +343,6 @@ describe('Library Index', () => {
     expect(typeof lib.searchRoles).toBe('function');
     expect(typeof lib.setRoleSchema).toBe('function');
     expect(typeof lib.sortRoles).toBe('function');
-
-    expect(typeof lib.clearStakeholderFilters).toBe('function');
-    expect(typeof lib.clearStakeholdersSort).toBe('function');
-    expect(typeof lib.closeStakeholderForm).toBe('function');
-    expect(typeof lib.deleteStakeholder).toBe('function');
-    expect(typeof lib.filterStakeholders).toBe('function');
-    expect(typeof lib.getStakeholders).toBe('function');
-    expect(typeof lib.getStakeholder).toBe('function');
-    expect(typeof lib.selectStakeholder).toBe('function');
-    expect(typeof lib.openStakeholderForm).toBe('function');
-    expect(typeof lib.paginateStakeholders).toBe('function');
-    expect(typeof lib.postStakeholder).toBe('function');
-    expect(typeof lib.putStakeholder).toBe('function');
-    expect(typeof lib.refreshStakeholders).toBe('function');
-    expect(typeof lib.searchStakeholders).toBe('function');
-    expect(typeof lib.setStakeholderSchema).toBe('function');
-    expect(typeof lib.sortStakeholders).toBe('function');
 
     expect(typeof lib.clearWarehouseFilters).toBe('function');
     expect(typeof lib.clearWarehousesSort).toBe('function');

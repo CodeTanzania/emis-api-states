@@ -1,4 +1,4 @@
-import { getSchemas } from '@codetanzania/emis-api-client';
+import { httpActions } from '@codetanzania/emis-api-client';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import {
@@ -13,6 +13,7 @@ import {
   INITIALIZE_APP_SUCCESS,
 } from '../../src/store';
 
+const { getSchemas } = httpActions;
 jest.mock('@codetanzania/emis-api-client');
 const mockStore = configureMockStore([thunk]);
 
@@ -39,7 +40,9 @@ describe('App Actions', () => {
       const store = mockStore({});
       const mockData = {
         Permission: {},
+        District: {},
         Feature: {},
+        FocalPerson: {},
         Role: {},
         Message: {},
         Party: {},
@@ -48,9 +51,11 @@ describe('App Actions', () => {
         Item: {},
         Stock: {},
         Adjustment: {},
+        Agency: {},
         Indicator: {},
         Question: {},
         Questionnaire: {},
+        Region: {},
         IncidentType: {},
         Plan: {},
         Activity: {},
@@ -67,12 +72,21 @@ describe('App Actions', () => {
           type: 'adjustment/setAdjustmentSchema',
           payload: mockData.Adjustment,
         },
+        {
+          type: 'agency/setAgencySchema',
+          payload: mockData.Agency,
+        },
         { type: 'alert/setAlertSchema', payload: mockData.Alert },
         {
           type: 'alertSource/setAlertSourceSchema',
           payload: mockData.AlertSource,
         },
+        { type: 'district/setDistrictSchema', payload: mockData.District },
         { type: 'feature/setFeatureSchema', payload: mockData.Feature },
+        {
+          type: 'focalPerson/setFocalPersonSchema',
+          payload: mockData.FocalPerson,
+        },
         { type: 'indicator/setIndicatorSchema', payload: mockData.Indicator },
         {
           type: 'incidentType/setIncidentTypeSchema',
@@ -89,11 +103,11 @@ describe('App Actions', () => {
           type: 'questionnaire/setQuestionnaireSchema',
           payload: mockData.Questionnaire,
         },
-        { type: 'role/setRoleSchema', payload: mockData.Role },
         {
-          type: 'stakeholder/setStakeholderSchema',
-          payload: mockData.Party,
+          type: 'region/setRegionSchema',
+          payload: mockData.Region,
         },
+        { type: 'role/setRoleSchema', payload: mockData.Role },
         {
           type: 'stock/setStockSchema',
           payload: mockData.Stock,
