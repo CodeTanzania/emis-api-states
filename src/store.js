@@ -131,8 +131,11 @@ export function app(state = { loading: false, error: null }, action) {
 const resources = [
   'activity',
   'adjustment',
+  'agency',
   'alert',
+  'alertSource',
   'assessment',
+  'district',
   'feature',
   'incident',
   'incidentType',
@@ -142,12 +145,12 @@ const resources = [
   'procedure',
   'question',
   'questionnaire',
+  'region',
   'resource',
   'role',
-  'stakeholder',
+  'focalPerson',
   'stock',
   'warehouse',
-  'alertSource',
 ];
 
 const slices = createResourcesSlices(resources);

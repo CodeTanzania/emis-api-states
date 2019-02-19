@@ -1,3 +1,28 @@
+#### 0.9.0 (2019-02-19)
+
+##### Chores
+
+* **build:**  bundle library for 0.9.0 ([e69033a9](https://github.com/CodeTanzania/emis-api-states/commit/e69033a90028c345f3a5cbd0ad59b5d4f73cd34d))
+* **package.json:**
+  *  update package version to 0.9.0 ([f7fae611](https://github.com/CodeTanzania/emis-api-states/commit/f7fae6119f9a7753ae1804e0895a1ae231a862b4))
+  *  update dependencies ([948694bc](https://github.com/CodeTanzania/emis-api-states/commit/948694bc8e646460a8fd42858e3d2fbbedef99d3))
+
+##### Documentation Changes
+
+* **readme:**  update usage section ([0b73f9cb](https://github.com/CodeTanzania/emis-api-states/commit/0b73f9cb330724a74bc718baf5df717e161def5b))
+
+##### Bug Fixes
+
+* **thunks:**  maintain filters, search query and page on fetching results ([b3469a4b](https://github.com/CodeTanzania/emis-api-states/commit/b3469a4be51becc4ee59827bf9b77e364ff74e73))
+
+##### Refactors
+
+*  use latest emis-api-client ([44f61e53](https://github.com/CodeTanzania/emis-api-states/commit/44f61e53fe4c92f865371b2b7b414fa0a798b49b))
+
+##### Code Style Changes
+
+* **store:**  reorder resource name alpabetically ([a8f9c1f0](https://github.com/CodeTanzania/emis-api-states/commit/a8f9c1f0f00377794df5c993fc937dbae397f093))
+
 #### 0.8.1 (2019-02-11)
 
 ##### Build System / Dependencies

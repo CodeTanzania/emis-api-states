@@ -1,4 +1,4 @@
-import * as client from '@codetanzania/emis-api-client';
+import { httpActions as client } from '@codetanzania/emis-api-client';
 import { pluralize, singularize } from 'inflection';
 import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
@@ -16,8 +16,8 @@ import { actions } from '../store';
  * Custom thunk implementations can be added to the specific resource
  * actions module
  *
- * @param {string} resource - resource name
- * @returns {Object} thunks - resource thunks
+ * @param {string} resource  resource name
+ * @returns {Object} thunks  resource thunks
  *
  * @version 0.3.0
  * @since 0.1.0
@@ -35,12 +35,12 @@ export default function createThunksFor(resource) {
    * @name get<Resource Plural Name>
    * @description A thunk that will be dispatched when fetching data from API
    *
-   * @param {Object} param - Param object to be passed to API client
-   * @param {Function} onSuccess - Callback to be called when fetching
+   * @param {Object} param  Param object to be passed to API client
+   * @param {Function} onSuccess  Callback to be called when fetching
    * resources from the API succeed
-   * @param {Function} onError - Callback to be called when fetching
+   * @param {Function} onError  Callback to be called when fetching
    * resources from the API fails
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
@@ -80,12 +80,12 @@ export default function createThunksFor(resource) {
    * @description A thunk that will be dispatched when fetching
    * single resource data from the API
    *
-   * @param {string} id - Resource unique identification
-   * @param {Function} onSuccess - Callback to be called when getting a
+   * @param {string} id  Resource unique identification
+   * @param {Function} onSuccess  Callback to be called when getting a
    * resource from the API succeed
-   * @param {Function} onError - Callback to be called when getting a resource
+   * @param {Function} onError  Callback to be called when getting a resource
    * from the API fails
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
@@ -125,12 +125,12 @@ export default function createThunksFor(resource) {
    * @description A thunk that will be dispatched when creating a single
    * resource data in the API
    *
-   * @param {Object} param - Resource  object to be created/Saved
-   * @param {Function} onSuccess - Callback to be executed when posting a
+   * @param {Object} param  Resource  object to be created/Saved
+   * @param {Function} onSuccess  Callback to be executed when posting a
    * resource succeed
-   * @param {Function} onError - Callback to be executed when posting
+   * @param {Function} onError  Callback to be executed when posting
    * resource fails
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
@@ -176,12 +176,12 @@ export default function createThunksFor(resource) {
    * @description A thunk that will be dispatched when updating a single
    * resource data in the API
    *
-   * @param {Object} param - Resource  object to be updated
-   * @param {Function} onSuccess - Callback to be executed when updating a
+   * @param {Object} param  Resource  object to be updated
+   * @param {Function} onSuccess  Callback to be executed when updating a
    * resource succeed
-   * @param {Function} onError - Callback to be executed when updating a
+   * @param {Function} onError  Callback to be executed when updating a
    * resource fails
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
@@ -223,12 +223,12 @@ export default function createThunksFor(resource) {
    * @description A thunk that will be dispatched when deleting/archiving
    * a single resource data in the API
    *
-   * @param {string} id - Resource unique identification
-   * @param {Function} onSuccess - Callback to be executed when updating a
+   * @param {string} id  Resource unique identification
+   * @param {Function} onSuccess  Callback to be executed when updating a
    * resource succeed
-   * @param {Function} onError - Callback to be executed when updating a
+   * @param {Function} onError  Callback to be executed when updating a
    * resource fails
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
@@ -274,16 +274,46 @@ export default function createThunksFor(resource) {
 
   /**
    * @function
+   * @name fetch<Resource Name>
+   * @description A thunk that for fetching data from the API the difference
+   * between this and get thunk is this will apply all the criteria on fetch.
+   * Pagination, filters, Search Query and sort.
+   *
+   * @param {Function} onSuccess Callback to be called when fetching
+   * resources from the API succeed
+   * @param {Function} onError Callback to be called when fetching
+   * resources from the API fails
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  thunks[camelize('fetch', pluralName)] = (onSuccess, onError) => (
+    dispatch,
+    getState
+  ) => {
+    const { page, sort, filter, q } = getState()[storeKey];
+
+    return dispatch(
+      thunks[camelize('get', pluralName)](
+        { page, filter, sort, q },
+        onSuccess,
+        onError
+      )
+    );
+  };
+
+  /**
+   * @function
    * @name filter<Resource Plural Name>
    * @description A thunk that will be dispatched when filtering resources
    *  data in the API
    *
-   * @param {Object} filter - Resource filter criteria object
-   * @param {Function} onSuccess - Callback to be executed when filtering
+   * @param {Object} filter  Resource filter criteria object
+   * @param {Function} onSuccess  Callback to be executed when filtering
    * resources succeed
-   * @param {Function} onError - Callback to be executed when filtering
+   * @param {Function} onError  Callback to be executed when filtering
    * resources fails
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
@@ -306,11 +336,11 @@ export default function createThunksFor(resource) {
    * @description A thunk that will be dispatched when refreshing resources
    *  data in the API
    *
-   * @param {Function} onSuccess - Callback to be executed when refreshing
+   * @param {Function} onSuccess  Callback to be executed when refreshing
    * resources succeed
-   * @param {Function} onError - Callback to be executed when refreshing
+   * @param {Function} onError  Callback to be executed when refreshing
    * resources fails
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
@@ -340,12 +370,12 @@ export default function createThunksFor(resource) {
    * @description A thunk that will be dispatched when searching resources
    *  data in the API
    *
-   * @param {string} query - Search query string
-   * @param {Function} onSuccess - Callback to be executed when searching
+   * @param {string} query  Search query string
+   * @param {Function} onSuccess  Callback to be executed when searching
    * resources succeed
-   * @param {Function} onError - Callback to be executed when searching
+   * @param {Function} onError  Callback to be executed when searching
    * resources fails
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
@@ -373,12 +403,12 @@ export default function createThunksFor(resource) {
    * @description A thunk that will be dispatched when sorting resources
    *  data in the API
    *
-   * @param {Object} order - sort order object
-   * @param {Function} onSuccess - Callback to be executed when sorting
+   * @param {Object} order  sort order object
+   * @param {Function} onSuccess  Callback to be executed when sorting
    * resources succeed
-   * @param {Function} onError - Callback to be executed when sorting
+   * @param {Function} onError  Callback to be executed when sorting
    * resources fails
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
@@ -406,12 +436,12 @@ export default function createThunksFor(resource) {
    * @description A thunk that will be dispatched when paginating resources
    *  data in the API
    *
-   * @param {number} page - paginate to page
-   * @param {Function} onSuccess - Callback to be executed when paginating
+   * @param {number} page  paginate to page
+   * @param {Function} onSuccess  Callback to be executed when paginating
    * resources succeed
-   * @param {Function} onError - Callback to be executed when paginating
+   * @param {Function} onError  Callback to be executed when paginating
    * resources fails
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
@@ -437,12 +467,12 @@ export default function createThunksFor(resource) {
    * @description A thunk that will be dispatched when clearing filters on
    * resources data in the API
    *
-   * @param {Function} onSuccess - Callback to be executed when filters are
+   * @param {Function} onSuccess  Callback to be executed when filters are
    *  cleared and resources data is reloaded successfully
-   * @param {Function} onError - Callback to be executed when filters are
+   * @param {Function} onError  Callback to be executed when filters are
    * cleared and resources data fails to reload
-   * @param {string[]} keep - list of filter names to be kept
-   * @returns {Function} - Thunk Function
+   * @param {string[]} keep  list of filter names to be kept
+   * @returns {Function}  Thunk Function
    *
    * @version 0.1.0
    * @since 0.1.0
@@ -473,11 +503,11 @@ export default function createThunksFor(resource) {
    * @description A thunk that will be dispatched when clearing sort order on
    * resources data in the API
    *
-   * @param {Function} onSuccess - Callback to be executed when sort are
+   * @param {Function} onSuccess  Callback to be executed when sort are
    *  cleared and resources data is reloaded successfully
-   * @param {Function} onError - Callback to be executed when sort are
+   * @param {Function} onError  Callback to be executed when sort are
    * cleared and resources data fails to reload
-   * @returns {Function} - Thunk function
+   * @returns {Function}  Thunk function
    *
    * @version 0.1.0
    * @since 0.1.0
