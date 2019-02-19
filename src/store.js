@@ -133,6 +133,7 @@ const resources = [
   'adjustment',
   'agency',
   'alert',
+  'alertSource',
   'assessment',
   'district',
   'feature',
@@ -150,7 +151,6 @@ const resources = [
   'focalPerson',
   'stock',
   'warehouse',
-  'alertSource',
 ];
 
 const slices = createResourcesSlices(resources);
