@@ -39,9 +39,9 @@ StoreProvider.propTypes = {
  * This function subscribe component to the store and inject props
  * to the component
  *
- * @param {Object} component - react node
- * @param {Object|Function} stateToProps - states to inject into props
- * @returns {Object} - React component which is injected with props
+ * @param {Object} component react node
+ * @param {Object|Function} stateToProps states to inject into props
+ * @returns {Object} React component which is injected with props
  *
  * @version 0.1.0
  * @since 0.1.0

@@ -1,4 +1,4 @@
-import camelize from '../src/helpers';
+import { camelize } from '../src/utils';
 
 describe('helpers', () => {
   describe('camelize', () => {

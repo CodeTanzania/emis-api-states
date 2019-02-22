@@ -5,7 +5,7 @@ import pick from 'lodash/pick';
 import lowerFirst from 'lodash/lowerFirst';
 import upperFirst from 'lodash/upperFirst';
 import isFunction from 'lodash/isFunction';
-import camelize from '../helpers';
+import { camelize } from '../utils';
 import { actions } from '../store';
 
 /**

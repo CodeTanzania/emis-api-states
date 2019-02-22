@@ -2,7 +2,7 @@ import { pluralize, singularize } from 'inflection';
 import isObject from 'lodash/isObject';
 import upperFirst from 'lodash/upperFirst';
 import { createSlice } from 'redux-starter-kit';
-import camelize from '../helpers';
+import { camelize } from '../utils';
 
 /**
  * @function
