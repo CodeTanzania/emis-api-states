@@ -1,3 +1,23 @@
+#### 0.9.1 (2019-03-01)
+
+##### Chores
+
+* **build:**  bundle library for version 0.9.1 ([4ded80cd](https://github.com/CodeTanzania/emis-api-states/commit/4ded80cd5ae67eab0b43a370ecbfce2cc741d732))
+* **package.json:**  update package version to 0.9.1 ([c537e7b2](https://github.com/CodeTanzania/emis-api-states/commit/c537e7b2c448b7b542dd2f6a35fc871477811772))
+
+##### Documentation Changes
+
+* **readme:**  add size property to store structure section ([400cd04b](https://github.com/CodeTanzania/emis-api-states/commit/400cd04b217481dacae60bf2007701cf51459b48))
+* ***:**  ensure consistency on code documentation ([98de4a9b](https://github.com/CodeTanzania/emis-api-states/commit/98de4a9b57cb42aa89db52efaa265693d605f238))
+
+##### Bug Fixes
+
+* **slice factory:**  add missing returned results size in the store ([25d17f94](https://github.com/CodeTanzania/emis-api-states/commit/25d17f94438e2c38c1150630050647eff526e305))
+
+##### Refactors
+
+* ***:**  cleanup documentation and remove unused codes ([b7484ebf](https://github.com/CodeTanzania/emis-api-states/commit/b7484ebf9dbe3510f267c88130b4238daf3acf92))
+
 #### 0.9.0 (2019-02-19)
 
 ##### Chores

@@ -1,9 +1,8 @@
 import { singularize } from 'inflection';
-import forIn from 'lodash/forIn';
 import get from 'lodash/get';
 import merge from 'lodash/merge';
 import upperFirst from 'lodash/upperFirst';
-import camelize from '../helpers';
+import { camelize, wrapActionsWithDispatch } from '../utils';
 import createThunkFor from './thunk';
 
 /**
@@ -13,10 +12,10 @@ import createThunkFor from './thunk';
  * consumers to use. All exposed actions are wrapped in dispatch function so
  * use should not have call dispatch again.
  *
- * @param {string} resource - Resource Name
- * @param {Object} actions - Resources actions
- * @param {Function} dispatch - Store action dispatcher
- * @param {Object} thunks - Custom thunks to override/extends existing thunks
+ * @param {string} resource Resource Name
+ * @param {Object} actions Resources actions
+ * @param {Function} dispatch Store action dispatcher
+ * @param {Object} thunks Custom thunks to override/extends existing thunks
  * @returns {Object} wrapped resource actions with dispatching ability
  *
  * @version 0.1.0
@@ -58,11 +57,5 @@ export default function generateExposedActions(
 
   const allActions = merge({}, extractedActions, generatedThunks);
 
-  const wrappedDispatchThunkActions = {};
-
-  forIn(allActions, (fn, key) => {
-    wrappedDispatchThunkActions[key] = (...params) => dispatch(fn(...params));
-  });
-
-  return wrappedDispatchThunkActions;
+  return wrapActionsWithDispatch(allActions, dispatch);
 }
