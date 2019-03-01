@@ -1,4 +1,5 @@
 import forIn from 'lodash/forIn';
+
 import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
 import isObject from 'lodash/isObject';
@@ -12,8 +13,8 @@ import { store } from './store';
  * @name StoreProvider
  * @description Store Provider for EMIS store
  *
- * @param {Object} props - react nodes
- * @param {Object} props.children - react nodes
+ * @param {Object} props react nodes
+ * @param {Object} props.children react nodes
  * @returns {Object} Store provider
  * @version 0.1.0
  * @since 0.1.0
