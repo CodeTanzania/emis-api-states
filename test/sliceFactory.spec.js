@@ -8,11 +8,12 @@ function createAction(actionType, payload) {
 }
 
 describe('Slice Factory', () => {
-  const initialDefaultState = {
+  const defaultState = {
     list: [],
     selected: null,
     page: 1,
     total: 0,
+    size: 0,
     pages: 1,
     loading: false,
     posting: false,
@@ -72,8 +73,8 @@ describe('Slice Factory', () => {
       const selectTodoAction = createAction('todos/selectTodo', {
         name: 'Todo',
       });
-      expect(reducer(initialDefaultState, selectTodoAction)).toEqual({
-        ...initialDefaultState,
+      expect(reducer(defaultState, selectTodoAction)).toEqual({
+        ...defaultState,
         selected: selectTodoAction.payload,
       });
     });
@@ -85,8 +86,8 @@ describe('Slice Factory', () => {
       const filterTodosAction = createAction('todos/filterTodos', {
         name: 'Todo',
       });
-      expect(reducer(initialDefaultState, filterTodosAction)).toEqual({
-        ...initialDefaultState,
+      expect(reducer(defaultState, filterTodosAction)).toEqual({
+        ...defaultState,
         filter: filterTodosAction.payload,
       });
     });
@@ -98,8 +99,8 @@ describe('Slice Factory', () => {
       const sortTodosAction = createAction('todos/sortTodos', {
         name: -1,
       });
-      expect(reducer(initialDefaultState, sortTodosAction)).toEqual({
-        ...initialDefaultState,
+      expect(reducer(defaultState, sortTodosAction)).toEqual({
+        ...defaultState,
         sort: sortTodosAction.payload,
       });
     });
@@ -109,10 +110,8 @@ describe('Slice Factory', () => {
 
       const { reducer } = todos;
       const clearSortAction = createAction('todos/clearTodosSort');
-      expect(
-        reducer({ ...initialDefaultState, sort: {} }, clearSortAction)
-      ).toEqual({
-        ...initialDefaultState,
+      expect(reducer({ ...defaultState, sort: {} }, clearSortAction)).toEqual({
+        ...defaultState,
         sort: null,
       });
     });
@@ -124,8 +123,8 @@ describe('Slice Factory', () => {
       const searchTodosAction = createAction('todos/searchTodos', {
         q: 'Test query string',
       });
-      expect(reducer(initialDefaultState, searchTodosAction)).toEqual({
-        ...initialDefaultState,
+      expect(reducer(defaultState, searchTodosAction)).toEqual({
+        ...defaultState,
         q: searchTodosAction.payload,
       });
     });
@@ -137,8 +136,8 @@ describe('Slice Factory', () => {
 
       const getTodosRequestAction = createAction('todos/getTodosRequest');
 
-      expect(reducer(initialDefaultState, getTodosRequestAction)).toEqual({
-        ...initialDefaultState,
+      expect(reducer(defaultState, getTodosRequestAction)).toEqual({
+        ...defaultState,
         loading: true,
       });
     });
@@ -150,15 +149,17 @@ describe('Slice Factory', () => {
 
       const getTodosSuccessAction = createAction('todos/getTodosSuccess', {
         data: [{ name: 'todos' }],
+        size: 1,
         page: 1,
         total: 1,
       });
 
-      expect(reducer(initialDefaultState, getTodosSuccessAction)).toEqual({
-        ...initialDefaultState,
+      expect(reducer(defaultState, getTodosSuccessAction)).toEqual({
+        ...defaultState,
         list: [...getTodosSuccessAction.payload.data],
         page: getTodosSuccessAction.payload.page,
         total: getTodosSuccessAction.payload.total,
+        size: getTodosSuccessAction.payload.size,
         loading: false,
       });
     });
@@ -173,8 +174,8 @@ describe('Slice Factory', () => {
         new Error()
       );
 
-      expect(reducer(initialDefaultState, getTodosFailureAction)).toEqual({
-        ...initialDefaultState,
+      expect(reducer(defaultState, getTodosFailureAction)).toEqual({
+        ...defaultState,
         error: getTodosFailureAction.payload,
         loading: false,
       });
@@ -187,8 +188,8 @@ describe('Slice Factory', () => {
 
       const postTodoRequestAction = createAction('todos/postTodoRequest');
 
-      expect(reducer(initialDefaultState, postTodoRequestAction)).toEqual({
-        ...initialDefaultState,
+      expect(reducer(defaultState, postTodoRequestAction)).toEqual({
+        ...defaultState,
         posting: true,
       });
     });
@@ -202,11 +203,11 @@ describe('Slice Factory', () => {
 
       expect(
         reducer(
-          { ...initialDefaultState, posting: true, showForm: true },
+          { ...defaultState, posting: true, showForm: true },
           postTodoSuccessAction
         )
       ).toEqual({
-        ...initialDefaultState,
+        ...defaultState,
         posting: false,
       });
     });
@@ -223,11 +224,11 @@ describe('Slice Factory', () => {
 
       expect(
         reducer(
-          { ...initialDefaultState, posting: true, showForm: true },
+          { ...defaultState, posting: true, showForm: true },
           postTodoFailureAction
         )
       ).toEqual({
-        ...initialDefaultState,
+        ...defaultState,
         posting: false,
         showForm: true,
         error: postTodoFailureAction.payload,
@@ -241,8 +242,8 @@ describe('Slice Factory', () => {
 
       const putTodoRequestAction = createAction('todos/putTodoRequest');
 
-      expect(reducer(initialDefaultState, putTodoRequestAction)).toEqual({
-        ...initialDefaultState,
+      expect(reducer(defaultState, putTodoRequestAction)).toEqual({
+        ...defaultState,
         posting: true,
       });
     });
@@ -256,11 +257,11 @@ describe('Slice Factory', () => {
 
       expect(
         reducer(
-          { ...initialDefaultState, posting: true, showForm: true },
+          { ...defaultState, posting: true, showForm: true },
           putTodoSuccessAction
         )
       ).toEqual({
-        ...initialDefaultState,
+        ...defaultState,
         posting: false,
         showForm: false,
       });
@@ -278,11 +279,11 @@ describe('Slice Factory', () => {
 
       expect(
         reducer(
-          { ...initialDefaultState, posting: true, showForm: true },
+          { ...defaultState, posting: true, showForm: true },
           putTodoFailureAction
         )
       ).toEqual({
-        ...initialDefaultState,
+        ...defaultState,
         showForm: true,
         posting: false,
         error: putTodoFailureAction.payload,
@@ -297,9 +298,9 @@ describe('Slice Factory', () => {
       const deleteTodoAction = createAction('todos/deleteTodoRequest');
 
       expect(
-        reducer({ ...initialDefaultState, posting: false }, deleteTodoAction)
+        reducer({ ...defaultState, posting: false }, deleteTodoAction)
       ).toEqual({
-        ...initialDefaultState,
+        ...defaultState,
         posting: true,
       });
     });
@@ -312,9 +313,9 @@ describe('Slice Factory', () => {
       const deleteTodoAction = createAction('todos/deleteTodoSuccess');
 
       expect(
-        reducer({ ...initialDefaultState, posting: true }, deleteTodoAction)
+        reducer({ ...defaultState, posting: true }, deleteTodoAction)
       ).toEqual({
-        ...initialDefaultState,
+        ...defaultState,
         posting: false,
       });
     });
@@ -330,9 +331,9 @@ describe('Slice Factory', () => {
       );
 
       expect(
-        reducer({ ...initialDefaultState, posting: true }, deleteTodoAction)
+        reducer({ ...defaultState, posting: true }, deleteTodoAction)
       ).toEqual({
-        ...initialDefaultState,
+        ...defaultState,
         posting: false,
         error: deleteTodoAction.payload,
       });
@@ -345,8 +346,8 @@ describe('Slice Factory', () => {
 
       const openTodoFormAction = createAction('todos/openTodoForm');
 
-      expect(reducer(initialDefaultState, openTodoFormAction)).toEqual({
-        ...initialDefaultState,
+      expect(reducer(defaultState, openTodoFormAction)).toEqual({
+        ...defaultState,
         showForm: true,
       });
     });
@@ -359,9 +360,9 @@ describe('Slice Factory', () => {
       const closeTodoFormAction = createAction('todos/closeTodoForm');
 
       expect(
-        reducer({ ...initialDefaultState, showForm: true }, closeTodoFormAction)
+        reducer({ ...defaultState, showForm: true }, closeTodoFormAction)
       ).toEqual({
-        ...initialDefaultState,
+        ...defaultState,
         showForm: false,
       });
     });
@@ -375,8 +376,8 @@ describe('Slice Factory', () => {
         name: 'Todo Schema',
       });
 
-      expect(reducer(initialDefaultState, setTodoSchemaAction)).toEqual({
-        ...initialDefaultState,
+      expect(reducer(defaultState, setTodoSchemaAction)).toEqual({
+        ...defaultState,
         schema: setTodoSchemaAction.payload,
       });
     });
@@ -387,26 +388,13 @@ describe('Slice Factory', () => {
       const { reducer } = todos;
 
       expect(typeof reducer).toBe('function');
-      expect(reducer(undefined, {})).toEqual(initialDefaultState);
+      expect(reducer(undefined, {})).toEqual(defaultState);
     });
   });
 
   describe('getDefaultInitialState', () => {
     it('should generate default initial default state', () => {
-      expect(getDefaultInitialState()).toEqual({
-        list: [],
-        selected: null,
-        page: 1,
-        total: 0,
-        pages: 1,
-        loading: false,
-        posting: false,
-        showForm: false,
-        schema: null,
-        filter: null,
-        sort: null,
-        q: undefined,
-      });
+      expect(getDefaultInitialState()).toEqual(defaultState);
     });
   });
 

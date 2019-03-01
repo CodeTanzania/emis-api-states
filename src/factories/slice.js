@@ -37,6 +37,7 @@ export function getDefaultReducers(resourceName) {
         list: [...action.payload.data],
         page: action.payload.page,
         total: action.payload.total,
+        size: action.payload.size,
         loading: false,
       }),
     [camelize('get', plural, 'Failure')]: (state, action) =>
@@ -91,6 +92,7 @@ export function getDefaultInitialState() {
     page: 1,
     total: 0,
     pages: 1,
+    size: 0,
     loading: false,
     posting: false,
     showForm: false,
