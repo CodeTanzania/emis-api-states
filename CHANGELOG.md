@@ -1,3 +1,20 @@
+#### 0.10.0 (2019-03-14)
+
+##### Chores
+
+* **build:**  bundle library for version 0.10.0 ([61cd90b6](https://github.com/CodeTanzania/emis-api-states/commit/61cd90b6e88c5eed9b3e72b1a9b64971a5057ae2))
+* **package.json:**
+  *  update package version to 0.10.0 ([d024594d](https://github.com/CodeTanzania/emis-api-states/commit/d024594d3981ce96b090dd22401af85cd9d6612f))
+  *  partial update of dependencies ([7578815b](https://github.com/CodeTanzania/emis-api-states/commit/7578815b07eb9e9ece759cfaf97c92e72981934a))
+
+##### Documentation Changes
+
+* **readme:**  add new modules exported by the library ([5c66ca8a](https://github.com/CodeTanzania/emis-api-states/commit/5c66ca8afa780766925a629e087a40f391b4d945))
+
+##### New Features
+
+* **thunks:**  add itemUnit and itemCategory ([e90bca0f](https://github.com/CodeTanzania/emis-api-states/commit/e90bca0fdd26b58b60f70010ebca3e20d8cf0ea4))
+
 #### 0.9.1 (2019-03-01)
 
 ##### Chores
