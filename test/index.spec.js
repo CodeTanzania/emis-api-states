@@ -242,6 +242,40 @@ describe('Library Index', () => {
     expect(typeof lib.setItemSchema).toBe('function');
     expect(typeof lib.sortItems).toBe('function');
 
+    expect(typeof lib.clearItemCategoryFilters).toBe('function');
+    expect(typeof lib.clearItemCategoriesSort).toBe('function');
+    expect(typeof lib.closeItemCategoryForm).toBe('function');
+    expect(typeof lib.deleteItemCategory).toBe('function');
+    expect(typeof lib.filterItemCategories).toBe('function');
+    expect(typeof lib.getItemCategories).toBe('function');
+    expect(typeof lib.getItemCategory).toBe('function');
+    expect(typeof lib.selectItemCategory).toBe('function');
+    expect(typeof lib.openItemCategoryForm).toBe('function');
+    expect(typeof lib.paginateItemCategories).toBe('function');
+    expect(typeof lib.postItemCategory).toBe('function');
+    expect(typeof lib.putItemCategory).toBe('function');
+    expect(typeof lib.refreshItemCategories).toBe('function');
+    expect(typeof lib.searchItemCategories).toBe('function');
+    expect(typeof lib.setItemCategorySchema).toBe('function');
+    expect(typeof lib.sortItemCategories).toBe('function');
+
+    expect(typeof lib.clearItemFilters).toBe('function');
+    expect(typeof lib.clearItemsSort).toBe('function');
+    expect(typeof lib.closeItemForm).toBe('function');
+    expect(typeof lib.deleteItem).toBe('function');
+    expect(typeof lib.filterItems).toBe('function');
+    expect(typeof lib.getItems).toBe('function');
+    expect(typeof lib.getItem).toBe('function');
+    expect(typeof lib.selectItem).toBe('function');
+    expect(typeof lib.openItemForm).toBe('function');
+    expect(typeof lib.paginateItems).toBe('function');
+    expect(typeof lib.postItem).toBe('function');
+    expect(typeof lib.putItem).toBe('function');
+    expect(typeof lib.refreshItems).toBe('function');
+    expect(typeof lib.searchItems).toBe('function');
+    expect(typeof lib.setItemSchema).toBe('function');
+    expect(typeof lib.sortItems).toBe('function');
+
     expect(typeof lib.clearProcedureFilters).toBe('function');
     expect(typeof lib.clearProceduresSort).toBe('function');
     expect(typeof lib.closeProcedureForm).toBe('function');

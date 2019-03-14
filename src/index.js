@@ -88,6 +88,8 @@ export * from './actions/incident';
 export * from './actions/incidentType';
 export * from './actions/indicator';
 export * from './actions/item';
+export * from './actions/itemUnit';
+export * from './actions/itemCategory';
 export * from './actions/plan';
 export * from './actions/procedure';
 export * from './actions/question';

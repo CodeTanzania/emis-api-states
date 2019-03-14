@@ -73,6 +73,8 @@ const resources = [
   'incidentType',
   'indicator',
   'item',
+  'itemCategory',
+  'itemUnit',
   'plan',
   'procedure',
   'question',
