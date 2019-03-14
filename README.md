@@ -37,6 +37,8 @@ The following is the list of all resources exposed by this library.
 - incidentType
 - indicator
 - item
+- itemCategory
+- itemUnit
 - plan
 - procedure
 - question
