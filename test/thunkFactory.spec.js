@@ -846,6 +846,9 @@ describe('Thunk Factory', () => {
     const expectedActions = [
       { type: 'plan/putPlanRequest', payload: undefined },
       { type: 'plan/putPlanSuccess', payload: mockData },
+      { type: 'plan/clearPlansFilters', payload: undefined },
+      { type: 'plan/clearPlansSort', payload: undefined },
+      { type: 'plan/searchPlans', payload: undefined },
       { type: 'plan/getPlansRequest', payload: undefined },
       { type: 'plan/getPlansSuccess', payload: mockGetData },
     ];

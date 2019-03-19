@@ -13,8 +13,8 @@ import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
 import { httpActions } from '@codetanzania/emis-api-client';
 import isEmpty from 'lodash/isEmpty';
-import pick from 'lodash/pick';
 import lowerFirst from 'lodash/lowerFirst';
+import pick from 'lodash/pick';
 
 /**
  * @function
@@ -503,6 +503,11 @@ function createThunksFor(resource) {
       dispatch(actions[resourceName][camelize('put', singularName, 'request')]());
       return httpActions[camelize('put', singularName)](param).then(function (data) {
         dispatch(actions[resourceName][camelize('put', singularName, 'success')](data));
+
+        dispatch(actions[resourceName][camelize('clear', pluralName, 'filters')]());
+        dispatch(actions[resourceName][camelize('clear', pluralName, 'sort')]());
+
+        dispatch(actions[resourceName][camelize('search', pluralName)]());
 
         dispatch(thunks[camelize('get', pluralName)]());
 
