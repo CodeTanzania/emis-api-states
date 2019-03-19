@@ -1,12 +1,12 @@
 import { httpActions as client } from '@codetanzania/emis-api-client';
 import { pluralize, singularize } from 'inflection';
 import isEmpty from 'lodash/isEmpty';
-import pick from 'lodash/pick';
-import lowerFirst from 'lodash/lowerFirst';
-import upperFirst from 'lodash/upperFirst';
 import isFunction from 'lodash/isFunction';
-import { camelize } from '../utils';
+import lowerFirst from 'lodash/lowerFirst';
+import pick from 'lodash/pick';
+import upperFirst from 'lodash/upperFirst';
 import { actions } from '../store';
+import { camelize } from '../utils';
 
 /**
  * @function
@@ -206,6 +206,15 @@ export default function createThunksFor(resource) {
         dispatch(
           actions[resourceName][camelize('put', singularName, 'success')](data)
         );
+
+        dispatch(
+          actions[resourceName][camelize('clear', pluralName, 'filters')]()
+        );
+        dispatch(
+          actions[resourceName][camelize('clear', pluralName, 'sort')]()
+        );
+
+        dispatch(actions[resourceName][camelize('search', pluralName)]());
 
         dispatch(thunks[camelize('get', pluralName)]());
 
