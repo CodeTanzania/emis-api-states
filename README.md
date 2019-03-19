@@ -92,6 +92,7 @@ const store = {
     schema: null,
     filter: null,
     sort: null,
+    q: undefined
   },
   alerts: {
     list: [],
@@ -106,6 +107,7 @@ const store = {
     schema: null,
     filter: null,
     sort: null,
+    q: undefined
   },
   ...
 };
