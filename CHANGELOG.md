@@ -1,3 +1,14 @@
+#### 0.10.2 (2019-03-19)
+
+##### Chores
+
+* **build:**  bundle library v0.10.2 ([15673d26](https://github.com/CodeTanzania/emis-api-states/commit/15673d262c3fedecc0ab402faf91f12d90277266))
+* **package.json:**  update package version to 0.10.2 ([fab2d2db](https://github.com/CodeTanzania/emis-api-states/commit/fab2d2db78bc5776c3f8e90ed5559cc5c29a9d76))
+
+##### Bug Fixes
+
+* **thunks:**  clear filters,sort and search query on put action ([bca2d319](https://github.com/CodeTanzania/emis-api-states/commit/bca2d319f7c8622ba9c1a36a1b31fa9fbad2ab92))
+
 #### 0.10.1 (2019-03-19)
 
 ##### Chores
