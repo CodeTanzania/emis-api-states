@@ -1,3 +1,20 @@
+#### 0.10.1 (2019-03-19)
+
+##### Chores
+
+* **build:**  bundle library v0.10.1 ([e566d3f6](https://github.com/CodeTanzania/emis-api-states/commit/e566d3f62783f48d6bf92060b59507c85c8bff1a))
+* **package.json:**  update package version to 0.10.1 ([cef0aa3b](https://github.com/CodeTanzania/emis-api-states/commit/cef0aa3b3dc5365f787a0a6e68478ebfa64fe8eb))
+
+##### Documentation Changes
+
+* **readme:**  add search query key in store structure ([0b4d0460](https://github.com/CodeTanzania/emis-api-states/commit/0b4d0460636d100d3c7c4b47bec5c548b3ff2929))
+
+##### Bug Fixes
+
+* **thunks:**
+  *  clear search query on successful post action ([41e89d85](https://github.com/CodeTanzania/emis-api-states/commit/41e89d857a137c99754359f4f9e9fe180093b4ab))
+  *  clear filters and sort on successfully post action ([11cf3d98](https://github.com/CodeTanzania/emis-api-states/commit/11cf3d987dbced78fbe3d9ab6d6a0f6b78d67a33))
+
 #### 0.10.0 (2019-03-14)
 
 ##### Chores
