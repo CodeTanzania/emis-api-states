@@ -43,6 +43,7 @@ describe('Slice Factory', () => {
       'filterTodos',
       'sortTodos',
       'searchTodos',
+      'clearTodosFilters',
       'clearTodosSort',
       'getTodosRequest',
       'getTodosSuccess',

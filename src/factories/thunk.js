@@ -149,6 +149,15 @@ export default function createThunksFor(resource) {
           actions[resourceName][camelize('post', singularName, 'success')](data)
         );
 
+        dispatch(
+          actions[resourceName][camelize('clear', pluralName, 'filters')]()
+        );
+        dispatch(
+          actions[resourceName][camelize('clear', pluralName, 'sort')]()
+        );
+
+        dispatch(actions[resourceName][camelize('search', pluralName)]());
+
         dispatch(thunks[camelize('get', pluralName)]());
 
         // custom provided onSuccess callback
