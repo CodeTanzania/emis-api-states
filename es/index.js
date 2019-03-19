@@ -155,6 +155,8 @@ function getDefaultReducers(resourceName) {
     return Object.assign({}, state, { sort: action.payload });
   }), defineProperty(_ref, camelize('search', plural), function (state, action) {
     return Object.assign({}, state, { q: action.payload });
+  }), defineProperty(_ref, camelize('clear', plural, 'filters'), function (state) {
+    return Object.assign({}, state, { filters: null });
   }), defineProperty(_ref, camelize('clear', plural, 'sort'), function (state) {
     return Object.assign({}, state, { sort: null });
   }), defineProperty(_ref, camelize('get', plural, 'Request'), function (state) {
@@ -457,6 +459,11 @@ function createThunksFor(resource) {
       dispatch(actions[resourceName][camelize('post', singularName, 'request')]());
       return httpActions[camelize('post', singularName)](param).then(function (data) {
         dispatch(actions[resourceName][camelize('post', singularName, 'success')](data));
+
+        dispatch(actions[resourceName][camelize('clear', pluralName, 'filters')]());
+        dispatch(actions[resourceName][camelize('clear', pluralName, 'sort')]());
+
+        dispatch(actions[resourceName][camelize('search', pluralName)]());
 
         dispatch(thunks[camelize('get', pluralName)]());
 
