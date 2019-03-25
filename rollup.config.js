@@ -26,7 +26,14 @@ export default {
     'redux-starter-kit',
   ],
   output: [
-    { file: pkg.main, format: 'cjs' },
+    {
+      file: pkg.main,
+      format: 'cjs',
+      interop: false,
+      esModule: false,
+      preferConst: true,
+      strict: true,
+    },
     { file: pkg.module, format: 'es' },
   ],
   plugins: [
