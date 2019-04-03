@@ -86,6 +86,7 @@ describe('Thunk Factory', () => {
         expect(store.getActions()).toEqual(expectedActions);
         expect(onSuccess).toHaveBeenCalledTimes(0);
         expect(onError).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledWith(error);
       });
   });
 
@@ -160,6 +161,7 @@ describe('Thunk Factory', () => {
         expect(store.getActions()).toEqual(expectedActions);
         expect(onSuccess).toHaveBeenCalledTimes(0);
         expect(onError).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledWith(error);
       });
   });
 
@@ -238,6 +240,7 @@ describe('Thunk Factory', () => {
         expect(store.getActions()).toEqual(expectedActions);
         expect(onSuccess).toHaveBeenCalledTimes(0);
         expect(onError).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledWith(error);
       });
   });
 
@@ -352,6 +355,7 @@ describe('Thunk Factory', () => {
         expect(store.getActions()).toEqual(expectedActions);
         expect(onSuccess).toHaveBeenCalledTimes(0);
         expect(onError).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledWith(error);
       });
   });
 
@@ -508,6 +512,7 @@ describe('Thunk Factory', () => {
         expect(store.getActions()).toEqual(expectedActions);
         expect(onSuccess).toHaveBeenCalledTimes(0);
         expect(onError).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledWith(error);
       });
   });
 
@@ -661,6 +666,7 @@ describe('Thunk Factory', () => {
         expect(store.getActions()).toEqual(expectedActions);
         expect(onSuccess).toHaveBeenCalledTimes(0);
         expect(onError).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledWith(error);
       });
   });
 
@@ -727,6 +733,7 @@ describe('Thunk Factory', () => {
         expect(store.getActions()).toEqual(expectedActions);
         expect(onSuccess).toHaveBeenCalledTimes(0);
         expect(onError).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledWith(error);
       });
   });
 
@@ -813,6 +820,7 @@ describe('Thunk Factory', () => {
         expect(store.getActions()).toEqual(expectedActions);
         expect(onSuccess).toHaveBeenCalledTimes(0);
         expect(onError).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledWith(error);
       });
   });
 
@@ -896,6 +904,7 @@ describe('Thunk Factory', () => {
         expect(store.getActions()).toEqual(expectedActions);
         expect(onSuccess).toHaveBeenCalledTimes(0);
         expect(onError).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledWith(error);
       });
   });
 
@@ -982,6 +991,7 @@ describe('Thunk Factory', () => {
         expect(store.getActions()).toEqual(expectedActions);
         expect(onSuccess).toHaveBeenCalledTimes(0);
         expect(onError).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledWith(error);
       });
   });
 });
