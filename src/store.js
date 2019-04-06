@@ -1,7 +1,7 @@
 import merge from 'lodash/merge';
 import { combineReducers } from 'redux';
 import { configureStore } from 'redux-starter-kit';
-import createResourceFor from './factories/slice';
+import createSliceFor from './factories/slice';
 import { extractActions, extractReducers } from './utils';
 
 /* application action types */
@@ -25,7 +25,7 @@ export function createResourcesSlices(resources) {
 
   // slices
   resources.forEach(resource => {
-    slices[resource] = createResourceFor(resource);
+    slices[resource] = createSliceFor(resource);
   });
 
   return slices;

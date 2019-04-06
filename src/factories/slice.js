@@ -118,7 +118,7 @@ export function getDefaultInitialState() {
  * @version 0.1.0
  * @since 0.1.0
  */
-export default function sliceFactory(
+export default function createSliceFor(
   sliceName,
   initialState = null,
   reducers = null
