@@ -1,5 +1,4 @@
 import forIn from 'lodash/forIn';
-
 import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
 import isObject from 'lodash/isObject';

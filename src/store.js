@@ -14,7 +14,7 @@ export const INITIALIZE_APP_FAILURE = 'app/initializeFailure';
  * @name createResourcesSlices
  * @description Create slices from all EMIS resources
  *
- * @param {Array<string>} resources list of api resources
+ * @param {string[]} resources list of api resources
  * @returns {Object} slices resources slice
  *
  * @version 0.1.0
