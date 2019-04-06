@@ -98,6 +98,6 @@ export const store = configureStore({
   devTools: true,
 });
 
-export const actions = extractActions(resources, slices, store.dispatch);
+export const actions = extractActions(resources, slices);
 
 export const { dispatch } = store;
