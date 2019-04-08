@@ -9,6 +9,7 @@ export default {
     'inflection',
     'lodash',
     'lodash/camelCase',
+    'lodash/cloneDeep',
     'lodash/forIn',
     'lodash/get',
     'lodash/isEmpty',
@@ -26,7 +27,14 @@ export default {
     'redux-starter-kit',
   ],
   output: [
-    { file: pkg.main, format: 'cjs' },
+    {
+      file: pkg.main,
+      format: 'cjs',
+      interop: false,
+      esModule: false,
+      preferConst: true,
+      strict: true,
+    },
     { file: pkg.module, format: 'es' },
   ],
   plugins: [

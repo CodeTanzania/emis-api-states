@@ -1,5 +1,7 @@
 import camelCase from 'lodash/camelCase';
 import forIn from 'lodash/forIn';
+import get from 'lodash/get';
+import cloneDeep from 'lodash/cloneDeep';
 import { pluralize } from 'inflection';
 
 /**
@@ -83,4 +85,31 @@ export function extractActions(resources, slices) {
   });
 
   return actions;
+}
+
+/**
+ * @function
+ * @name normalizedError
+ * @description normalize error object from the client to be stored in redux
+ * store
+ *
+ * @param {Object} error error object from the client
+ * @returns {Object} normalizedError Error object with normalized messages
+ *
+ * @version 0.1.0
+ * @since 0.10.2
+ */
+export function normalizeError(error) {
+  const normalizedError = cloneDeep(error);
+  const errors = get(normalizedError, 'errors', null);
+
+  if (errors) {
+    forIn(errors, (value, key) => {
+      errors[key] = `${value.name} : ${value.message}`;
+    });
+
+    normalizedError.errors = errors;
+  }
+
+  return normalizedError;
 }

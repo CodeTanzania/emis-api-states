@@ -6,7 +6,7 @@ import lowerFirst from 'lodash/lowerFirst';
 import pick from 'lodash/pick';
 import upperFirst from 'lodash/upperFirst';
 import { actions } from '../store';
-import { camelize } from '../utils';
+import { camelize, normalizeError } from '../utils';
 
 /**
  * @function
@@ -42,7 +42,7 @@ export default function createThunksFor(resource) {
    * resources from the API fails
    * @returns {Function}  Thunk function
    *
-   * @version 0.1.0
+   * @version 0.2.0
    * @since 0.1.0
    */
   thunks[camelize('get', pluralName)] = (
@@ -63,13 +63,16 @@ export default function createThunksFor(resource) {
         }
       })
       .catch(error => {
+        const normalizedError = normalizeError(error);
         dispatch(
-          actions[resourceName][camelize('get', pluralName, 'failure')](error)
+          actions[resourceName][camelize('get', pluralName, 'failure')](
+            normalizedError
+          )
         );
 
         // custom provided onError callback
         if (isFunction(onError)) {
-          onError();
+          onError(error);
         }
       });
   };
@@ -87,7 +90,7 @@ export default function createThunksFor(resource) {
    * from the API fails
    * @returns {Function} Thunk function
    *
-   * @version 0.1.0
+   * @version 0.2.0
    * @since 0.1.0
    */
   thunks[camelize('get', singularName)] = (
@@ -108,13 +111,16 @@ export default function createThunksFor(resource) {
         }
       })
       .catch(error => {
+        const normalizedError = normalizeError(error);
         dispatch(
-          actions[resourceName][camelize('get', singularName, 'failure')](error)
+          actions[resourceName][camelize('get', singularName, 'failure')](
+            normalizedError
+          )
         );
 
         // custom provided onError callback
         if (isFunction(onError)) {
-          onError();
+          onError(error);
         }
       });
   };
@@ -132,7 +138,7 @@ export default function createThunksFor(resource) {
    * resource fails
    * @returns {Function} Thunk function
    *
-   * @version 0.1.0
+   * @version 0.2.0
    * @since 0.1.0
    */
   thunks[camelize('post', singularName)] = (
@@ -166,15 +172,16 @@ export default function createThunksFor(resource) {
         }
       })
       .catch(error => {
+        const normalizedError = normalizeError(error);
         dispatch(
           actions[resourceName][camelize('post', singularName, 'failure')](
-            error
+            normalizedError
           )
         );
 
         // custom provided onError callback
         if (isFunction(onError)) {
-          onError();
+          onError(error);
         }
       });
   };
@@ -192,7 +199,7 @@ export default function createThunksFor(resource) {
    * resource fails
    * @returns {Function} Thunk function
    *
-   * @version 0.1.0
+   * @version 0.2.0
    * @since 0.1.0
    */
   thunks[camelize('put', singularName)] = (
@@ -224,13 +231,16 @@ export default function createThunksFor(resource) {
         }
       })
       .catch(error => {
+        const normalizedError = normalizeError(error);
         dispatch(
-          actions[resourceName][camelize('put', singularName, 'failure')](error)
+          actions[resourceName][camelize('put', singularName, 'failure')](
+            normalizedError
+          )
         );
 
         // custom provided onError callback
         if (isFunction(onError)) {
-          onError();
+          onError(error);
         }
       });
   };
@@ -248,7 +258,7 @@ export default function createThunksFor(resource) {
    * resource fails
    * @returns {Function} Thunk function
    *
-   * @version 0.1.0
+   * @version 0.2.0
    * @since 0.1.0
    */
   thunks[camelize('delete', singularName)] = (id, onSuccess, onError) => (
@@ -277,15 +287,16 @@ export default function createThunksFor(resource) {
       })
 
       .catch(error => {
+        const normalizedError = normalizeError(error);
         dispatch(
           actions[resourceName][camelize('delete', singularName, 'failure')](
-            error
+            normalizedError
           )
         );
 
         // custom provided onError callback
         if (isFunction(onError)) {
-          onError();
+          onError(error);
         }
       });
   };

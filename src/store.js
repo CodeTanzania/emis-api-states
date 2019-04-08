@@ -1,7 +1,7 @@
 import merge from 'lodash/merge';
 import { combineReducers } from 'redux';
 import { configureStore } from 'redux-starter-kit';
-import createResourceFor from './factories/slice';
+import createSliceFor from './factories/slice';
 import { extractActions, extractReducers } from './utils';
 
 /* application action types */
@@ -14,7 +14,7 @@ export const INITIALIZE_APP_FAILURE = 'app/initializeFailure';
  * @name createResourcesSlices
  * @description Create slices from all EMIS resources
  *
- * @param {Array<string>} resources list of api resources
+ * @param {string[]} resources list of api resources
  * @returns {Object} slices resources slice
  *
  * @version 0.1.0
@@ -25,7 +25,7 @@ export function createResourcesSlices(resources) {
 
   // slices
   resources.forEach(resource => {
-    slices[resource] = createResourceFor(resource);
+    slices[resource] = createSliceFor(resource);
   });
 
   return slices;
@@ -98,6 +98,6 @@ export const store = configureStore({
   devTools: true,
 });
 
-export const actions = extractActions(resources, slices, store.dispatch);
+export const actions = extractActions(resources, slices);
 
 export const { dispatch } = store;
