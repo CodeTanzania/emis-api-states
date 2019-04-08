@@ -1,6 +1,6 @@
 {
   "name": "@codetanzania/emis-api-states",
-  "version": "0.10.2",
+  "version": "0.10.3",
   "description": "EMIS Redux state management library",
   "main": "lib/index.js",
   "module": "es/index.js",

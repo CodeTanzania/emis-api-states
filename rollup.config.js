@@ -9,6 +9,7 @@ export default {
     'inflection',
     'lodash',
     'lodash/camelCase',
+    'lodash/cloneDeep',
     'lodash/forIn',
     'lodash/get',
     'lodash/isEmpty',

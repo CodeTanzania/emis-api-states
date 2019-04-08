@@ -11,6 +11,7 @@ import { createSlice, configureStore } from 'redux-starter-kit';
 import { pluralize, singularize } from 'inflection';
 import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
+import cloneDeep from 'lodash/cloneDeep';
 import { httpActions } from '@codetanzania/emis-api-client';
 import isEmpty from 'lodash/isEmpty';
 import lowerFirst from 'lodash/lowerFirst';
@@ -97,6 +98,33 @@ function extractActions(resources, slices) {
   });
 
   return actions;
+}
+
+/**
+ * @function
+ * @name normalizedError
+ * @description normalize error object from the client to be stored in redux
+ * store
+ *
+ * @param {Object} error error object from the client
+ * @returns {Object} normalizedError Error object with normalized messages
+ *
+ * @version 0.1.0
+ * @since 0.10.2
+ */
+function normalizeError(error) {
+  const normalizedError = cloneDeep(error);
+  const errors = get(normalizedError, 'errors', null);
+
+  if (errors) {
+    forIn(errors, (value, key) => {
+      errors[key] = `${value.name} : ${value.message}`;
+    });
+
+    normalizedError.errors = errors;
+  }
+
+  return normalizedError;
 }
 
 /**
@@ -189,7 +217,7 @@ function getDefaultInitialState() {
  * @version 0.1.0
  * @since 0.1.0
  */
-function sliceFactory(sliceName, initialState = null, reducers = null) {
+function createSliceFor(sliceName, initialState = null, reducers = null) {
   let defaultReducers = getDefaultReducers(sliceName);
   let initialDefaultState = getDefaultInitialState();
 
@@ -218,7 +246,7 @@ const INITIALIZE_APP_FAILURE = 'app/initializeFailure';
  * @name createResourcesSlices
  * @description Create slices from all EMIS resources
  *
- * @param {Array<string>} resources list of api resources
+ * @param {string[]} resources list of api resources
  * @returns {Object} slices resources slice
  *
  * @version 0.1.0
@@ -229,7 +257,7 @@ function createResourcesSlices(resources) {
 
   // slices
   resources.forEach(resource => {
-    slices[resource] = sliceFactory(resource);
+    slices[resource] = createSliceFor(resource);
   });
 
   return slices;
@@ -277,7 +305,7 @@ const store = configureStore({
   devTools: true
 });
 
-const actions = extractActions(resources, slices, store.dispatch);
+const actions = extractActions(resources, slices);
 
 const { dispatch } = store;
 
@@ -315,7 +343,7 @@ function createThunksFor(resource) {
    * resources from the API fails
    * @returns {Function}  Thunk function
    *
-   * @version 0.1.0
+   * @version 0.2.0
    * @since 0.1.0
    */
   thunks[camelize('get', pluralName)] = (param, onSuccess, onError) => dispatch => {
@@ -328,11 +356,12 @@ function createThunksFor(resource) {
         onSuccess();
       }
     }).catch(error => {
-      dispatch(actions[resourceName][camelize('get', pluralName, 'failure')](error));
+      const normalizedError = normalizeError(error);
+      dispatch(actions[resourceName][camelize('get', pluralName, 'failure')](normalizedError));
 
       // custom provided onError callback
       if (isFunction(onError)) {
-        onError();
+        onError(error);
       }
     });
   };
@@ -350,7 +379,7 @@ function createThunksFor(resource) {
    * from the API fails
    * @returns {Function} Thunk function
    *
-   * @version 0.1.0
+   * @version 0.2.0
    * @since 0.1.0
    */
   thunks[camelize('get', singularName)] = (id, onSuccess, onError) => dispatch => {
@@ -363,11 +392,12 @@ function createThunksFor(resource) {
         onSuccess();
       }
     }).catch(error => {
-      dispatch(actions[resourceName][camelize('get', singularName, 'failure')](error));
+      const normalizedError = normalizeError(error);
+      dispatch(actions[resourceName][camelize('get', singularName, 'failure')](normalizedError));
 
       // custom provided onError callback
       if (isFunction(onError)) {
-        onError();
+        onError(error);
       }
     });
   };
@@ -385,7 +415,7 @@ function createThunksFor(resource) {
    * resource fails
    * @returns {Function} Thunk function
    *
-   * @version 0.1.0
+   * @version 0.2.0
    * @since 0.1.0
    */
   thunks[camelize('post', singularName)] = (param, onSuccess, onError) => dispatch => {
@@ -405,11 +435,12 @@ function createThunksFor(resource) {
         onSuccess();
       }
     }).catch(error => {
-      dispatch(actions[resourceName][camelize('post', singularName, 'failure')](error));
+      const normalizedError = normalizeError(error);
+      dispatch(actions[resourceName][camelize('post', singularName, 'failure')](normalizedError));
 
       // custom provided onError callback
       if (isFunction(onError)) {
-        onError();
+        onError(error);
       }
     });
   };
@@ -427,7 +458,7 @@ function createThunksFor(resource) {
    * resource fails
    * @returns {Function} Thunk function
    *
-   * @version 0.1.0
+   * @version 0.2.0
    * @since 0.1.0
    */
   thunks[camelize('put', singularName)] = (param, onSuccess, onError) => dispatch => {
@@ -447,11 +478,12 @@ function createThunksFor(resource) {
         onSuccess();
       }
     }).catch(error => {
-      dispatch(actions[resourceName][camelize('put', singularName, 'failure')](error));
+      const normalizedError = normalizeError(error);
+      dispatch(actions[resourceName][camelize('put', singularName, 'failure')](normalizedError));
 
       // custom provided onError callback
       if (isFunction(onError)) {
-        onError();
+        onError(error);
       }
     });
   };
@@ -469,7 +501,7 @@ function createThunksFor(resource) {
    * resource fails
    * @returns {Function} Thunk function
    *
-   * @version 0.1.0
+   * @version 0.2.0
    * @since 0.1.0
    */
   thunks[camelize('delete', singularName)] = (id, onSuccess, onError) => (dispatch, getState) => {
@@ -486,11 +518,12 @@ function createThunksFor(resource) {
 
       return dispatch(thunks[camelize('get', pluralName)]({ page, filter }));
     }).catch(error => {
-      dispatch(actions[resourceName][camelize('delete', singularName, 'failure')](error));
+      const normalizedError = normalizeError(error);
+      dispatch(actions[resourceName][camelize('delete', singularName, 'failure')](normalizedError));
 
       // custom provided onError callback
       if (isFunction(onError)) {
-        onError();
+        onError(error);
       }
     });
   };
