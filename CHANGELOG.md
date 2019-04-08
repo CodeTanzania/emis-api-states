@@ -1,3 +1,29 @@
+#### 0.10.3 (2019-04-08)
+
+##### Build System / Dependencies
+
+* **rollup:**  update cjs rollup configs ([93c9e5e7](https://github.com/CodeTanzania/emis-api-states/commit/93c9e5e7779e9495a11a53cb98bea05c3ba6ba01))
+
+##### Chores
+
+* **build:**
+  *   bundle library for v0.10.3 ([75b83b51](https://github.com/CodeTanzania/emis-api-states/commit/75b83b51730e08e87229d3e558aa326cb5c6e26b))
+  *  update bundled lib/es to use latest js features ([c08f6323](https://github.com/CodeTanzania/emis-api-states/commit/c08f6323a1c92db6021fba94a563b61f9c10929d))
+* **package.json:**  update package version to 0.10.3 ([853ed7de](https://github.com/CodeTanzania/emis-api-states/commit/853ed7decbb169f2d9327a68117a763ee32df9aa))
+
+##### Documentation Changes
+
+*  update jsdoc params types ([1e3af387](https://github.com/CodeTanzania/emis-api-states/commit/1e3af38757d8fa890c13058023e4fdce863bfd99))
+
+##### New Features
+
+* **thunks:**  normalize error message and supply error arg onError ([da715db8](https://github.com/CodeTanzania/emis-api-states/commit/da715db8fcb114f071491c28f9096a9c536fa5f1))
+
+##### Refactors
+
+* **slice factory:**  update exported factory method name ([74c8dec3](https://github.com/CodeTanzania/emis-api-states/commit/74c8dec3f319db399743e7eb8afbfa9d1b9798ad))
+* **store:**  remove unused method argument ([61d14d93](https://github.com/CodeTanzania/emis-api-states/commit/61d14d93e660b14bbe9b83ee125484f666f74e84))
+
 #### 0.10.2 (2019-03-19)
 
 ##### Chores
