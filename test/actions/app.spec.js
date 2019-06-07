@@ -1,4 +1,4 @@
-import { httpActions } from '@codetanzania/emis-api-client';
+import { httpActions, signin } from '@codetanzania/emis-api-client';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import {
@@ -6,11 +6,20 @@ import {
   initializeAppFailure,
   initializeAppStart,
   initializeAppSuccess,
+  signinStart,
+  signinSuccess,
+  signinFailure,
+  signin as login,
+  signout,
 } from '../../src/actions/app';
 import {
   INITIALIZE_APP_FAILURE,
   INITIALIZE_APP_START,
   INITIALIZE_APP_SUCCESS,
+  SIGNIN_APP_START,
+  SIGNIN_APP_SUCCESS,
+  SIGNIN_APP_FAILURE,
+  SIGNOUT,
 } from '../../src/store';
 
 const { getSchemas } = httpActions;
@@ -31,6 +40,30 @@ describe('App Actions', () => {
       expect(initializeAppFailure({})).toEqual({
         type: INITIALIZE_APP_FAILURE,
         error: {},
+      });
+    });
+
+    it(`should create action of type ${SIGNIN_APP_START}`, () => {
+      expect(signinStart()).toEqual({ type: SIGNIN_APP_START });
+    });
+
+    it(`should create action of type ${SIGNIN_APP_SUCCESS}`, () => {
+      expect(signinSuccess({})).toEqual({
+        type: SIGNIN_APP_SUCCESS,
+        payload: {},
+      });
+    });
+
+    it(`should create action of type ${SIGNIN_APP_FAILURE}`, () => {
+      expect(signinFailure({})).toEqual({
+        type: SIGNIN_APP_FAILURE,
+        error: {},
+      });
+    });
+
+    it(`should create action of type ${SIGNOUT}`, () => {
+      expect(signout()).toEqual({
+        type: SIGNOUT,
       });
     });
   });
@@ -117,6 +150,52 @@ describe('App Actions', () => {
       ];
 
       return store.dispatch(initializeApp()).then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+    });
+  });
+
+  describe('signin Thunk', () => {
+    it('should handle successful signin action', () => {
+      const store = mockStore({});
+      const mockData = {
+        success: true,
+        party: {},
+        token: '',
+      };
+      signin.mockResolvedValueOnce(mockData);
+
+      const expectedActions = [
+        { type: SIGNIN_APP_START },
+        { type: SIGNIN_APP_SUCCESS, payload: mockData.party },
+      ];
+
+      return store.dispatch(login({ email: '', password: '' })).then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+    });
+
+    it('should handle failure signin action', () => {
+      const store = mockStore({});
+
+      const mockData = {
+        code: 403,
+        status: 403,
+        name: 'Error',
+        message: 'Incorrect email or password',
+        description: 'Incorrect email or password',
+        error: 'Error',
+        error_description: 'Incorrect email or password',
+      };
+
+      signin.mockRejectedValueOnce(mockData);
+
+      const expectedActions = [
+        { type: SIGNIN_APP_START },
+        { type: SIGNIN_APP_FAILURE, error: mockData },
+      ];
+
+      return store.dispatch(login({ email: '', password: '' })).then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
     });
