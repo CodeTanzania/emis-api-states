@@ -13,10 +13,10 @@ import createThunkFor from './thunk';
  * use should not have call dispatch again.
  *
  * @param {string} resource Resource Name
- * @param {Object} actions Resources actions
+ * @param {object} actions Resources actions
  * @param {Function} dispatch Store action dispatcher
- * @param {Object} thunks Custom thunks to override/extends existing thunks
- * @returns {Object} wrapped resource actions with dispatching ability
+ * @param {object} thunks Custom thunks to override/extends existing thunks
+ * @returns {object} wrapped resource actions with dispatching ability
  *
  * @version 0.1.0
  * @since 0.1.0

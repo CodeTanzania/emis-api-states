@@ -17,7 +17,7 @@ import { camelize, normalizeError } from '../utils';
  * actions module
  *
  * @param {string} resource  resource name
- * @returns {Object} thunks  resource thunks
+ * @returns {object} thunks  resource thunks
  *
  * @version 0.3.0
  * @since 0.1.0
@@ -35,7 +35,7 @@ export default function createThunksFor(resource) {
    * @name get<Resource Plural Name>
    * @description A thunk that will be dispatched when fetching data from API
    *
-   * @param {Object} param  Param object to be passed to API client
+   * @param {object} param  Param object to be passed to API client
    * @param {Function} onSuccess  Callback to be called when fetching
    * resources from the API succeed
    * @param {Function} onError  Callback to be called when fetching
@@ -131,7 +131,7 @@ export default function createThunksFor(resource) {
    * @description A thunk that will be dispatched when creating a single
    * resource data in the API
    *
-   * @param {Object} param Resource  object to be created/Saved
+   * @param {object} param Resource  object to be created/Saved
    * @param {Function} onSuccess Callback to be executed when posting a
    * resource succeed
    * @param {Function} onError Callback to be executed when posting
@@ -192,7 +192,7 @@ export default function createThunksFor(resource) {
    * @description A thunk that will be dispatched when updating a single
    * resource data in the API
    *
-   * @param {Object} param Resource  object to be updated
+   * @param {object} param Resource  object to be updated
    * @param {Function} onSuccess Callback to be executed when updating a
    * resource succeed
    * @param {Function} onError Callback to be executed when updating a
@@ -337,7 +337,7 @@ export default function createThunksFor(resource) {
    * @description A thunk that will be dispatched when filtering resources
    *  data in the API
    *
-   * @param {Object} filter Resource filter criteria object
+   * @param {object} filter Resource filter criteria object
    * @param {Function} onSuccess Callback to be executed when filtering
    * resources succeed
    * @param {Function} onError Callback to be executed when filtering
@@ -432,7 +432,7 @@ export default function createThunksFor(resource) {
    * @description A thunk that will be dispatched when sorting resources
    *  data in the API
    *
-   * @param {Object} order sort order object
+   * @param {object} order sort order object
    * @param {Function} onSuccess Callback to be executed when sorting
    * resources succeed
    * @param {Function} onError Callback to be executed when sorting

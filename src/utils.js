@@ -25,9 +25,9 @@ export function camelize(...words) {
  * @description Wrap actions with dispatch function. Make users to just
  * invoke actions without have to dispatch them.
  *
- * @param {Object} actions list of redux actions
+ * @param {object} actions list of redux actions
  * @param {Function} dispatch store dispatch function
- * @returns {Object} map of redux action wrapped with dispatch function
+ * @returns {object} map of redux action wrapped with dispatch function
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -48,8 +48,8 @@ export function wrapActionsWithDispatch(actions, dispatch) {
  * @description Extract all resource reducers into a single object
  *
  * @param {string[]} resources list of exposed API resources
- * @param {Object[]} slices list of resource slices
- * @returns {Object} map of all resources reducers
+ * @param {Array<object>} slices list of resource slices
+ * @returns {object} map of all resources reducers
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -71,8 +71,8 @@ export function extractReducers(resources, slices) {
  * @description Extracts all actions from all slices into into a single object
  *
  * @param {string[]} resources list of api resources
- * @param {Object[]} slices  list of all resources slices
- * @returns {Object} map of all resources actions
+ * @param {Array<object>} slices  list of all resources slices
+ * @returns {object} map of all resources actions
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -93,8 +93,8 @@ export function extractActions(resources, slices) {
  * @description normalize error object from the client to be stored in redux
  * store
  *
- * @param {Object} error error object from the client
- * @returns {Object} normalizedError Error object with normalized messages
+ * @param {object} error error object from the client
+ * @returns {object} normalizedError Error object with normalized messages
  *
  * @version 0.1.0
  * @since 0.10.2

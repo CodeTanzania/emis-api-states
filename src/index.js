@@ -12,9 +12,9 @@ import { store } from './store';
  * @name StoreProvider
  * @description Store Provider for EMIS store
  *
- * @param {Object} props react nodes
- * @param {Object} props.children react nodes
- * @returns {Object} Store provider
+ * @param {object} props react nodes
+ * @param {object} props.children react nodes
+ * @returns {object} Store provider
  * @version 0.1.0
  * @since 0.1.0
  * @example
@@ -39,9 +39,9 @@ StoreProvider.propTypes = {
  * This function subscribe component to the store and inject props
  * to the component
  *
- * @param {Object} component react node
- * @param {Object|Function} stateToProps states to inject into props
- * @returns {Object} React component which is injected with props
+ * @param {object} component react node
+ * @param {object|Function} stateToProps states to inject into props
+ * @returns {object} React component which is injected with props
  *
  * @version 0.1.0
  * @since 0.1.0
