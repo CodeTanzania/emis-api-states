@@ -58,7 +58,7 @@ export function initializeAppSuccess() {
  * @since 0.1.0
  */
 export function initializeAppFailure(error) {
-  return { type: INITIALIZE_APP_FAILURE, error };
+  return { type: INITIALIZE_APP_FAILURE, payload: error };
 }
 
 /**
@@ -102,7 +102,7 @@ export function signinSuccess(party) {
  * @since 0.10.3
  */
 export function signinFailure(error) {
-  return { type: SIGNIN_APP_FAILURE, error };
+  return { type: SIGNIN_APP_FAILURE, payload: error };
 }
 
 /**

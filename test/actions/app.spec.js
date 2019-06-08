@@ -39,7 +39,7 @@ describe('App Actions', () => {
     it(`should create action of type ${INITIALIZE_APP_FAILURE}`, () => {
       expect(initializeAppFailure({})).toEqual({
         type: INITIALIZE_APP_FAILURE,
-        error: {},
+        payload: {},
       });
     });
 
@@ -57,7 +57,7 @@ describe('App Actions', () => {
     it(`should create action of type ${SIGNIN_APP_FAILURE}`, () => {
       expect(signinFailure({})).toEqual({
         type: SIGNIN_APP_FAILURE,
-        error: {},
+        payload: {},
       });
     });
 
@@ -192,7 +192,7 @@ describe('App Actions', () => {
 
       const expectedActions = [
         { type: SIGNIN_APP_START },
-        { type: SIGNIN_APP_FAILURE, error: mockData },
+        { type: SIGNIN_APP_FAILURE, payload: mockData },
       ];
 
       return store.dispatch(login({ email: '', password: '' })).then(() => {
