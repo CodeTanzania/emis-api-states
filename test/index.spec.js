@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, render } from 'react-testing-library';
+import { cleanup, render } from '@testing-library/react';
 import * as lib from '../src/index';
 
 describe('Library Index', () => {
@@ -394,6 +394,9 @@ describe('Library Index', () => {
     expect(typeof lib.searchWarehouses).toBe('function');
     expect(typeof lib.setWarehouseSchema).toBe('function');
     expect(typeof lib.sortWarehouses).toBe('function');
+
+    expect(typeof lib.signin).toBe('function');
+    expect(typeof lib.signout).toBe('function');
   });
 
   it('should expose connect function', () => {

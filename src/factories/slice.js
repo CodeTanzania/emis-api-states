@@ -10,7 +10,7 @@ import { camelize } from '../utils';
  * @description Generate defaultReducers object
  *
  * @param {string} resourceName Resource name
- * @returns {Object} Resource reducers
+ * @returns {object} Resource reducers
  *
  * @version 0.2.0
  * @since 0.1.0
@@ -82,7 +82,7 @@ export function getDefaultReducers(resourceName) {
  * @name getDefaultInitialState
  * @description Generate default initial State for resource
  *
- * @returns {Object} Initial states of a resource
+ * @returns {object} Initial states of a resource
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -111,9 +111,9 @@ export function getDefaultInitialState() {
  * @description Slice Factory which is used to create slice
  *
  * @param {string} sliceName Slice name which will results to be reducer name
- * @param {Object} initialState Optional override of default initial state
- * @param {Object} reducers Optional override of default reducers
- * @returns {Object} slice resource slice
+ * @param {object} initialState Optional override of default initial state
+ * @param {object} reducers Optional override of default reducers
+ * @returns {object} slice resource slice
  *
  * @version 0.1.0
  * @since 0.1.0

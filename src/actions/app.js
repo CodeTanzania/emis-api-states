@@ -1,20 +1,25 @@
-import { httpActions } from '@codetanzania/emis-api-client';
+import { httpActions, signin as login } from '@codetanzania/emis-api-client';
 import {
   actions,
   dispatch as storeDispatch,
   INITIALIZE_APP_FAILURE,
   INITIALIZE_APP_START,
   INITIALIZE_APP_SUCCESS,
+  SIGNIN_APP_START,
+  SIGNIN_APP_SUCCESS,
+  SIGNIN_APP_FAILURE,
+  SIGNOUT,
 } from '../store';
 
 const { getSchemas } = httpActions;
+
 /**
  * Action dispatched when application initialization starts
  *
  * @function
  * @name initializeAppStart
  *
- * @returns {Object} - Action object
+ * @returns {object} - Action object
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -30,7 +35,7 @@ export function initializeAppStart() {
  * @name initializeAppSuccess
  *
  *
- * @returns {Object} - action Object
+ * @returns {object} - action Object
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -45,15 +50,74 @@ export function initializeAppSuccess() {
  * @function
  * @name initializeAppFailure
  *
- * @param {Object} error - error happened during application initialization
+ * @param {object} error - error happened during application initialization
  *
- * @returns {undefined} - Nothing is returned
+ * @returns {object} - Nothing is returned
  *
  * @version 0.1.0
  * @since 0.1.0
  */
 export function initializeAppFailure(error) {
-  return { type: INITIALIZE_APP_FAILURE, error };
+  return { type: INITIALIZE_APP_FAILURE, payload: error };
+}
+
+/**
+ * Action dispatched when user start to signing into the system
+ *
+ * @function
+ * @name signinStart
+ *
+ * @returns {object} - redux action
+ *
+ * @version 0.1.0
+ * @since 0.10.3
+ */
+export function signinStart() {
+  return { type: SIGNIN_APP_START };
+}
+
+/**
+ * Action dispatched when user successfully signined into the system
+ *
+ * @function
+ * @name signinSuccess
+ *
+ * @param {object} party - signined user/party
+ * @returns {object} - redux action
+ *
+ * @version 0.1.0
+ * @since 0.10.3
+ */
+export function signinSuccess(party) {
+  return { type: SIGNIN_APP_SUCCESS, payload: party };
+}
+
+/**
+ * Action dispatched when user signining fails
+ *
+ * @param {object} error - Error instance
+ * @returns {object} - redux action
+ *
+ * @version 0.1.0
+ * @since 0.10.3
+ */
+export function signinFailure(error) {
+  return { type: SIGNIN_APP_FAILURE, payload: error };
+}
+
+/**
+ * Action dispatched when user signout
+ *
+ * @function
+ * @name signout
+ *
+ * @returns {object} - Redux action
+ *
+ * @version 0.1.0
+ * @since 0.10.3
+ */
+export function signout() {
+  return { type: SIGNOUT };
 }
 
 /**
@@ -145,6 +209,33 @@ export function initializeApp() {
 }
 
 /**
+ * Thunk action to signin user/party
+ *
+ * @function
+ * @name signin
+ *
+ * @param {object} credentials - Email and password
+ * @returns {Promise} redux thunk
+ *
+ * @version 0.1.0
+ * @since 0.10.3
+ */
+export function signin(credentials) {
+  return dispatch => {
+    dispatch(signinStart());
+
+    return login(credentials)
+      .then(results => {
+        const { party } = results;
+        dispatch(signinSuccess(party));
+      })
+      .catch(error => {
+        dispatch(signinFailure(error));
+      });
+  };
+}
+
+/**
  * Wrapped initialize app thunk
  *
  * @function
@@ -156,4 +247,35 @@ export function initializeApp() {
  */
 export function wrappedInitializeApp() {
   return storeDispatch(initializeApp());
+}
+
+/**
+ * Wrapped signing thunk
+ *
+ * @function
+ * @name wrappedSingin
+ *
+ * @param {object} credentials - email and password provided by user
+ * @returns {Promise} - dispatched signing thunk
+ *
+ * @version 0.1.0
+ * @since 0.10.3
+ */
+export function wrappedSingin(credentials) {
+  return storeDispatch(signin(credentials));
+}
+
+/**
+ * Wrapped singout action
+ *
+ * @function
+ * @name wrappedSignout
+ *
+ * @returns {undefined}
+ *
+ * @version 0.1.0
+ * @since 0.10.3
+ */
+export function wrappedSingout() {
+  return storeDispatch(signout());
 }

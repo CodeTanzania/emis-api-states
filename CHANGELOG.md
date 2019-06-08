@@ -1,3 +1,104 @@
+#### 0.11.0 (2019-06-08)
+
+##### Chores
+
+* **build:**  bundle library for v0.11.0 ([5e80f26d](https://github.com/CodeTanzania/emis-api-states/commit/5e80f26d49c77dc3f15a067ebbcc960142f45a8c))
+* **package.json:**  update package version to 0.11.0 ([618e715a](https://github.com/CodeTanzania/emis-api-states/commit/618e715aed75d5872bc4427d2021bd44aa762397))
+* **deps:**
+  *  update emis-api-client to v0.14.1 ([4d08b3fa](https://github.com/CodeTanzania/emis-api-states/commit/4d08b3fafa86607b4c46a80307d806d18d68aa64))
+  *  update emis-api-client to v0.14.1 ([6c02fab1](https://github.com/CodeTanzania/emis-api-states/commit/6c02fab1c5079735460c887ef8c416cc72b8d3ff))
+  *  update dependencies ([de2d668a](https://github.com/CodeTanzania/emis-api-states/commit/de2d668a22d4189d1e791c34dd0cb84e8562b77d))
+  *  install dependency locally ([f0593ed3](https://github.com/CodeTanzania/emis-api-states/commit/f0593ed3bde13bbd7c3f0fb45edf5a0e2444d2ae))
+  *  update dependency prettier to v1.18.0 ([43cf7158](https://github.com/CodeTanzania/emis-api-states/commit/43cf7158ebd0342ccfd12f6c745ff665c05140b3))
+  *  update dependency rollup to v1.14.3 ([6b847e15](https://github.com/CodeTanzania/emis-api-states/commit/6b847e156fdba370a396dea5fd2cf2d8e1a7ee1a))
+  *  update dependency lint-staged to v8.2.0 ([caa3d67b](https://github.com/CodeTanzania/emis-api-states/commit/caa3d67b3d2b8dcf3a6f607fc040f56da856deed))
+  *  update dependency husky to v2.4.0 ([65e448b4](https://github.com/CodeTanzania/emis-api-states/commit/65e448b4155f332a4e8a63db7acb1a6c54d5fb0c))
+  *  update dependency rollup to v1.14.2 ([572bcc62](https://github.com/CodeTanzania/emis-api-states/commit/572bcc62713bc62952f574656ae3262e539b8e46))
+  *  pin dependency @testing-library/react to 8.0.1 ([47695542](https://github.com/CodeTanzania/emis-api-states/commit/476955425f421fe88991a70e4cb2d6d4698aaf77))
+  *  update dependency rollup to v1.13.1 ([a8cc4dcf](https://github.com/CodeTanzania/emis-api-states/commit/a8cc4dcfbbdbb44703f182794138e066093810f1))
+  *  update dependency rollup to v1.13.0 ([20019704](https://github.com/CodeTanzania/emis-api-states/commit/20019704ca6bc2207737d71af3e59b1b045f95f3))
+  *  update commitlint monorepo to v8 ([ec880dc1](https://github.com/CodeTanzania/emis-api-states/commit/ec880dc11f1a6bf0347a4378d1022526515a3897))
+  *  install dependency locally ([6f7763fb](https://github.com/CodeTanzania/emis-api-states/commit/6f7763fb33484c9451a7b1f17ebc7eab995dcf07))
+  *  update dependency axios to v0.19.0 ([3a08a55a](https://github.com/CodeTanzania/emis-api-states/commit/3a08a55a89f14cdad9d5f33017ae66b584ec5660))
+  *  update dependency eslint-plugin-jsdoc to v7.2.3 ([29c47fa7](https://github.com/CodeTanzania/emis-api-states/commit/29c47fa748927c30bf68b643e6fba21447c42cc3))
+  *  update dependency rollup to v1.12.5 ([ecc8da7d](https://github.com/CodeTanzania/emis-api-states/commit/ecc8da7da49a6995251adca8b752ee72a0f5e214))
+  *  update dependency eslint-plugin-jsdoc to v7.2.0 ([4df9b5bd](https://github.com/CodeTanzania/emis-api-states/commit/4df9b5bd178e1a0a2774ae2849147aa87c2e0ac9))
+  *  update dependency eslint-plugin-jsdoc to v7.1.0 ([d88f02a2](https://github.com/CodeTanzania/emis-api-states/commit/d88f02a211824c7cb4603de424d73de297b9434e))
+  *  update dependency rollup to v1.12.4 ([830f10bf](https://github.com/CodeTanzania/emis-api-states/commit/830f10bf209483db33e531564617cefa1acdacbc))
+  *  update dependency eslint-plugin-import to v2.17.3 ([3888e05b](https://github.com/CodeTanzania/emis-api-states/commit/3888e05b0023eab6c91d10d6b1bdbd3ff382318b))
+  *  update dependency eslint-plugin-jsdoc to v7.0.2 ([258d026e](https://github.com/CodeTanzania/emis-api-states/commit/258d026edf02a004d6e715102b1a9511be36cfa2))
+  *  update dependency eslint-plugin-jsdoc to v7 ([5ddfbead](https://github.com/CodeTanzania/emis-api-states/commit/5ddfbead847b1a112d2b7e7903767132c3c66640))
+  *  update dependency eslint-plugin-jsdoc to v6.0.3 ([4518abab](https://github.com/CodeTanzania/emis-api-states/commit/4518ababd5e1aee19e703c866bd2ec12b3701b3e))
+  *  update dependency eslint-plugin-jest to v22.6.4 ([d74abada](https://github.com/CodeTanzania/emis-api-states/commit/d74abadab687bca625eb31b2b705d6a278873b3d))
+  *  update dependency eslint-plugin-jest to v22.6.3 ([dac63a4d](https://github.com/CodeTanzania/emis-api-states/commit/dac63a4d7d6524e19a1c5b7a361a10acef0389c1))
+  *  update dependency eslint-plugin-jsdoc to v6.0.2 ([6db0459c](https://github.com/CodeTanzania/emis-api-states/commit/6db0459c11f220071352a5c25a9eec1c8c5c4d87))
+  *  update dependency eslint-plugin-jsdoc to v6 ([caf579ad](https://github.com/CodeTanzania/emis-api-states/commit/caf579ad2f5ced7cc4c0d1389760a5bafe24fdb9))
+  *  update babel monorepo to v7.4.5 ([c1e21969](https://github.com/CodeTanzania/emis-api-states/commit/c1e219692f16ba0ccee326b5b10cdbe25790de3d))
+  *  update dependency react-testing-library to v7.0.1 ([44e214a7](https://github.com/CodeTanzania/emis-api-states/commit/44e214a7b64e83ad5cb0a9c5a8281c2b17bf11ee))
+  *  update dependency rollup to v1.12.3 ([61953832](https://github.com/CodeTanzania/emis-api-states/commit/619538321012faee73e1ee58252d8bf55a07533e))
+  *  update dependency rollup to v1.12.2 ([db1defac](https://github.com/CodeTanzania/emis-api-states/commit/db1defac6a2ea1f57b3bc2990c147d607d7539f7))
+  *  update dependency eslint-config-prettier to v4.3.0 ([359b8479](https://github.com/CodeTanzania/emis-api-states/commit/359b8479e3489d7d27acc0d233678fa2d498aacb))
+  *  update dependency rollup to v1.12.1 ([f8fda9dd](https://github.com/CodeTanzania/emis-api-states/commit/f8fda9ddc26f539b81c6370e5905358930c77257))
+  *  update dependency eslint-plugin-jsdoc to v5.0.2 ([741ac183](https://github.com/CodeTanzania/emis-api-states/commit/741ac183c5b5ee81a24dc02ae4dbe1184983c2de))
+  *  update dependency eslint-plugin-jsdoc to v5.0.1 ([b851aefe](https://github.com/CodeTanzania/emis-api-states/commit/b851aefed6d68e02b6ef3891fe47239e28b8d6a1))
+  *  update dependency eslint-plugin-jsdoc to v5 ([5054f40f](https://github.com/CodeTanzania/emis-api-states/commit/5054f40f947e6993977af343ff2cc553c9d80116))
+  *  update dependency rollup to v1.12.0 ([3bf32524](https://github.com/CodeTanzania/emis-api-states/commit/3bf3252450d58bd7513379e988ba0b76e2c19b63))
+  *  update dependency lint-staged to v8.1.7 ([24fa8040](https://github.com/CodeTanzania/emis-api-states/commit/24fa8040a304d436587a5d21ad2fe338f137dd42))
+  *  update dependency husky to v2.3.0 ([d9e00b60](https://github.com/CodeTanzania/emis-api-states/commit/d9e00b60586e43e58a529dfedf759297266b3bd2))
+  *  update dependency prettier to v1.17.1 ([2c93ad8b](https://github.com/CodeTanzania/emis-api-states/commit/2c93ad8b2beebffabdc0b69d67c4d17baaaa6044))
+  *  update dependency eslint-plugin-prettier to v3.1.0 ([75f64dc0](https://github.com/CodeTanzania/emis-api-states/commit/75f64dc00abc4a87edcde3f55f7f5790f52e3591))
+  *  update dependency eslint-plugin-jsdoc to v4.8.4 ([c2328f28](https://github.com/CodeTanzania/emis-api-states/commit/c2328f28b512645ed1eb5e23d6d6516c8a8ea45e))
+  *  update commitlint monorepo to v7.6.1 ([8ea2a3a0](https://github.com/CodeTanzania/emis-api-states/commit/8ea2a3a0c0932fc9e6d435a23ef4415126971b1e))
+  *  update commitlint monorepo to v7.6.0 ([40451487](https://github.com/CodeTanzania/emis-api-states/commit/404514875ec7bbbcb584cd9ec69448e0deeee01e))
+  *  update dependency rollup to v1.11.3 ([4d7e7729](https://github.com/CodeTanzania/emis-api-states/commit/4d7e77295173f52bd6a50c56888eec46504548b3))
+  *  update jest monorepo to v24.8.0 ([a0795b0e](https://github.com/CodeTanzania/emis-api-states/commit/a0795b0e46f853c7c55e34743a049d8db017dc66))
+  *  update dependency rollup to v1.11.2 ([5556218b](https://github.com/CodeTanzania/emis-api-states/commit/5556218b9490d77ebf2b2b2fbd159d989941b7dc))
+  *  update dependency rollup to v1.11.1 ([7baa05a2](https://github.com/CodeTanzania/emis-api-states/commit/7baa05a2a45a8fae6c7caf2d876d7ee175b5b3cf))
+  *  update dependency rollup to v1.11.0 ([1f846a7a](https://github.com/CodeTanzania/emis-api-states/commit/1f846a7a1aa3e20ded1b669a8db2a6c8a2076ecf))
+  *  update dependency lint-staged to v8.1.6 ([63eac49b](https://github.com/CodeTanzania/emis-api-states/commit/63eac49b210de233f4778a1974596c14f6b49ba7))
+  *  update dependency eslint-plugin-react to v7.13.0 ([1d665d01](https://github.com/CodeTanzania/emis-api-states/commit/1d665d01b574d3007d0bb6a347f8478926510f16))
+  *  update dependency husky to v2.2.0 ([21254a97](https://github.com/CodeTanzania/emis-api-states/commit/21254a9788513976681f6699d001d1b2521dfafb))
+  *  update dependency react-testing-library to v7 ([4183a362](https://github.com/CodeTanzania/emis-api-states/commit/4183a362d619e7943af266da17a5ee9eab26d33c))
+  *  update dependency husky to v2 ([b4c73aa6](https://github.com/CodeTanzania/emis-api-states/commit/b4c73aa6a53feb56728e2c3acbb50089275b6146))
+  *  update dependency redux-starter-kit to v0.5.1 ([407a0e50](https://github.com/CodeTanzania/emis-api-states/commit/407a0e50618849709be608f4dd33fe95098b7d3b))
+  *  update dependency react-redux to v7.0.3 ([0514cfa8](https://github.com/CodeTanzania/emis-api-states/commit/0514cfa836c786ac5dc2b57ee590c5ef8dd292ad))
+  *  update dependency eslint-plugin-jest to v22.5.1 ([8a2aa208](https://github.com/CodeTanzania/emis-api-states/commit/8a2aa2080176b68f8695c635ed927147f250b780))
+  *  update dependency eslint-config-prettier to v4.2.0 ([8cae4b73](https://github.com/CodeTanzania/emis-api-states/commit/8cae4b73fe8f2ef9efeb54b0ff3925cc8a4826af))
+  *  update babel monorepo to v7.4.4 ([c0ce7e7c](https://github.com/CodeTanzania/emis-api-states/commit/c0ce7e7c6d4f92547ddafe6f7708df98e11c2b62))
+  *  pin dependencies ([07f3aa54](https://github.com/CodeTanzania/emis-api-states/commit/07f3aa54f1184e67849e4cdcd3d058e15b5356ae))
+* **renovate:**  add PR assignees ([7ba90804](https://github.com/CodeTanzania/emis-api-states/commit/7ba90804f02048aba2fe303d2d9b4f1f3859ba97))
+*  add renovate.json ([2f315b9a](https://github.com/CodeTanzania/emis-api-states/commit/2f315b9a01a8e98ac894142f01edd1939373bd6e))
+*  update dependencies to latest versions ([3483ae1c](https://github.com/CodeTanzania/emis-api-states/commit/3483ae1c441b704aa01d0fb66f8387256c939705))
+* **dependencies:**  update dependencies to latest versions ([6ecbddf0](https://github.com/CodeTanzania/emis-api-states/commit/6ecbddf0970c69f57a4b27d9028b33a6fc9555c4))
+
+##### Continuous Integration
+
+* **travis:**
+  *  remove caching node_modules ([fe45e89d](https://github.com/CodeTanzania/emis-api-states/commit/fe45e89d36e1fd90cd2da6dc6cfc5cd51612dd29))
+  *  configure commitlint for travis ([fc2d8007](https://github.com/CodeTanzania/emis-api-states/commit/fc2d800751db10b449bcbf732c32224bd28f9275))
+
+##### Documentation Changes
+
+* **readme:**  add commitizen and renovate badges ([b12fe2cf](https://github.com/CodeTanzania/emis-api-states/commit/b12fe2cf68a5d35e3c44f43a361aada4cc53b619))
+
+##### New Features
+
+* **auth:**
+  *  expose signin and signout actions ([38134a8e](https://github.com/CodeTanzania/emis-api-states/commit/38134a8ea8dae9333d53dcc7e07baa523113aa89))
+  *  add authentication actions and specs ([4051b0a3](https://github.com/CodeTanzania/emis-api-states/commit/4051b0a3bf2b7841df7141333203177c7fa996a3))
+
+##### Refactors
+
+*  all actions have same structure ([e48d95a5](https://github.com/CodeTanzania/emis-api-states/commit/e48d95a5bb2b5d3a7d8f80041552e9df5a0242e2))
+
+##### Code Style Changes
+
+*  format documentation style ([f1654d8c](https://github.com/CodeTanzania/emis-api-states/commit/f1654d8c5f3865deb131f8f744c9ee1df5dfd3e9))
+
+##### Tests
+
+*  migrate to new version of react testing library ([fa271109](https://github.com/CodeTanzania/emis-api-states/commit/fa271109dfd359ffa56fb73943afbf5e412483cc))
+
 #### 0.10.3 (2019-04-08)
 
 ##### Build System / Dependencies
