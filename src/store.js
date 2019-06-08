@@ -47,7 +47,10 @@ export function createResourcesSlices(resources) {
  * @version 0.1.0
  * @since 0.1.0
  */
-export function app(state = { loading: false, error: null }, action) {
+export function app(
+  state = { loading: false, signing: false, error: null, party: null },
+  action
+) {
   switch (action.type) {
     case INITIALIZE_APP_START:
       return Object.assign({}, state, { loading: true });
@@ -57,6 +60,23 @@ export function app(state = { loading: false, error: null }, action) {
       return Object.assign({}, state, {
         loading: false,
         error: action.payload,
+      });
+    case SIGNIN_APP_START:
+      return Object.assign({}, state, { signing: true });
+    case SIGNIN_APP_SUCCESS:
+      return Object.assign({}, state, {
+        party: action.payload,
+        signing: false,
+      });
+    case SIGNIN_APP_FAILURE:
+      return Object.assign({}, state, {
+        error: action.payload,
+        signing: false,
+      });
+    case SIGNOUT:
+      return Object.assign({}, state, {
+        error: null,
+        party: null,
       });
     default:
       return state;

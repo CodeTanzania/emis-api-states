@@ -78,7 +78,11 @@ export * from './actions/adjustment';
 export * from './actions/agency';
 export * from './actions/alert';
 export * from './actions/alertSource';
-export { wrappedInitializeApp as initializeApp } from './actions/app';
+export {
+  wrappedInitializeApp as initializeApp,
+  wrappedSingin as signin,
+  wrappedSingout as signout,
+} from './actions/app';
 export * from './actions/assessment';
 export * from './actions/district';
 export * from './actions/feature';

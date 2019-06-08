@@ -111,7 +111,7 @@ export function signinFailure(error) {
  * @function
  * @name signout
  *
- * @returns {undefined}
+ * @returns {object} - Redux action
  *
  * @version 0.1.0
  * @since 0.10.3
