@@ -1,3 +1,14 @@
+#### 0.11.1 (2019-06-10)
+
+##### Chores
+
+* **build:**  bundle library for v0.11.1 ([5855d344](https://github.com/CodeTanzania/emis-api-states/commit/5855d3445e87e365bf367c090a0a6741b75040d6))
+* **package.json:**  update package version to 0.11.1 ([7bbc4e28](https://github.com/CodeTanzania/emis-api-states/commit/7bbc4e28fb9ce2d4e0b774214d2fc322b25691c6))
+
+##### Bug Fixes
+
+* **auth:**  add callbacks for success and error signin ([e2ecf82a](https://github.com/CodeTanzania/emis-api-states/commit/e2ecf82a7505db50a2f75199619f9fa0a4ad936f))
+
 #### 0.11.0 (2019-06-08)
 
 ##### Chores
