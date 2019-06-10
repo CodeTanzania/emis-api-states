@@ -12,10 +12,11 @@ import { pluralize, singularize } from 'inflection';
 import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
 import cloneDeep from 'lodash/cloneDeep';
-import { httpActions, signin as signin$1 } from '@codetanzania/emis-api-client';
+import { httpActions, signin as signin$1, signout as signout$1 } from '@codetanzania/emis-api-client';
 import isEmpty from 'lodash/isEmpty';
 import lowerFirst from 'lodash/lowerFirst';
 import pick from 'lodash/pick';
+import { isFunction as isFunction$1 } from 'lodash';
 
 /**
  * @function
@@ -960,6 +961,8 @@ const {
   sortAlertSources
 } = alertActions$1;
 
+/* declarations */
+
 const {
   getSchemas
 } = httpActions;
@@ -1216,13 +1219,15 @@ function initializeApp() {
  * @name signin
  *
  * @param {object} credentials - Email and password
+ * @param {Function} onSuccess - Callback for successfully signin
+ * @param {Function} onError - Callback for failed signin
  * @returns {Promise} redux thunk
  *
  * @version 0.1.0
  * @since 0.10.3
  */
 
-function signin(credentials) {
+function signin(credentials, onSuccess, onError) {
   return dispatch => {
     dispatch(signinStart());
     return signin$1(credentials).then(results => {
@@ -1230,8 +1235,16 @@ function signin(credentials) {
         party
       } = results;
       dispatch(signinSuccess(party));
+
+      if (isFunction$1(onSuccess)) {
+        onSuccess();
+      }
     }).catch(error => {
       dispatch(signinFailure(error));
+
+      if (isFunction$1(onError)) {
+        onError(error);
+      }
     });
   };
 }
@@ -1256,14 +1269,16 @@ function wrappedInitializeApp() {
  * @name wrappedSingin
  *
  * @param {object} credentials - email and password provided by user
+ * @param {Function} onSuccess - Callback for successfully signin
+ * @param {Function} onError - Callback for failed signin
  * @returns {Promise} - dispatched signing thunk
  *
  * @version 0.1.0
  * @since 0.10.3
  */
 
-function wrappedSingin(credentials) {
-  return dispatch(signin(credentials));
+function wrappedSingin(credentials, onSuccess, onError) {
+  return dispatch(signin(credentials, onSuccess, onError));
 }
 /**
  * Wrapped singout action
@@ -1273,11 +1288,13 @@ function wrappedSingin(credentials) {
  *
  * @returns {undefined}
  *
- * @version 0.1.0
+ * @version 0.2.0
  * @since 0.10.3
  */
 
 function wrappedSingout() {
+  signout$1(); // clear sessionStorage
+
   return dispatch(signout());
 }
 
