@@ -164,15 +164,21 @@ describe('App Actions', () => {
         token: '',
       };
       signin.mockResolvedValueOnce(mockData);
+      const onSuccess = jest.fn();
+      const onError = jest.fn();
 
       const expectedActions = [
         { type: SIGNIN_APP_START },
         { type: SIGNIN_APP_SUCCESS, payload: mockData.party },
       ];
 
-      return store.dispatch(login({ email: '', password: '' })).then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-      });
+      return store
+        .dispatch(login({ email: '', password: '' }, onSuccess, onError))
+        .then(() => {
+          expect(store.getActions()).toEqual(expectedActions);
+          expect(onSuccess).toHaveBeenCalledTimes(1);
+          expect(onError).toHaveBeenCalledTimes(0);
+        });
     });
 
     it('should handle failure signin action', () => {
@@ -189,15 +195,22 @@ describe('App Actions', () => {
       };
 
       signin.mockRejectedValueOnce(mockData);
+      const onSuccess = jest.fn();
+      const onError = jest.fn();
 
       const expectedActions = [
         { type: SIGNIN_APP_START },
         { type: SIGNIN_APP_FAILURE, payload: mockData },
       ];
 
-      return store.dispatch(login({ email: '', password: '' })).then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-      });
+      return store
+        .dispatch(login({ email: '', password: '' }, onSuccess, onError))
+        .then(() => {
+          expect(store.getActions()).toEqual(expectedActions);
+          expect(onSuccess).toHaveBeenCalledTimes(0);
+          expect(onError).toHaveBeenCalledTimes(1);
+          expect(onError).toHaveBeenCalledWith(mockData);
+        });
     });
   });
 });

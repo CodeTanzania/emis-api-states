@@ -1,4 +1,9 @@
-import { httpActions, signin as login } from '@codetanzania/emis-api-client';
+import {
+  httpActions,
+  signin as login,
+  signout as logout,
+} from '@codetanzania/emis-api-client';
+import { isFunction } from 'lodash';
 import {
   actions,
   dispatch as storeDispatch,
@@ -11,6 +16,7 @@ import {
   SIGNOUT,
 } from '../store';
 
+/* declarations */
 const { getSchemas } = httpActions;
 
 /**
@@ -215,12 +221,14 @@ export function initializeApp() {
  * @name signin
  *
  * @param {object} credentials - Email and password
+ * @param {Function} onSuccess - Callback for successfully signin
+ * @param {Function} onError - Callback for failed signin
  * @returns {Promise} redux thunk
  *
  * @version 0.1.0
  * @since 0.10.3
  */
-export function signin(credentials) {
+export function signin(credentials, onSuccess, onError) {
   return dispatch => {
     dispatch(signinStart());
 
@@ -228,9 +236,15 @@ export function signin(credentials) {
       .then(results => {
         const { party } = results;
         dispatch(signinSuccess(party));
+        if (isFunction(onSuccess)) {
+          onSuccess();
+        }
       })
       .catch(error => {
         dispatch(signinFailure(error));
+        if (isFunction(onError)) {
+          onError(error);
+        }
       });
   };
 }
@@ -256,13 +270,15 @@ export function wrappedInitializeApp() {
  * @name wrappedSingin
  *
  * @param {object} credentials - email and password provided by user
+ * @param {Function} onSuccess - Callback for successfully signin
+ * @param {Function} onError - Callback for failed signin
  * @returns {Promise} - dispatched signing thunk
  *
  * @version 0.1.0
  * @since 0.10.3
  */
-export function wrappedSingin(credentials) {
-  return storeDispatch(signin(credentials));
+export function wrappedSingin(credentials, onSuccess, onError) {
+  return storeDispatch(signin(credentials, onSuccess, onError));
 }
 
 /**
@@ -273,9 +289,10 @@ export function wrappedSingin(credentials) {
  *
  * @returns {undefined}
  *
- * @version 0.1.0
+ * @version 0.2.0
  * @since 0.10.3
  */
 export function wrappedSingout() {
+  logout(); // clear sessionStorage
   return storeDispatch(signout());
 }
