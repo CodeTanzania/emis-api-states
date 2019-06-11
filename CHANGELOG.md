@@ -1,3 +1,32 @@
+#### 0.11.2 (2019-06-11)
+
+##### Chores
+
+*  update package-lock version ([48c14ac0](https://github.com/CodeTanzania/emis-api-states/commit/48c14ac011d8325f8a92fa1092c0f7d3b35cc405))
+* **build:**  bundle library for v0.11.2 ([c7f48f11](https://github.com/CodeTanzania/emis-api-states/commit/c7f48f113c0ef823e81307d6ee865bf335151355))
+* **package.json:**  update package version to 0.11.2 ([0c38e7ab](https://github.com/CodeTanzania/emis-api-states/commit/0c38e7ab822abf79d4e5ba9bf06ee312ed280f7f))
+* **deps:**
+  *  update dependency rollup to v1.14.6 ([fd9f2446](https://github.com/CodeTanzania/emis-api-states/commit/fd9f2446b5d30de8f35cf575cc5fba8a38523f2d))
+  *  update dependency rollup to v1.14.5 ([21ab3a2b](https://github.com/CodeTanzania/emis-api-states/commit/21ab3a2ba26033f8fc52dd3cb982fcbe4577d8b5))
+
+##### New Features
+
+* **auth:**  retrieve party from session storage on refresh browser ([b6c9123d](https://github.com/CodeTanzania/emis-api-states/commit/b6c9123dca1efbb7792128828f6bcd98af93ec77))
+
+#### 0.11.2 (2019-06-11)
+
+##### Chores
+
+* **build:**  bundle library for v0.11.2 ([c7f48f11](https://github.com/CodeTanzania/emis-api-states/commit/c7f48f113c0ef823e81307d6ee865bf335151355))
+* **package.json:**  update package version to 0.11.2 ([0c38e7ab](https://github.com/CodeTanzania/emis-api-states/commit/0c38e7ab822abf79d4e5ba9bf06ee312ed280f7f))
+* **deps:**
+  *  update dependency rollup to v1.14.6 ([fd9f2446](https://github.com/CodeTanzania/emis-api-states/commit/fd9f2446b5d30de8f35cf575cc5fba8a38523f2d))
+  *  update dependency rollup to v1.14.5 ([21ab3a2b](https://github.com/CodeTanzania/emis-api-states/commit/21ab3a2ba26033f8fc52dd3cb982fcbe4577d8b5))
+
+##### New Features
+
+* **auth:**  retrieve party from session storage on refresh browser ([b6c9123d](https://github.com/CodeTanzania/emis-api-states/commit/b6c9123dca1efbb7792128828f6bcd98af93ec77))
+
 #### 0.11.1 (2019-06-10)
 
 ##### Chores

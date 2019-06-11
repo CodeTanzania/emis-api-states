@@ -8,11 +8,11 @@ import { Provider, connect } from 'react-redux';
 import merge from 'lodash/merge';
 import { combineReducers } from 'redux';
 import { createSlice, configureStore } from 'redux-starter-kit';
+import { getAuthenticatedParty, httpActions, signin as signin$1, signout as signout$1 } from '@codetanzania/emis-api-client';
 import { pluralize, singularize } from 'inflection';
 import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
 import cloneDeep from 'lodash/cloneDeep';
-import { httpActions, signin as signin$1, signout as signout$1 } from '@codetanzania/emis-api-client';
 import isEmpty from 'lodash/isEmpty';
 import lowerFirst from 'lodash/lowerFirst';
 import pick from 'lodash/pick';
@@ -293,6 +293,14 @@ const SIGNIN_APP_START = 'app/signin';
 const SIGNIN_APP_SUCCESS = 'app/signinSuccess';
 const SIGNIN_APP_FAILURE = 'app/signinFailure';
 const SIGNOUT = 'app/signout';
+/* constants */
+
+const appDefaultState = {
+  loading: false,
+  signing: false,
+  error: null,
+  party: getAuthenticatedParty()
+};
 /**
  * @function
  * @name createResourcesSlices
@@ -326,12 +334,7 @@ function createResourcesSlices(resources) {
  * @since 0.1.0
  */
 
-function app(state = {
-  loading: false,
-  signing: false,
-  error: null,
-  party: null
-}, action) {
+function app(state = appDefaultState, action) {
   switch (action.type) {
     case INITIALIZE_APP_START:
       return Object.assign({}, state, {

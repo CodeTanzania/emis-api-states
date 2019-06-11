@@ -1,6 +1,7 @@
 import merge from 'lodash/merge';
 import { combineReducers } from 'redux';
 import { configureStore } from 'redux-starter-kit';
+import { getAuthenticatedParty } from '@codetanzania/emis-api-client';
 import createSliceFor from './factories/slice';
 import { extractActions, extractReducers } from './utils';
 
@@ -12,6 +13,14 @@ export const SIGNIN_APP_START = 'app/signin';
 export const SIGNIN_APP_SUCCESS = 'app/signinSuccess';
 export const SIGNIN_APP_FAILURE = 'app/signinFailure';
 export const SIGNOUT = 'app/signout';
+
+/* constants */
+const appDefaultState = {
+  loading: false,
+  signing: false,
+  error: null,
+  party: getAuthenticatedParty(),
+};
 
 /**
  * @function
@@ -47,10 +56,7 @@ export function createResourcesSlices(resources) {
  * @version 0.1.0
  * @since 0.1.0
  */
-export function app(
-  state = { loading: false, signing: false, error: null, party: null },
-  action
-) {
+export function app(state = appDefaultState, action) {
   switch (action.type) {
     case INITIALIZE_APP_START:
       return Object.assign({}, state, { loading: true });
