@@ -48,7 +48,17 @@
     "url": "https://github.com/CodeTanzania/emis-api-states/issues"
   },
   "homepage": "https://github.com/CodeTanzania/emis-api-states#readme",
-  "dependencies": {},
+  "dependencies": {
+    "@codetanzania/emis-api-client": ">=0.15.4",
+    "axios": ">=0.19.0",
+    "inflection": ">=1.12.0",
+    "lodash": ">=4.17.11",
+    "prop-types": ">=15.7.2",
+    "react": ">=16.8.6",
+    "redux": ">=4.0.1",
+    "react-redux": ">=7.1.0",
+    "redux-starter-kit": ">=0.5.1"
+  },
   "devDependencies": {
     "@babel/core": "7.4.5",
     "@babel/preset-env": "7.4.5",
@@ -92,17 +102,6 @@
     "rollup": "1.15.0",
     "rollup-plugin-babel": "4.3.2"
   },
-  "peerDependencies": {
-    "@codetanzania/emis-api-client": ">=0.15.4",
-    "axios": ">=0.19.0",
-    "inflection": ">=1.12.0",
-    "lodash": ">=4.17.11",
-    "prop-types": ">=15.7.2",
-    "react": ">=16.8.6",
-    "redux": ">=4.0.1",
-    "react-redux": ">=7.1.0",
-    "redux-starter-kit": ">=0.5.1"
-  },
   "jest": {
     "verbose": false,
     "collectCoverageFrom": [
@@ -119,10 +118,14 @@
     }
   },
   "commitlint": {
-    "extends": ["@commitlint/config-conventional"]
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   },
   "lint-staged": {
-    "src/**/*.js": ["npm run lint"]
+    "src/**/*.js": [
+      "npm run lint"
+    ]
   },
   "husky": {
     "hooks": {
