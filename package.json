@@ -55,9 +55,10 @@
     "lodash": ">=4.17.11",
     "prop-types": ">=15.7.2",
     "react": ">=16.8.6",
-    "redux": ">=4.0.1",
     "react-redux": ">=7.1.0",
-    "redux-starter-kit": ">=0.5.1"
+    "redux": ">=4.0.1",
+    "redux-starter-kit": ">=0.5.1",
+    "redux-thunk": ">=2.3.0"
   },
   "devDependencies": {
     "@babel/core": "7.4.5",
