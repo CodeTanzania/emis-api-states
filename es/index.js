@@ -380,7 +380,7 @@ function app(state = appDefaultState, action) {
   }
 } // all resources exposed by this library
 
-const resources = ['activity', 'adjustment', 'agency', 'alert', 'alertSource', 'assessment', 'district', 'feature', 'incident', 'incidentType', 'indicator', 'item', 'itemCategory', 'itemUnit', 'plan', 'procedure', 'question', 'questionnaire', 'region', 'resource', 'role', 'focalPerson', 'stock', 'warehouse'];
+const resources = ['activity', 'adjustment', 'agency', 'alert', 'alertSource', 'assessment', 'campaign', 'district', 'feature', 'incident', 'incidentType', 'indicator', 'item', 'itemCategory', 'itemUnit', 'message', 'plan', 'procedure', 'question', 'questionnaire', 'region', 'resource', 'role', 'focalPerson', 'stock', 'warehouse'];
 const slices = createResourcesSlices(resources);
 const reducers = merge({}, extractReducers(resources, slices), {
   app
@@ -1321,6 +1321,26 @@ const {
   sortAssessments
 } = assessmentActions;
 
+const campaignActions = generateExposedActions('campaign', actions, dispatch);
+const {
+  clearCampaignFilters,
+  clearCampaignsSort,
+  closeCampaignForm,
+  deleteCampaign,
+  filterCampaigns,
+  getCampaigns,
+  getCampaign,
+  selectCampaign,
+  openCampaignForm,
+  paginateCampaigns,
+  postCampaign,
+  putCampaign,
+  refreshCampaigns,
+  searchCampaigns,
+  setCampaignSchema,
+  sortCampaigns
+} = campaignActions;
+
 const featureActions = generateExposedActions('district', actions, dispatch);
 const {
   clearDistrictFilters,
@@ -1461,6 +1481,26 @@ const {
   sortItems
 } = itemActions;
 
+const itemCategoryActions = generateExposedActions('itemCategory', actions, dispatch);
+const {
+  clearItemCategoryFilters,
+  clearItemCategoriesSort,
+  closeItemCategoryForm,
+  deleteItemCategory,
+  filterItemCategories,
+  getItemCategories,
+  getItemCategory,
+  selectItemCategory,
+  openItemCategoryForm,
+  paginateItemCategories,
+  postItemCategory,
+  putItemCategory,
+  refreshItemCategories,
+  searchItemCategories,
+  setItemCategorySchema,
+  sortItemCategories
+} = itemCategoryActions;
+
 const itemUnitActions = generateExposedActions('itemUnit', actions, dispatch);
 const {
   clearItemUnitFilters,
@@ -1481,25 +1521,25 @@ const {
   sortItemUnits
 } = itemUnitActions;
 
-const itemCategoryActions = generateExposedActions('itemCategory', actions, dispatch);
+const messageActions = generateExposedActions('message', actions, dispatch);
 const {
-  clearItemCategoryFilters,
-  clearItemCategoriesSort,
-  closeItemCategoryForm,
-  deleteItemCategory,
-  filterItemCategories,
-  getItemCategories,
-  getItemCategory,
-  selectItemCategory,
-  openItemCategoryForm,
-  paginateItemCategories,
-  postItemCategory,
-  putItemCategory,
-  refreshItemCategories,
-  searchItemCategories,
-  setItemCategorySchema,
-  sortItemCategories
-} = itemCategoryActions;
+  clearMessageFilters,
+  clearMessagesSort,
+  closeMessageForm,
+  deleteMessage,
+  filterMessages,
+  getMessages,
+  getMessage,
+  selectMessage,
+  openMessageForm,
+  paginateMessages,
+  postMessage,
+  putMessage,
+  refreshMessages,
+  searchMessages,
+  setMessageSchema,
+  sortMessages
+} = messageActions;
 
 const planActions = generateExposedActions('plan', actions, dispatch);
 const {
@@ -1748,4 +1788,4 @@ function Connect(component, stateToProps = null) {
   return connect(mapStateToProps)(component);
 }
 
-export { Connect, StoreProvider, clearActivitiesSort, clearActivityFilters, clearAdjustmentFilters, clearAdjustmentsSort, clearAgenciesSort, clearAgencyFilters, clearAlertFilters, clearAlertSourceFilters, clearAlertSourcesSort, clearAlertsSort, clearAssessmentFilters, clearAssessmentsSort, clearDistrictFilters, clearDistrictsSort, clearFeatureFilters, clearFeaturesSort, clearFocalPeopleSort, clearFocalPersonFilters, clearIncidentFilters, clearIncidentTypeFilters, clearIncidentTypesSort, clearIncidentsSort, clearIndicatorFilters, clearIndicatorsSort, clearItemCategoriesSort, clearItemCategoryFilters, clearItemFilters, clearItemUnitFilters, clearItemUnitsSort, clearItemsSort, clearPlanFilters, clearPlansSort, clearProcedureFilters, clearProceduresSort, clearQuestionFilters, clearQuestionnaireFilters, clearQuestionnairesSort, clearQuestionsSort, clearRegionFilters, clearRegionsSort, clearResourceFilters, clearResourcesSort, clearRoleFilters, clearRolesSort, clearStockFilters, clearStocksSort, clearWarehouseFilters, clearWarehousesSort, closeActivityForm, closeAdjustmentForm, closeAgencyForm, closeAlertForm, closeAlertSourceForm, closeAssessmentForm, closeDistrictForm, closeFeatureForm, closeFocalPersonForm, closeIncidentForm, closeIncidentTypeForm, closeIndicatorForm, closeItemCategoryForm, closeItemForm, closeItemUnitForm, closePlanForm, closeProcedureForm, closeQuestionForm, closeQuestionnaireForm, closeRegionForm, closeResourceForm, closeRoleForm, closeStockForm, closeWarehouseForm, deleteActivity, deleteAdjustment, deleteAgency, deleteAlert, deleteAlertSource, deleteAssessment, deleteDistrict, deleteFeature, deleteFocalPerson, deleteIncident, deleteIncidentType, deleteIndicator, deleteItem, deleteItemCategory, deleteItemUnit, deletePlan, deleteProcedure, deleteQuestion, deleteQuestionnaire, deleteRegion, deleteResource, deleteRole, deleteStock, deleteWarehouse, filterActivities, filterAdjustments, filterAgencies, filterAlertSources, filterAlerts, filterAssessments, filterDistricts, filterFeatures, filterFocalPeople, filterIncidentTypes, filterIncidents, filterIndicators, filterItemCategories, filterItemUnits, filterItems, filterPlans, filterProcedures, filterQuestionnaires, filterQuestions, filterRegions, filterResources, filterRoles, filterStocks, filterWarehouses, getActivities, getActivity, getAdjustment, getAdjustments, getAgencies, getAgency, getAlert, getAlertSource, getAlertSources, getAlerts, getAssessment, getAssessments, getDistrict, getDistricts, getFeature, getFeatures, getFocalPeople, getFocalPerson, getIncident, getIncidentType, getIncidentTypes, getIncidents, getIndicator, getIndicators, getItem, getItemCategories, getItemCategory, getItemUnit, getItemUnits, getItems, getPlan, getPlans, getProcedure, getProcedures, getQuestion, getQuestionnaire, getQuestionnaires, getQuestions, getRegion, getRegions, getResource, getResources, getRole, getRoles, getStock, getStocks, getWarehouse, getWarehouses, wrappedInitializeApp as initializeApp, openActivityForm, openAdjustmentForm, openAgencyForm, openAlertForm, openAlertSourceForm, openAssessmentForm, openDistrictForm, openFeatureForm, openFocalPersonForm, openIncidentForm, openIncidentTypeForm, openIndicatorForm, openItemCategoryForm, openItemForm, openItemUnitForm, openPlanForm, openProcedureForm, openQuestionForm, openQuestionnaireForm, openRegionForm, openResourceForm, openRoleForm, openStockForm, openWarehouseForm, paginateActivities, paginateAdjustments, paginateAgencies, paginateAlertSources, paginateAlerts, paginateAssessments, paginateDistricts, paginateFeatures, paginateFocalPeople, paginateIncidentTypes, paginateIncidents, paginateIndicators, paginateItemCategories, paginateItemUnits, paginateItems, paginatePlans, paginateProcedures, paginateQuestionnaires, paginateQuestions, paginateRegions, paginateResources, paginateRoles, paginateStocks, paginateWarehouses, postActivity, postAdjustment, postAgency, postAlert, postAlertSource, postAssessment, postDistrict, postFeature, postFocalPerson, postIncident, postIncidentType, postIndicator, postItem, postItemCategory, postItemUnit, postPlan, postProcedure, postQuestion, postQuestionnaire, postRegion, postResource, postRole, postStock, postWarehouse, putActivity, putAdjustment, putAgency, putAlert, putAlertSource, putAssessment, putDistrict, putFeature, putFocalPerson, putIncident, putIncidentType, putIndicator, putItem, putItemCategory, putItemUnit, putPlan, putProcedure, putQuestion, putQuestionnaire, putRegion, putResource, putRole, putStock, putWarehouse, refreshActivities, refreshAdjustments, refreshAgencies, refreshAlertSources, refreshAlerts, refreshAssessments, refreshDistricts, refreshFeatures, refreshFocalPeople, refreshIncidentTypes, refreshIncidents, refreshIndicators, refreshItemCategories, refreshItemUnits, refreshItems, refreshPlans, refreshProcedures, refreshQuestionnaires, refreshQuestions, refreshRegions, refreshResources, refreshRoles, refreshStocks, refreshWarehouses, searchActivities, searchAdjustments, searchAgencies, searchAlertSources, searchAlerts, searchAssessments, searchDistricts, searchFeatures, searchFocalPeople, searchIncidentTypes, searchIncidents, searchIndicators, searchItemCategories, searchItemUnits, searchItems, searchPlans, searchProcedures, searchQuestionnaires, searchQuestions, searchRegions, searchResources, searchRoles, searchStocks, searchWarehouses, selectActivity, selectAdjustment, selectAgency, selectAlert, selectAlertSource, selectAssessment, selectDistrict, selectFeature, selectFocalPerson, selectIncident, selectIncidentType, selectIndicator, selectItem, selectItemCategory, selectItemUnit, selectPlan, selectProcedure, selectQuestion, selectQuestionnaire, selectRegion, selectResource, selectRole, selectStock, selectWarehouse, setActivitySchema, setAdjustmentSchema, setAgencySchema, setAlertSchema, setAlertSourceSchema, setAssessmentSchema, setDistrictSchema, setFeatureSchema, setFocalPersonSchema, setIncidentSchema, setIncidentTypeSchema, setIndicatorSchema, setItemCategorySchema, setItemSchema, setItemUnitSchema, setPlanSchema, setProcedureSchema, setQuestionSchema, setQuestionnaireSchema, setRegionSchema, setResourceSchema, setRoleSchema, setStockSchema, setWarehouseSchema, wrappedSingin as signin, wrappedSingout as signout, sortActivities, sortAdjustments, sortAgencies, sortAlertSources, sortAlerts, sortAssessments, sortDistricts, sortFeatures, sortFocalPeople, sortIncidentTypes, sortIncidents, sortIndicators, sortItemCategories, sortItemUnits, sortItems, sortPlans, sortProcedures, sortQuestionnaires, sortQuestions, sortRegions, sortResources, sortRoles, sortStocks, sortWarehouses };
+export { Connect, StoreProvider, clearActivitiesSort, clearActivityFilters, clearAdjustmentFilters, clearAdjustmentsSort, clearAgenciesSort, clearAgencyFilters, clearAlertFilters, clearAlertSourceFilters, clearAlertSourcesSort, clearAlertsSort, clearAssessmentFilters, clearAssessmentsSort, clearCampaignFilters, clearCampaignsSort, clearDistrictFilters, clearDistrictsSort, clearFeatureFilters, clearFeaturesSort, clearFocalPeopleSort, clearFocalPersonFilters, clearIncidentFilters, clearIncidentTypeFilters, clearIncidentTypesSort, clearIncidentsSort, clearIndicatorFilters, clearIndicatorsSort, clearItemCategoriesSort, clearItemCategoryFilters, clearItemFilters, clearItemUnitFilters, clearItemUnitsSort, clearItemsSort, clearMessageFilters, clearMessagesSort, clearPlanFilters, clearPlansSort, clearProcedureFilters, clearProceduresSort, clearQuestionFilters, clearQuestionnaireFilters, clearQuestionnairesSort, clearQuestionsSort, clearRegionFilters, clearRegionsSort, clearResourceFilters, clearResourcesSort, clearRoleFilters, clearRolesSort, clearStockFilters, clearStocksSort, clearWarehouseFilters, clearWarehousesSort, closeActivityForm, closeAdjustmentForm, closeAgencyForm, closeAlertForm, closeAlertSourceForm, closeAssessmentForm, closeCampaignForm, closeDistrictForm, closeFeatureForm, closeFocalPersonForm, closeIncidentForm, closeIncidentTypeForm, closeIndicatorForm, closeItemCategoryForm, closeItemForm, closeItemUnitForm, closeMessageForm, closePlanForm, closeProcedureForm, closeQuestionForm, closeQuestionnaireForm, closeRegionForm, closeResourceForm, closeRoleForm, closeStockForm, closeWarehouseForm, deleteActivity, deleteAdjustment, deleteAgency, deleteAlert, deleteAlertSource, deleteAssessment, deleteCampaign, deleteDistrict, deleteFeature, deleteFocalPerson, deleteIncident, deleteIncidentType, deleteIndicator, deleteItem, deleteItemCategory, deleteItemUnit, deleteMessage, deletePlan, deleteProcedure, deleteQuestion, deleteQuestionnaire, deleteRegion, deleteResource, deleteRole, deleteStock, deleteWarehouse, filterActivities, filterAdjustments, filterAgencies, filterAlertSources, filterAlerts, filterAssessments, filterCampaigns, filterDistricts, filterFeatures, filterFocalPeople, filterIncidentTypes, filterIncidents, filterIndicators, filterItemCategories, filterItemUnits, filterItems, filterMessages, filterPlans, filterProcedures, filterQuestionnaires, filterQuestions, filterRegions, filterResources, filterRoles, filterStocks, filterWarehouses, getActivities, getActivity, getAdjustment, getAdjustments, getAgencies, getAgency, getAlert, getAlertSource, getAlertSources, getAlerts, getAssessment, getAssessments, getCampaign, getCampaigns, getDistrict, getDistricts, getFeature, getFeatures, getFocalPeople, getFocalPerson, getIncident, getIncidentType, getIncidentTypes, getIncidents, getIndicator, getIndicators, getItem, getItemCategories, getItemCategory, getItemUnit, getItemUnits, getItems, getMessage, getMessages, getPlan, getPlans, getProcedure, getProcedures, getQuestion, getQuestionnaire, getQuestionnaires, getQuestions, getRegion, getRegions, getResource, getResources, getRole, getRoles, getStock, getStocks, getWarehouse, getWarehouses, wrappedInitializeApp as initializeApp, openActivityForm, openAdjustmentForm, openAgencyForm, openAlertForm, openAlertSourceForm, openAssessmentForm, openCampaignForm, openDistrictForm, openFeatureForm, openFocalPersonForm, openIncidentForm, openIncidentTypeForm, openIndicatorForm, openItemCategoryForm, openItemForm, openItemUnitForm, openMessageForm, openPlanForm, openProcedureForm, openQuestionForm, openQuestionnaireForm, openRegionForm, openResourceForm, openRoleForm, openStockForm, openWarehouseForm, paginateActivities, paginateAdjustments, paginateAgencies, paginateAlertSources, paginateAlerts, paginateAssessments, paginateCampaigns, paginateDistricts, paginateFeatures, paginateFocalPeople, paginateIncidentTypes, paginateIncidents, paginateIndicators, paginateItemCategories, paginateItemUnits, paginateItems, paginateMessages, paginatePlans, paginateProcedures, paginateQuestionnaires, paginateQuestions, paginateRegions, paginateResources, paginateRoles, paginateStocks, paginateWarehouses, postActivity, postAdjustment, postAgency, postAlert, postAlertSource, postAssessment, postCampaign, postDistrict, postFeature, postFocalPerson, postIncident, postIncidentType, postIndicator, postItem, postItemCategory, postItemUnit, postMessage, postPlan, postProcedure, postQuestion, postQuestionnaire, postRegion, postResource, postRole, postStock, postWarehouse, putActivity, putAdjustment, putAgency, putAlert, putAlertSource, putAssessment, putCampaign, putDistrict, putFeature, putFocalPerson, putIncident, putIncidentType, putIndicator, putItem, putItemCategory, putItemUnit, putMessage, putPlan, putProcedure, putQuestion, putQuestionnaire, putRegion, putResource, putRole, putStock, putWarehouse, refreshActivities, refreshAdjustments, refreshAgencies, refreshAlertSources, refreshAlerts, refreshAssessments, refreshCampaigns, refreshDistricts, refreshFeatures, refreshFocalPeople, refreshIncidentTypes, refreshIncidents, refreshIndicators, refreshItemCategories, refreshItemUnits, refreshItems, refreshMessages, refreshPlans, refreshProcedures, refreshQuestionnaires, refreshQuestions, refreshRegions, refreshResources, refreshRoles, refreshStocks, refreshWarehouses, searchActivities, searchAdjustments, searchAgencies, searchAlertSources, searchAlerts, searchAssessments, searchCampaigns, searchDistricts, searchFeatures, searchFocalPeople, searchIncidentTypes, searchIncidents, searchIndicators, searchItemCategories, searchItemUnits, searchItems, searchMessages, searchPlans, searchProcedures, searchQuestionnaires, searchQuestions, searchRegions, searchResources, searchRoles, searchStocks, searchWarehouses, selectActivity, selectAdjustment, selectAgency, selectAlert, selectAlertSource, selectAssessment, selectCampaign, selectDistrict, selectFeature, selectFocalPerson, selectIncident, selectIncidentType, selectIndicator, selectItem, selectItemCategory, selectItemUnit, selectMessage, selectPlan, selectProcedure, selectQuestion, selectQuestionnaire, selectRegion, selectResource, selectRole, selectStock, selectWarehouse, setActivitySchema, setAdjustmentSchema, setAgencySchema, setAlertSchema, setAlertSourceSchema, setAssessmentSchema, setCampaignSchema, setDistrictSchema, setFeatureSchema, setFocalPersonSchema, setIncidentSchema, setIncidentTypeSchema, setIndicatorSchema, setItemCategorySchema, setItemSchema, setItemUnitSchema, setMessageSchema, setPlanSchema, setProcedureSchema, setQuestionSchema, setQuestionnaireSchema, setRegionSchema, setResourceSchema, setRoleSchema, setStockSchema, setWarehouseSchema, wrappedSingin as signin, wrappedSingout as signout, sortActivities, sortAdjustments, sortAgencies, sortAlertSources, sortAlerts, sortAssessments, sortCampaigns, sortDistricts, sortFeatures, sortFocalPeople, sortIncidentTypes, sortIncidents, sortIndicators, sortItemCategories, sortItemUnits, sortItems, sortMessages, sortPlans, sortProcedures, sortQuestionnaires, sortQuestions, sortRegions, sortResources, sortRoles, sortStocks, sortWarehouses };
