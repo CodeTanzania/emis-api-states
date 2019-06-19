@@ -84,6 +84,7 @@ export {
   wrappedSingout as signout,
 } from './actions/app';
 export * from './actions/assessment';
+export * from './actions/campaign';
 export * from './actions/district';
 export * from './actions/feature';
 export * from './actions/focalPerson';
@@ -91,8 +92,9 @@ export * from './actions/incident';
 export * from './actions/incidentType';
 export * from './actions/indicator';
 export * from './actions/item';
-export * from './actions/itemUnit';
 export * from './actions/itemCategory';
+export * from './actions/itemUnit';
+export * from './actions/message';
 export * from './actions/plan';
 export * from './actions/procedure';
 export * from './actions/question';
