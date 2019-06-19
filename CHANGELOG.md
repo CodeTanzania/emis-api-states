@@ -1,3 +1,30 @@
+#### 0.12.0 (2019-06-19)
+
+##### Chores
+
+* **build:**  bundle library for v0.12.0 ([75f3f52d](https://github.com/CodeTanzania/emis-api-states/commit/75f3f52de136effae1224738d85169036fd5a30e))
+* **package.json:**  update package version to 0.12.0 ([3255260c](https://github.com/CodeTanzania/emis-api-states/commit/3255260c40d22a11a6570ca53b2d83c455685808))
+* **deps:**
+  *  update dependencies to latest versions ([2d6823c6](https://github.com/CodeTanzania/emis-api-states/commit/2d6823c6d5c4c30dc23abd732ae5daa92e84db7a))
+  *  update dependency eslint-plugin-jsdoc to v8.1.0 ([80953a87](https://github.com/CodeTanzania/emis-api-states/commit/80953a87a2e647d40964f18f7b060952a753ab29))
+  *  update dependency rollup to v1.15.6 ([70881bef](https://github.com/CodeTanzania/emis-api-states/commit/70881bef1ea5d858e4beae1da9b10492db4fe43f))
+  *  update dependency eslint-config-prettier to v5 ([5b0662b4](https://github.com/CodeTanzania/emis-api-states/commit/5b0662b4a54d0da7a24768872fd8b3d6fda68210))
+  *  update dependency rollup to v1.15.5 ([0954f016](https://github.com/CodeTanzania/emis-api-states/commit/0954f01602396b4145a7150deae91844c6717d19))
+  *  install redux-thunk as dependency ([d02768ee](https://github.com/CodeTanzania/emis-api-states/commit/d02768eeb2f6de22978f415a4ed2f5504aaf9498))
+  *  reinstall react-dom dev dependency ([abe5c3ae](https://github.com/CodeTanzania/emis-api-states/commit/abe5c3aea1166f6a5f2d77fc95ce4d040e179a47))
+  *  move peer dependencies to dependencies ([674bceff](https://github.com/CodeTanzania/emis-api-states/commit/674bceff3451bca9e2b9fc186d9b3a57dd85574c))
+  *  update dependency rollup to v1.15.4 ([d868fd9f](https://github.com/CodeTanzania/emis-api-states/commit/d868fd9f85249084b97b343bad605f3bff6d15ce))
+  *  update dependency lint-staged to v8.2.1 ([006eb430](https://github.com/CodeTanzania/emis-api-states/commit/006eb430b35b1bca800b6861a270e573a6ef21fa))
+  *  update dependency rollup to v1.15.3 ([1905b5c8](https://github.com/CodeTanzania/emis-api-states/commit/1905b5c83a1e51e04cedc35cc01b1ff77c9246aa))
+  *  update dependency rollup to v1.15.2 ([5b6bf2cb](https://github.com/CodeTanzania/emis-api-states/commit/5b6bf2cb425a50fb7ae14392778fda75a489aeb7))
+  *  update dependency husky to v2.4.1 ([0fbf2e2d](https://github.com/CodeTanzania/emis-api-states/commit/0fbf2e2d8a1eac4851171f4dffed69c446b9d2ea))
+  *  update dependency rollup to v1.15.1 ([f3992f4e](https://github.com/CodeTanzania/emis-api-states/commit/f3992f4e20ede020b2bec1821f40e11f50ea9533))
+  *  update dependency react-redux to v7.1.0 ([39e9a0e4](https://github.com/CodeTanzania/emis-api-states/commit/39e9a0e4e0afcbc6c130e36e08368901ebc27260))
+
+##### New Features
+
+* **notification:**  add campaign and message to the store ([6c794971](https://github.com/CodeTanzania/emis-api-states/commit/6c794971abe100e502703cc6049e675254767345))
+
 #### 0.11.2 (2019-06-11)
 
 ##### Chores
