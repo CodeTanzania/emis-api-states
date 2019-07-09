@@ -89,7 +89,7 @@
     "prettier": "1.18.2",
     "react-dom": "16.8.6",
     "redux-mock-store": "1.5.3",
-    "rollup": "1.16.6",
+    "rollup": "1.16.7",
     "rollup-plugin-babel": "4.3.3"
   },
   "jest": {
