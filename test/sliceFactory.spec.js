@@ -3,6 +3,18 @@ import createSliceFor, {
   getDefaultReducers,
 } from '../src/factories/slice';
 
+/**
+ * @function
+ * @name createAction
+ * @description create redux action
+ *
+ * @param {string} actionType redux action type
+ * @param {any} payload redux action payload | data
+ * @returns {object} redux action
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
 function createAction(actionType, payload) {
   return { type: actionType, payload };
 }
@@ -29,7 +41,6 @@ describe('Slice Factory', () => {
 
     expect(resources.actions).toBeDefined();
     expect(resources.reducer).toBeDefined();
-    expect(resources.selectors).toBeDefined();
   });
 
   it('should create common actions for each resource', () => {
