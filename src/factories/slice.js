@@ -165,7 +165,7 @@ export function getDefaultInitialState() {
  * @param {object} reducers Optional override of default reducers
  * @returns {object} slice resource slice
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @since 0.1.0
  */
 export default function createSliceFor(
@@ -185,7 +185,7 @@ export default function createSliceFor(
   }
 
   return createSlice({
-    slice: sliceName,
+    name: sliceName,
     initialState: initialDefaultState,
     reducers: defaultReducers,
   });
