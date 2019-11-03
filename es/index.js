@@ -138,87 +138,87 @@ function getDefaultReducers(resourceName) {
   const plural = upperFirst(pluralize(resourceName));
   const singular = upperFirst(singularize(resourceName));
   return {
-    [camelize('select', singular)]: (state, action) => Object.assign({}, state, {
+    [camelize('select', singular)]: (state, action) => ({ ...state,
       selected: action.payload
     }),
-    [camelize('filter', plural)]: (state, action) => Object.assign({}, state, {
+    [camelize('filter', plural)]: (state, action) => ({ ...state,
       filter: action.payload
     }),
-    [camelize('sort', plural)]: (state, action) => Object.assign({}, state, {
+    [camelize('sort', plural)]: (state, action) => ({ ...state,
       sort: action.payload
     }),
-    [camelize('search', plural)]: (state, action) => Object.assign({}, state, {
+    [camelize('search', plural)]: (state, action) => ({ ...state,
       q: action.payload
     }),
-    [camelize('clear', plural, 'filters')]: state => Object.assign({}, state, {
+    [camelize('clear', plural, 'filters')]: state => ({ ...state,
       filters: null
     }),
-    [camelize('clear', plural, 'sort')]: state => Object.assign({}, state, {
+    [camelize('clear', plural, 'sort')]: state => ({ ...state,
       sort: null
     }),
-    [camelize('get', plural, 'Request')]: state => Object.assign({}, state, {
+    [camelize('get', plural, 'Request')]: state => ({ ...state,
       loading: true
     }),
-    [camelize('get', plural, 'Success')]: (state, action) => Object.assign({}, state, {
+    [camelize('get', plural, 'Success')]: (state, action) => ({ ...state,
       list: [...action.payload.data],
       page: action.payload.page,
       total: action.payload.total,
       size: action.payload.size,
       loading: false
     }),
-    [camelize('get', plural, 'Failure')]: (state, action) => Object.assign({}, state, {
+    [camelize('get', plural, 'Failure')]: (state, action) => ({ ...state,
       error: action.payload,
       loading: false
     }),
-    [camelize('get', singular, 'Request')]: state => Object.assign({}, state, {
+    [camelize('get', singular, 'Request')]: state => ({ ...state,
       loading: true
     }),
-    [camelize('get', singular, 'Success')]: state => Object.assign({}, state, {
+    [camelize('get', singular, 'Success')]: state => ({ ...state,
       loading: false
     }),
-    [camelize('get', singular, 'Failure')]: (state, action) => Object.assign({}, state, {
+    [camelize('get', singular, 'Failure')]: (state, action) => ({ ...state,
       loading: false,
       error: action.payload
     }),
-    [camelize('post', singular, 'Request')]: state => Object.assign({}, state, {
+    [camelize('post', singular, 'Request')]: state => ({ ...state,
       posting: true
     }),
-    [camelize('post', singular, 'Success')]: state => Object.assign({}, state, {
+    [camelize('post', singular, 'Success')]: state => ({ ...state,
       posting: false,
       showForm: false
     }),
-    [camelize('post', singular, 'Failure')]: (state, action) => Object.assign({}, state, {
+    [camelize('post', singular, 'Failure')]: (state, action) => ({ ...state,
       error: action.payload,
       posting: false
     }),
-    [camelize('put', singular, 'Request')]: state => Object.assign({}, state, {
+    [camelize('put', singular, 'Request')]: state => ({ ...state,
       posting: true
     }),
-    [camelize('put', singular, 'Success')]: state => Object.assign({}, state, {
+    [camelize('put', singular, 'Success')]: state => ({ ...state,
       posting: false,
       showForm: false
     }),
-    [camelize('put', singular, 'Failure')]: (state, action) => Object.assign({}, state, {
+    [camelize('put', singular, 'Failure')]: (state, action) => ({ ...state,
       posting: false,
       error: action.payload
     }),
-    [camelize('delete', singular, 'Request')]: state => Object.assign({}, state, {
+    [camelize('delete', singular, 'Request')]: state => ({ ...state,
       posting: true
     }),
-    [camelize('delete', singular, 'Success')]: state => Object.assign({}, state, {
+    [camelize('delete', singular, 'Success')]: state => ({ ...state,
       posting: false
     }),
-    [camelize('delete', singular, 'Failure')]: (state, action) => Object.assign({}, state, {
+    [camelize('delete', singular, 'Failure')]: (state, action) => ({ ...state,
       posting: false,
       error: action.payload
     }),
-    [camelize('open', singular, 'Form')]: state => Object.assign({}, state, {
+    [camelize('open', singular, 'Form')]: state => ({ ...state,
       showForm: true
     }),
-    [camelize('close', singular, 'Form')]: state => Object.assign({}, state, {
+    [camelize('close', singular, 'Form')]: state => ({ ...state,
       showForm: false
     }),
-    [camelize('set', singular, 'Schema')]: (state, action) => Object.assign({}, state, {
+    [camelize('set', singular, 'Schema')]: (state, action) => ({ ...state,
       schema: action.payload
     })
   };
@@ -261,7 +261,7 @@ function getDefaultInitialState() {
  * @param {object} reducers Optional override of default reducers
  * @returns {object} slice resource slice
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @since 0.1.0
  */
 
@@ -278,7 +278,7 @@ function createSliceFor(sliceName, initialState = null, reducers = null) {
   }
 
   return createSlice({
-    slice: sliceName,
+    name: sliceName,
     initialState: initialDefaultState,
     reducers: defaultReducers
   });
@@ -337,43 +337,43 @@ function createResourcesSlices(resources) {
 function app(state = appDefaultState, action) {
   switch (action.type) {
     case INITIALIZE_APP_START:
-      return Object.assign({}, state, {
+      return { ...state,
         loading: true
-      });
+      };
 
     case INITIALIZE_APP_SUCCESS:
-      return Object.assign({}, state, {
+      return { ...state,
         loading: false
-      });
+      };
 
     case INITIALIZE_APP_FAILURE:
-      return Object.assign({}, state, {
+      return { ...state,
         loading: false,
         error: action.payload
-      });
+      };
 
     case SIGNIN_APP_START:
-      return Object.assign({}, state, {
+      return { ...state,
         signing: true
-      });
+      };
 
     case SIGNIN_APP_SUCCESS:
-      return Object.assign({}, state, {
+      return { ...state,
         party: action.payload,
         signing: false
-      });
+      };
 
     case SIGNIN_APP_FAILURE:
-      return Object.assign({}, state, {
+      return { ...state,
         error: action.payload,
         signing: false
-      });
+      };
 
     case SIGNOUT:
-      return Object.assign({}, state, {
+      return { ...state,
         error: null,
         party: null
-      });
+      };
 
     default:
       return state;
@@ -396,8 +396,8 @@ const {
 } = store;
 
 /**
- * @function
  * @name createThunkFor
+ * @function
  * @description Create and expose all common thunks for a resource.
  *
  * Custom thunk implementations can be added to the specific resource
@@ -418,7 +418,7 @@ function createThunksFor(resource) {
   const thunks = {};
   /**
    * @function
-   * @name get<Resource Plural Name>
+   * @name getResources
    * @description A thunk that will be dispatched when fetching data from API
    *
    * @param {object} param  Param object to be passed to API client
@@ -451,7 +451,7 @@ function createThunksFor(resource) {
   };
   /**
    * @function
-   * @name get<Resource Singular Name>
+   * @name getResource
    * @description A thunk that will be dispatched when fetching
    * single resource data from the API
    *
@@ -486,7 +486,7 @@ function createThunksFor(resource) {
   };
   /**
    * @function
-   * @name post<Resource Singular Name>
+   * @name postResource
    * @description A thunk that will be dispatched when creating a single
    * resource data in the API
    *
@@ -525,7 +525,7 @@ function createThunksFor(resource) {
   };
   /**
    * @function
-   * @name put<Resource Singular Name>
+   * @name putResource
    * @description A thunk that will be dispatched when updating a single
    * resource data in the API
    *
@@ -564,7 +564,7 @@ function createThunksFor(resource) {
   };
   /**
    * @function
-   * @name delete<Resource Singular Name>
+   * @name deleteResource
    * @description A thunk that will be dispatched when deleting/archiving
    * a single resource data in the API
    *
@@ -608,7 +608,7 @@ function createThunksFor(resource) {
   };
   /**
    * @function
-   * @name fetch<Resource Name>
+   * @name fetchResource
    * @description A thunk that for fetching data from the API the difference
    * between this and get thunk is this will apply all the criteria on fetch.
    * Pagination, filters, Search Query and sort.
@@ -617,7 +617,7 @@ function createThunksFor(resource) {
    * resources from the API succeed
    * @param {Function} onError Callback to be called when fetching
    * resources from the API fails
-   *
+   * @returns {Function} Thunk function
    * @version 0.1.0
    * @since 0.1.0
    */
@@ -639,7 +639,7 @@ function createThunksFor(resource) {
   };
   /**
    * @function
-   * @name filter<Resource Plural Name>
+   * @name filterResources
    * @description A thunk that will be dispatched when filtering resources
    *  data in the API
    *
@@ -663,7 +663,7 @@ function createThunksFor(resource) {
   };
   /**
    * @function
-   * @name refresh<Resource Plural Name>
+   * @name refreshResources
    * @description A thunk that will be dispatched when refreshing resources
    *  data in the API
    *
@@ -692,7 +692,7 @@ function createThunksFor(resource) {
   };
   /**
    * @function
-   * @name search<Resource Plural Name>
+   * @name searchResources
    * @description A thunk that will be dispatched when searching resources
    *  data in the API
    *
@@ -720,7 +720,7 @@ function createThunksFor(resource) {
   };
   /**
    * @function
-   * @name sort<Resource Plural Name>
+   * @name sortResources
    * @description A thunk that will be dispatched when sorting resources
    *  data in the API
    *
@@ -748,7 +748,7 @@ function createThunksFor(resource) {
   };
   /**
    * @function
-   * @name paginate<Resource Plural Name>
+   * @name paginateResources
    * @description A thunk that will be dispatched when paginating resources
    *  data in the API
    *
@@ -777,7 +777,7 @@ function createThunksFor(resource) {
   };
   /**
    * @function
-   * @name clear<Resource Singular Name>Filters
+   * @name clearResourceFilters
    * @description A thunk that will be dispatched when clearing filters on
    * resources data in the API
    *
@@ -806,7 +806,7 @@ function createThunksFor(resource) {
   };
   /**
    * @function
-   * @name clear<Resource Plural Name>Sort
+   * @name clearResourcesSort
    * @description A thunk that will be dispatched when clearing sort order on
    * resources data in the API
    *
