@@ -54,7 +54,7 @@
     "inflection": ">=1.12.0",
     "lodash": ">=4.17.15",
     "prop-types": ">=15.7.2",
-    "react": ">=16.11.0",
+    "react": "17.0.2",
     "react-redux": ">=7.1.1",
     "redux": ">=4.0.4",
     "redux-starter-kit": ">=1.0.1",
