@@ -67,7 +67,7 @@
     "@commitlint/cli": "8.3.5",
     "@commitlint/config-conventional": "8.3.4",
     "@commitlint/travis-cli": "8.3.5",
-    "@testing-library/react": "11.2.6",
+    "@testing-library/react": "11.2.7",
     "babel-eslint": "10.1.0",
     "babel-jest": "26.6.3",
     "commitizen": "4.2.4",
