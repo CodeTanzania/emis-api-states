@@ -55,7 +55,7 @@
     "lodash": ">=4.17.15",
     "prop-types": ">=15.7.2",
     "react": ">=16.11.0",
-    "react-redux": "7.2.4",
+    "react-redux": "7.2.9",
     "redux": "4.1.0",
     "redux-starter-kit": ">=1.0.1",
     "redux-thunk": ">=2.3.0"
